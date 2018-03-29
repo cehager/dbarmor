@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppRepositoryService } from '../services/apprepository.service';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-nav',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
-  constructor() { }
+  model: any = {};
+  constructor(private appService: AppRepositoryService, private alertify: AlertifyService) { }
 
   ngOnInit() {
+  }
+
+  login() {
+    this.appService.onLogin(this.model).subscribe(data => {
+      // console.log('logged in successful');
+      this.alertify.success('Login successful, welcome to dbArmor, enjoy!');
+    }, error => {
+      this.alertify.success('Login unsuccesful, try again.');
+      // console.log('failed to login');
+    });
   }
 
 }
