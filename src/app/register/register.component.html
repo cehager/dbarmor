@@ -1,0 +1,18 @@
+<form #registerForm="ngForm" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Privatize Yourself</h2>
+  <h5 class="text-center text-primary">(keep your private data private)</h5>
+  
+<hr>
+<div class="form-group">
+  <input type="text" class="form-control" required name="username" [(ngModel)]="model.loginUserName" placeholder="Create your login ID or use your email address" >
+</div>
+<div class="form-group">
+    <input type="text" class="form-control" required name="username" [(ngModel)]="model.pwd" placeholder="Create your password" >
+  </div>
+  
+<div class="form-group text-center">
+    <button class="btn btn-success btn-large">Register</button>
+    <button class="btn btn-default btn-large" (click)="cancel()">Cancel</button>
+</div>
+
+</form>

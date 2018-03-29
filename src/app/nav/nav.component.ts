@@ -24,4 +24,13 @@ export class NavComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.appService.userToken = null;
+    this.alertify.success('You are now logged out.');
+  }
+
+  loggedIn() {
+    const token = this.appService.userToken;
+    return !!token;
+  }
 }

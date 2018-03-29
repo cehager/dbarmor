@@ -10,12 +10,16 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AppRepositoryService } from './services/apprepository.service';
 import { AppRoutes } from './app.routes';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    HomeComponent,
+    RegisterComponent
 ],
   imports: [
     BrowserModule,

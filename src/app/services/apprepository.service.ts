@@ -278,7 +278,7 @@ export class AppRepositoryService {
 
 
                     // ***************************** add this back **************************************************
-                    // this.router.navigate(['/inbox']);
+                     // this.router.navigate(['/home']);
                     // console.log('successful login name: ' + r.tokenString);
                } else {
 

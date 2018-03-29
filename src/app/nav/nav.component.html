@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -15,7 +15,7 @@
           <li><a href="#">Messages</a></li>
           <li><a href="#">Contacts</a></li>
         </ul>
-        <form #loginForm='ngForm' class="navbar-form navbar-right" (ngSubmit)="login()">
+        <form  *ngIf="!loggedIn()" #loginForm='ngForm' class="navbar-form navbar-right" (ngSubmit)="login()">
           <div class="form-group">
             <input type="text" #username="ngModel" placeholder="Login Id or Email" class="form-control" required name="username" [(ngModel)]="model.userLoginName">
           </div>
@@ -24,6 +24,17 @@
           </div>
           <button type="submit" [disabled]="!loginForm.valid" class="btn btn-success">Sign in</button>
         </form>
+        <ul *ngIf="loggedIn()" class="nav navbar-nav navbar-right">
+            <li><a (click)="logout()">Logout</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="fa fa-user"></i>Edit Profile</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a></li>
+              </ul>
+            </li>
+          </ul>
       </div><!--/.navbar-collapse -->
     </div>
   </nav>
