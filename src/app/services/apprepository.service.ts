@@ -286,6 +286,19 @@ export class AppRepositoryService {
             });
     }
 
+    register(model: any) {
+        return this.http.post(this.apiRoot + '/auth/register', model, this.requestOptions());
+    }
+
+    goHome() {
+        this.router.navigate(['/home']);
+    }
+
+    private requestOptions() {
+        const headers = new Headers({'Content-type': 'application/json'});
+       // headers.append('Access-Control-Allow-Origin', '*');
+        return new RequestOptions({headers: headers, withCredentials: false});
+    }
 
     isEdBufferEmpty(): boolean {
 
