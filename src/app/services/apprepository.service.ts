@@ -3,6 +3,7 @@ import {Http, Headers, RequestOptions, Response} from '@angular/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import {JwtHelper, tokenNotExpired} from 'angular2-jwt';
 // import {ContentType} from '@angular/http/src/enums';
 
@@ -31,7 +32,7 @@ export class AppRepositoryService {
      apiRoot = 'https://4226-25056.el-alt.com/dex/hypertext/l1';
     //  apiRoot = 'http://localhost:5445/dex/hypertext/l1';
     userToken: any;
-    activeUserId: string;
+    activeUserId = '';
     activeUserLoginName: string;
     activeUserName: string;
     decodedToken: any;
@@ -278,16 +279,16 @@ export class AppRepositoryService {
 
 
                     // ***************************** add this back **************************************************
-                     // this.router.navigate(['/home']);
+                     this.router.navigate(['/messages']);
                     // console.log('successful login name: ' + r.tokenString);
                } else {
 
                }
-            });
+            }).catch(this.handleError);
     }
 
     register(model: any) {
-        return this.http.post(this.apiRoot + '/auth/register', model, this.requestOptions());
+        return this.http.post(this.apiRoot + '/auth/register', model, this.requestOptions()).catch(this.handleError);
     }
 
     goHome() {
@@ -316,6 +317,22 @@ export class AppRepositoryService {
     }
 
 
+    private handleError(error: any) {
+        const applicationError = error.headers.get('Application-Error');
+        if (applicationError) {
+          return Observable.throw(applicationError);
+        }
+        const serverError = error.json();
+        let modelStateErrors = '';
+        if (serverError) {
+          for (const key in serverError) {
+            if (serverError[key]) {
+              modelStateErrors += serverError[key] + '\n';
+            }
+          }
+        }
+        return Observable.throw(modelStateErrors || 'Server error');
+      }
 }
 
 

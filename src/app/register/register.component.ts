@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AlertifyService } from '../services/alertify.service';
 import { AppRepositoryService } from '../services/apprepository.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-register',
@@ -44,5 +45,22 @@ model: any = {};
     console.log(this.model);
     this.alertify.warning('Registration cancelled.');
   }
+
+  // private handleError(error: any) {
+  //   const applicationError = error.headers.get('Application-Error');
+  //   if (applicationError) {
+  //     return Observable.throw(applicationError);
+  //   }
+  //   const serverError = error.json();
+  //   let modelStateErrors = '';
+  //   if (serverError) {
+  //     for (const key in serverError) {
+  //       if (serverError[key]) {
+  //         modelStateErrors += serverError[key] + '\n';
+  //       }
+  //     }
+  //   }
+  //   return Observable.throw(modelStateErrors || 'Server error');
+  // }
 
 }

@@ -12,6 +12,12 @@ import { AppRepositoryService } from './services/apprepository.service';
 import { AppRoutes } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { EditorComponent } from './editor/editor.component';
+import { MessageComponent } from './message/message.component';
+import { DailyLogComponent } from './daily-log/daily-log.component';
+import { DocumentComponent } from './document/document.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 @NgModule({
@@ -19,7 +25,12 @@ import { RegisterComponent } from './register/register.component';
     AppComponent,
     NavComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditorComponent,
+    MessageComponent,
+    DailyLogComponent,
+    DocumentComponent,
+    ContactsComponent
 ],
   imports: [
     BrowserModule,
@@ -28,7 +39,7 @@ import { RegisterComponent } from './register/register.component';
     BsDropdownModule.forRoot(),
     AppRoutes
   ],
-  providers: [AlertifyService, AppRepositoryService],
+  providers: [AlertifyService, AppRepositoryService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
