@@ -18,6 +18,7 @@ import { DailyLogComponent } from './daily-log/daily-log.component';
 import { DocumentComponent } from './document/document.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AuthGuard } from './guards/auth.guard';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AuthGuard } from './guards/auth.guard';
     HttpModule,
     FormsModule,
     BsDropdownModule.forRoot(),
-    AppRoutes
+    AppRoutes,
+    [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()],
   ],
   providers: [AlertifyService, AppRepositoryService, AuthGuard],
   bootstrap: [AppComponent]
