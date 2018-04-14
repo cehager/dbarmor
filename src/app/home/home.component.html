@@ -1,14 +1,25 @@
-<div *ngIf="!registerMode" style="text-align:center">
-  <h1>Keep your private data PRIVATE with dbARMOR!</h1>
+<div fxLayout="column" fxLayoutAlign="center center"  *ngIf="!registerMode" style="text-align:center">
+  <div class="privatize">&trade;</div>
+  <h1>PRIVATIZE YOURSELF</h1>
+  <h3>Keep your private data PRIVATE with dbARMOR!</h3>
 <p class="lead">Emails, documents, books, photos, contacts and financial data that can't be cracked! Ultra fast search and retrieval. </p>
 <div>
   <button class="btn btn-primary btn-large" (click)="registerToggle()">Register for FREE</button>
-  <button class="btn btn-primary btn-large">Send Encrypted Message for FREE....</button>
+  <button class="btn btn-primary btn-large" (click)="goFree()">Send Encrypted Message for FREE....</button>
 </div>
 </div>
 
-<div *ngIf="registerMode" class="container">
-  <div class="col-md-4 col-md-offset-4">
+ <div fxLayout="column" fxLayoutAlign="center center" *ngIf="registerMode" class="container">
+  <div>
     <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
   </div>
 </div>
+
+<app-nav></app-nav>
+
+
+
+<!-- <mat-tab-group>
+    <mat-tab label="Create Message"><app-editor-froala></app-editor-froala></mat-tab>
+    <mat-tab label="Sign Up"><app-register></app-register></mat-tab>
+  </mat-tab-group> -->

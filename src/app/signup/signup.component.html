@@ -1,0 +1,33 @@
+<!-- <section class="signup-form">
+    <h2 class="text-center text-primary">Privatize Yourself</h2>
+    <h5 class="text-center text-primary">(keep your private data private)</h5>
+  <form #f="ngForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Create your dbARMOR login ID" ngModel required name="loginId">
+    </mat-form-field>
+    <mat-form-field hintLabel="(Password can be 6 to 20 characters in length)">
+      <input type="password" matInput placeholder="Create your password" ngModel name="password" required minlength="6" maxlength="20"
+        #pwInput="ngModel">
+      <mat-hint align="end" *ngIf="pwInput.value?.length < 7"> {{ pwInput.value?.length}} / 6</mat-hint>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput placeholder="Your dbArmor - Mail To: - Name" ngModel required name="userName" #userNameInput>
+      <mat-hint>{{ userNameInput.value }}@dbARMOR.net</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="email" matInput placeholder="Send confirmation code to" ngModel name="email" required #emailInput="ngModel">
+      <mat-hint>Your current unsecure email address (in case you forget your password or login ID). We NEVER share or spam members.</mat-hint>
+      <mat-error *ngIf="emailInput.hasError('required')">Email address is required.</mat-error>
+      <mat-error *ngIf="!emailInput.hasError('required')">Email is not valid</mat-error>
+    </mat-form-field> -->
+    <!-- <mat-form-field>
+          <input matInput [matDatepicker]="picker" [max]="maxDate" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+    <!-- <br>
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid"  >Cancel</button>
+  </form>
+</section> -->

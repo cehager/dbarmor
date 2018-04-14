@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 model: any = {};
@@ -17,11 +17,13 @@ model: any = {};
   constructor(private alertify: AlertifyService, private appsvc: AppRepositoryService) { }
 
   ngOnInit() {
-    let bnum = Math.random() * (Math.random() * Math.PI) * Math.random() * 100000;
-    bnum = Math.floor(bnum);
+     let bnum = Math.random() * (Math.random() * Math.PI) * Math.random() * 10000000;
+     bnum = Math.floor(bnum);
     this.model.userId = bnum;
-    this.model.userName = 'not set yet';
-    this.model.emailAddr = 'not set yet';
+    this.model.userLoginName = '';
+    this.model.userName = '';
+    this.model.emailAddr = '';
+    this.model.pwd = '';
     this.model.country = 'not set yet';
     this.model.postalCode = 'not set yet';
   }

@@ -5,7 +5,7 @@ declare var $: any;
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+  styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
   editorContent = '';
@@ -117,9 +117,9 @@ export class EditorComponent implements OnInit {
       let rmsg = this.ed.froalaEditor(this.edContentGet);
       rmsg = rmsg.replace(/&nbsp;/gi, '');
       rmsg = rmsg.trim();
-      if (this.ed.froalaEditor('charCounter.count') < 10) {
+      if (this.ed.froalaEditor('charCounter.count') < 20) {
           this.editorContent = this.editorContent
-              + '<br><br>Message must be at least 10 characters in length.';
+              + '<br><br>Message must be at least 20 characters in length.';
           return;
       }
 

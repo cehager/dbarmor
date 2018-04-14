@@ -1,3 +1,41 @@
+<!-- <section class="signup-form">
+  <span><h2 class="text-center text-primary">Privatize Yourself</h2></span>
+  <h5 class="text-center text-primary">(keep your private data private)</h5>
+  <form #f="ngForm" fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="register()" fxLayoutGap="15px">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Create Your dbArmor Login ID/Name" [(ngModel)]="model.userLoginName" required name="userLoginName"
+        #userNameInput>
+      <mat-hint>{{ userNameInput.value }}@dbARMOR.net. Ok to use GMail name/ID</mat-hint>
+    </mat-form-field>
+    <mat-form-field hintLabel="(Password can be 6 to 20 characters in length)">
+      <input type="password" matInput placeholder="Create your password" [(ngModel)]="model.pwd" name="password" required minlength="6"
+        maxlength="20" #pwInput="ngModel">
+      <mat-hint align="end" *ngIf="pwInput.value?.length < 7"> {{ pwInput.value?.length}} / 6</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput placeholder="Contact Name" [(ngModel)]="model.userName" required name="userName">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="email" matInput placeholder="Send email confirmation code to" [(ngModel)]="model.emailAddr" name="email" required
+        #emailInput="ngModel">
+      <mat-hint>Your current unsecure email address (in case you forget your password or login ID). We NEVER share or spam members.</mat-hint>
+      <mat-error *ngIf="emailInput.hasError('required')">Email address is required.</mat-error>
+      <mat-error *ngIf="!emailInput.hasError('required')">Email is not valid</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+          <input matInput [matDatepicker]="picker" [max]="maxDate" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    <br>
+    <div fxFlex="100%">
+      <button mat-raised-button fxFlexOffset="-25%" color="primary" [disabled]="f.invalid">Submit</button>
+      <button mat-raised-button fxFlexOffset="45%" color="warn" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</section> -->
+
+
 <form #registerForm="ngForm" (ngSubmit)="register()">
   <h2 class="text-center text-primary">Privatize Yourself</h2>
   <h5 class="text-center text-primary">(keep your private data private)</h5>

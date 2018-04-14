@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+// ../node_modules/bootstrap/scss"
+
+//requires bootstrap 4, then remove bootstrap 3 from angular-cli and uncomment imports.
+
+// @import "functions";
+// @import "variables";
+// @import "mixins";
+// @import "print";
+// @import "reboot";
+// @import "type";
+// @import "images";
+// @import "code";
+// @import "grid";
+// @import "tables";
+// @import "forms";
+// @import "buttons";
+// @import "transitions";
+// @import "dropdown";
+// @import "button-group";
+// @import "input-group";
+// @import "custom-forms";
+// @import "nav";
+// @import "navbar";
+// @import "card";
+// @import "breadcrumb";
+// @import "pagination";
+// @import "badge";
+// @import "jumbotron";
+// @import "alert";
+// @import "progress";
+// @import "media";
+// @import "list-group";
+// @import "close";
+// @import "modal";
+// @import "tooltip";
+// @import "popover";
+// @import "carousel";
+// @import "utilities";
+//@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    //height: 100%
+}
+
+body {
+    margin: 0;
+    //height: 100%;
+}
+
+.dbarmor-logo {
+    display: block;
+    position: absolute;
+    top: -5px;
+    //vertical-align: middle;
+    //width: 200px;
+    //height: 80px;
+    color: lightgray;
+    //background: none;  //background: url("../images/logo2x.png") top left no-repeat;
+    //background-size: 200px 150px;
+}
+
+.trademark {
+    //display: block;
+    margin-left: 100;
+    color: white;
+}
