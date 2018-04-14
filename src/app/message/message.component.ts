@@ -121,6 +121,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
           refreshAfterCallback: true,
           callback: function () {
               this.html.set('');
+              this.apprepository.isText = true;
               this.events.focus();
           }
       });
@@ -158,6 +159,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
       this.edContentGet = 'html.get';
       this.ed = $('div#fred');
 
+      this.appRepository.isText = true;
       // this.messageSvc.add({severity: 'success', summary: 'In-Box Messages', detail: 'Click on message to view in editor.'});
       // this.delay = 5000;
       // this.msgGrowls.push({severity: 'success', summary: 'In-Box Messages', detail: 'Click on message to view in editor.'});
