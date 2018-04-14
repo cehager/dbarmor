@@ -197,6 +197,7 @@ export class AppRepositoryService {
             .map((response: Response) => {
                 // const data = response.json();
                 this.messageDto = response.json();
+                this.isText = true;
                 return this.messageDto;
                 }
             );
