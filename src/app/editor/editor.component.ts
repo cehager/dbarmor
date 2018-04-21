@@ -74,7 +74,6 @@ export class EditorComponent implements OnInit {
           this.appRepository.isText = true;
       }
 
-      // this.isText = this.appRepository.isText;
       // this.appRepository.reloadEditorContent();
       // this.setFocusEvent();
       this.setCounterUpdateEvent();

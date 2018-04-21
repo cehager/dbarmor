@@ -220,7 +220,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
                 + '<br><br>Message must be at least 20 characters in length. This will go away with automatic padding.';
             return;
         }
-        // this.emailFrom = this.emailFrom;
         this.appRepository.messageDto.to = this.emailTo;
         this.appRepository.messageDto.from = this.appRepository.activeUserLoginName;  // this.emailFrom;
         this.appRepository.messageDto.messageId = 'mid';

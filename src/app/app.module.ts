@@ -160,6 +160,7 @@ import { RegisternaComponent } from './registerna/registerna.component';
     ReactiveFormsModule,
     FlexLayoutModule,
     [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()],
+    ReactiveFormsModule
   ],
   providers: [AlertifyService, MessageService, AppRepositoryService, AuthGuard, BreadcrumbService],
   bootstrap: [AppComponent]
