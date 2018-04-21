@@ -108,6 +108,7 @@ import { ChatsComponent } from './chats/chats.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { TodosComponent } from './todos/todos.component';
 import { RegisternaComponent } from './registerna/registerna.component';
+import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.component';
 
 // import {TreeModule} from 'primeng/primeng';
 // import {TreeTableModule} from 'primeng/primeng';
@@ -138,7 +139,8 @@ import { RegisternaComponent } from './registerna/registerna.component';
     ChatsComponent,
     NotificationsComponent,
     TodosComponent,
-    RegisternaComponent
+    RegisternaComponent,
+    EditorFroalaComponent
 ],
   imports: [
     SharedModule,

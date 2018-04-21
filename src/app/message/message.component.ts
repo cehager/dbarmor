@@ -40,7 +40,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
     emailTo: string;
     emailSubject: string;
     emailUser: string;
-    // emailAu: string;
     emailMsgId: string;
     emailFrom: string;
     emailFromUserId: string;
