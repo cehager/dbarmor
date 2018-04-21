@@ -20,13 +20,14 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
         this.model = [
             {label: 'Home', icon: 'desktop_mac', routerLink: ['/home']},
-            {label: 'Free', icon: 'input', routerLink: ['/editor']},
-            {label: 'Messages', icon: 'grid_on', routerLink: ['/messages']},
-            {label: 'Contacts', icon: 'content_paste', routerLink: ['/contacts']},
-            {label: 'Scribbles', icon: 'content_copy', routerLink: ['/dailylog']},
-            {label: 'Document Mgr', icon: 'menu', routerLink: ['/documents']},
-            {label: 'Notify Me', icon: 'menu', routerLink: ['/documents']},
-            {label: 'Todos', icon: 'menu', routerLink: ['/documents']},
+            {label: 'Free Armor', icon: 'input', routerLink: ['/editor']},
+            {label: 'Armored eMail', icon: 'email', routerLink: ['/messages']},
+            {label: 'Armored Chat', icon: 'chat', routerLink: ['/chats']},
+            {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
+            {label: 'Memories', icon: 'local_library', routerLink: ['/dailylog']},
+            {label: 'Document Mgr', icon: 'content_copy', routerLink: ['/documents']},
+            {label: 'Alert Me', icon: 'event_available', routerLink: ['/notifications']},
+            {label: 'Albums', icon: 'speaker_notes', routerLink: ['/todos']},
             {
                 label: 'Themes', icon: 'palette',
                 items: [

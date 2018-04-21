@@ -1,13 +1,36 @@
-.signup-form {
-    margin: 50px;
-
-
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
-mat-form-field {
-    width: 300px;
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
+    grid-template-rows: 1fr 8fr 4fr;
+    background-color: rgb(137, 137, 137);
 }
 
-.confirm {
+input {
     width: 100%;
+}
+
+.wrapper {
+    background-color: ivory;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    padding: 20px;
+}
+
+form {
+    display: grid;
+    grid-template-rows: 70px repeat(5, 55px);
+    grid-gap: 3px;
+    padding-top: 10px;
+    margin-top: -15px;
+    min-width: 260px;
+    justify-content: center;
 }

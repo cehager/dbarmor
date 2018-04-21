@@ -1,354 +1,321 @@
-<div class="container-fluid">
+<div class="editor-section">
+  <h5 class="editor-heading">
+        Secure emails, documents, memories, books, photos, contacts and financial data.
+        <p>100% Crack Proof! Keep your private data PRIVATE!</p>
+  </h5>
+  <div class="editor-container">
+    <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+  </div>
+  <div class="editor-footer">
+    <button pButton type="button"  class="footer-btn" label="Encrypt" (click)="doEncrypt()"></button>
+    <button pButton type="button" class="footer-btn ui-button-danger" label="Decrypt" (click)="doDecrypt()"></button>
+  </div>
+  <div class="instructions-header">
+        It's easy, send an encrypted message to a friend for FREE:
+  </div>
+  <div class="editor-instructions">
+    <ol>
+        <li>
+          <span>Use
+            <b>Secure Editor</b> to create your message.
+          </span>
+        </li>
+        <li>
+          <span>Click Encrypt Button</span>
+        </li>
+        <li>
+          <span>Copy & Paste encrypted text into your favorite email application. (Right click on the secure editor then choose
+            "Select All" from the popup menu followed by the Copy option. You can also use Ctrl-A, then Ctrl-C keys).</span>
+        </li>
+      </ol>
+      <ol>
+        <li>
+          <span>
+            <b>To Decrypt:</b> Have recipient access dbArmor and then Copy & Paste encrypted text into the Secure Editor.</span>
+        </li>
+        <li>
+          <span>Click Decrypt button</span>
+        </li>
+      </ol>
+      <ol>
+        <li>
+          <span>
+            <b>Note:</b> Encrypted text sent to a friend can only be decrypted
+            <b>once</b>. If you decrypt your own message, re-encrypt and send again. You can encrypt and decrypt the same message multiple
+            times (within the editor). Be sure to examine the results, they are different each time. Your recipient can also encrypt and send
+            to exchange encrypted messages.</span>
+        </li>
+        <li>
+          <span>
+            <p></p>
+            <b>dbARMOR members</b> encrypt and decrypt messages automatically (no copy/paste required).</span>
+            <p></p>
+            <p>Members use a full featured editor/word processor to create emails, messages, documents, books, memories, etc.</p>
+        </li>
+      </ol>
+  </div>
+  <div class="instructions-footer">
+        <button pButton type="button" class="footer-btn" label="Click here to learn why dbARMOR is 100% Crackproof!"></button>
+  </div>
+
+</div>
+
+
+<!-- <div class="container-fluid">
   <div class="panel panel-primary col-sm-7">
-      <div class="panel-heading">Emails, documents and data storage that can't be cracked! Ultra fast search and retrieval.</div>
-      <div class="panel-body">
+    <div class="panel-heading">Emails, documents and data storage that can't be cracked! Ultra fast search and retrieval.</div>
+    <div class="panel-body">
       <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
-      <!-- <div [froalaView]="editorContent"></div> -->
       <p>
-          <button type="button" class="btn btn-success" [disabled]="!appRepository.isText"
-                  (click)="doEncrypt()">Encrypt</button>
-          <button type="button" class="btn btn-danger" [disabled]="appRepository.isText"
-                  (click)="doDecrypt()">Decrypt</button>
+        <button type="button" class="btn btn-success" [disabled]="!appRepository.isText" (click)="doEncrypt()">Encrypt</button>
+        <button type="button" class="btn btn-danger" [disabled]="appRepository.isText" (click)="doDecrypt()">Decrypt</button>
       </p>
-      </div>
+    </div>
   </div>
   <div class="panel panel-primary col-sm-5">
-      <div class="panel-heading">Give it a try, send an encrypted message:</div>
-          <div class="panel-body">
-          <ol>
-              <li>
-              <span class="task-name">Use <b>Secure Editor</b> to create your message.
-              </span>
-              </li>
-              <li>
-                  <span class="task-name">Click Encrypt Button</span>
-              </li>
-              <li>
-              <span class="task-name">Copy & Paste encrypted text into your favorite email application.
-                  (Right click on the secure editor then choose "Select All" from the popup menu followed by the Copy option.
-                  You can also use Ctrl-A, then Ctrl-C keys).</span>
-              </li>
-          </ol>
-          <ol>
-              <li>
-              <span class="task-name"><b>To Decrypt:</b> Have recipient access dbArmor and then Copy & Paste
-                  encrypted text into the Secure Editor.</span>
-              </li>
-              <li>
-                  <span class="task-name">Click Decrypt button</span>
-              </li>
-          </ol>
-          <ol>
-              <li>
-                  <span class="task-name"><b>Note:</b> Encrypted text can only be decrypted <b>once</b>.
-                  If you decrypt your own message, re-encrypt and send again. You can encrypt the same
-                  message multiple times. Be sure to examine the results (they are different each time).
-                  Your recipient can also encrypt and send to exchange encrypted messages.</span>
-              </li>
-              <li>
-              <span class="task-name"><b>dbARMOR members</b> encrypt and decrypt messages automatically
-                  (no copy/paste required).</span>
-              </li>
-          </ol>
-          
-          <span>For comprehensive examples,</span>
-          <button type="button" class="btn btn-primary" (click)="onClick()">
-               click here...
-         </button>
-           </div>
+    <div class="panel-heading">Give it a try, send an encrypted message:</div>
+    <div class="panel-body">
+      <ol>
+        <li>
+          <span>Use
+            <b>Secure Editor</b> to create your message.
+          </span>
+        </li>
+        <li>
+          <span>Click Encrypt Button</span>
+        </li>
+        <li>
+          <span>Copy & Paste encrypted text into your favorite email application. (Right click on the secure editor then choose
+            "Select All" from the popup menu followed by the Copy option. You can also use Ctrl-A, then Ctrl-C keys).</span>
+        </li>
+      </ol>
+      <ol>
+        <li>
+          <span>
+            <b>To Decrypt:</b> Have recipient access dbArmor and then Copy & Paste encrypted text into the Secure Editor.</span>
+        </li>
+        <li>
+          <span>Click Decrypt button</span>
+        </li>
+      </ol>
+      <ol>
+        <li>
+          <span>
+            <b>Note:</b> Encrypted text can only be decrypted
+            <b>once</b>. If you decrypt your own message, re-encrypt and send again. You can encrypt the same message multiple
+            times. Be sure to examine the results (they are different each time). Your recipient can also encrypt and send
+            to exchange encrypted messages.</span>
+        </li>
+        <li>
+          <span>
+            <b>dbARMOR members</b> encrypt and decrypt messages automatically (no copy/paste required).</span>
+        </li>
+      </ol>
+
+      <span>For comprehensive examples,</span>
+      <button type="button" class="btn btn-primary" (click)="onClick()">
+        click here...
+      </button>
+    </div>
   </div>
-    <button type="button" class="btn btn-success" (click)="onClick()">
-         Click here to give dbARMOR a test drive - it's FREE - No personal information requested
-    </button>
+  <button type="button" class="btn btn-success" (click)="onClick()">
+    Click here to give dbARMOR a test drive - it's FREE - No personal information requested
+  </button>
 </div>
-<!-- this is pasted in -------------------------->
+
 <div class="home-inner">
   <div class="container">
-      <div class="d-flex flex-row">
-          <div class="col-lg-5">
-              <div class="head"><h1><i>CrackProof!</i></h1></div>
-              <div class="d-flex flex-row">
-                  <div class="panel">
-                      <div >
-                          <p>High Speed Encryption</p>
-                          <p>
-                              dbARMOR's hyper-matrix technology encrypts/decrypts documents at 70 million to
-                              500 million <b>characters</b> per second using just one server! 
-                              You can now keep your private data <b>100% Private</b>.
-                          </p>
-                          <p>
-                              <button pButton type="button" style="color: green" e="color: green"
-                                      class="ui-button-secondary" label="Discover more here..."
-                                      (click)="onClick()"></button>
-                          </p>
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div header="Character Based Encryption Without Holes or Cycles">
-                          <p>
-                              During the encryption process, text, space bar characters (holes), numbers and special
-                              characters
-                              are all encrypted. dbArmor's encryption algorithm makes requests to a random
-                              character generation matrix with an "unobservable cycle" or period that is
-                              essentially infinite. Once again, 100% Crackproof! Character base encryption also
-                              provides
-                              several key features that "bit flippers" cannot provide. Read on.
-                          </p>
-                          <p>
-                              <button pButton type="button" style="color: green" class="ui-button-secondary"
-                                      label="Discover more here..." (click)="onClick()"></button>
-                          </p>
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div header="Advantage - High Speed Data Retrieval">
-                          dbARMOR provides numerous advantages over "bit flipper" systems like AES, DES3, RSA
-                          and most others. Besides being
-                          100% crackproof, dbARMOR provides <b>high speed retrieval of encrypted data</b> while it is
-                          still encrypted. This is difficult for other encryption system
-                          to provide. dbARMOR's secure document editor offers a "white-out" or "black-out" feature
-                          which allows partially encrypted text within normal visible unexcrypted text.
-                          Parallel processing of data is a snap for
-                          dbARMOR. This unique feature allows large documents to be split into
-                          chunks and either stored as one document
-                          or as multiple (related) documents and then stitched together during decryption.
-                          Data stored in databases can have partial and/or cloned encryption of key/indexed data.
-                          This allows specific encrypted data to be located almost as fast as unsecured data. More
-                          good news,
-                          there is no "database bloat" or special fields required with dbARMOR. Read on.
-                          <p>
-                              <button pButton type="button" style="color: green" class="ui-button-secondary"
-                                      label="Discover more here..." (click)="onClick()"></button>
-                          </p>
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div header="CBE Done Right - No Doors or Clues Available">
-                          <p> With dbARMOR there are no keys laying around to be found and hacked.
-                              A large active hyper-matrix is maintained in memory and generates random characters
-                              24/7.
-                              Even when there are no requests, the matrix remains active. If a character is requested
-                              from the same index a different character is likely provided.
-                              (i.e., matrix cells are not static). The same message/document encrypted
-                              multiple times will produce a different result every time. <b>If you send the same
-                                  document to 50 different individuals they will receive 50 different encrypted
-                                  text.</b>
-                              CBE, done right, has been mathematically proven that it cannot be
-                              cracked using brute force methods. Read on, learn more.
-                          </p>
-                          In short, if hackers get data protected by dbARMOR, they get pure garbage.
-                          <p>
-                              <button pButton type="button" style="color: green" class="ui-button-secondary"
-                                      label="Discover more here..." (click)="onClick()"></button>
-                          </p>
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div header="Explore, Discover, Try It Yourself - It's Easy">
-                          Explore our web site to learn more about encryption and why dbARMOR is 100% crackproof.
-                          Create some sample data, send an encrypted message to a friend. It's easy.
-                          Then take advantage of our 30 day FREE Trial (no credit card info required).
-                          Full service fee based plans start as low a $7 per <b>YEAR</b>! High volume plans are based
-                          on
-                          storage requirements.
-                          <p>
-                              <button pButton type="button" style="color: green" class="ui-button-secondary"
-                                      label="Join Us Today..." (click)="onClick()"></button>
-                          </p>
-                      </div>
-                  </div>
-              </div>
+    <div class="d-flex flex-row">
+      <div class="col-lg-5">
+        <div class="head">
+          <h1>
+            <i>CrackProof!</i>
+          </h1>
+        </div>
+        <div class="d-flex flex-row">
+          <div class="panel">
+            <div>
+              <p>High Speed Encryption</p>
+              <p>
+                dbARMOR's hyper-matrix technology encrypts/decrypts documents at 70 million to 500 million
+                <b>characters</b> per second using just one server! You can now keep your private data
+                <b>100% Private</b>.
+              </p>
+              <p>
+                <button pButton type="button" style="color: green" e="color: green" class="ui-button-secondary" label="Discover more here..."
+                  (click)="onClick()"></button>
+              </p>
+            </div>
           </div>
-
-          <!------ text pasted here -->
-          <div class="col-md-5">
-              <h1> I/O at <b><i>Sonic Speeds</i></b></h1>
-              <div header="Private Data That's Always Private">
-                  <p><i class="fa fa-check-circle fa-2x fa-pull-left"></i>
-                      How fast? dbARMOR can encrypt and/or decrypt the entire 44 million words of the Encyclopedia
-                      Britannica
-                      (approximately 220 million characters) in 2 seconds or less using a single average desktop
-                      computer!</p>
-                  <p>No other encryption system can find, decrypt and deliver data faster than dbARMOR. Not even
-                      close!
-                      Locating data is a special feature of character based encryption and dbARMOR runs at
-                      hyper-speeds.</p>
-                  <p>We offer a wide range of services, some of which we haven't even thought of yet! But keeping your
-                      private data private is our main mission.
-                  </p>
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check-circle fa-2x fa-pull-left"></i>
-                          Unlimited possibilities! Here are a few tasks and/or documents that you might
-                          want to keep private.
-                      </div>
-                  </div>
-
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div></div>
-                      <div class="p-4 align-self-end">
-                          Keep a daily log/diary. You could be the first to keep a diary that is 100% accurate!
-                          Never need to worry about anyone accessing your private thoughts unless you approve first.
-                          You can choose to fully encrypt text or partially encrypt using our "blackout" feature.
-                          Your diary is now crackproof and safe from snoops and accessible from anywhere 24/7.
-                      </div>
-                  </div>
-
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div class="p-4 align-self-end">
-                          Write your life-book: Write the story of your life with total privacy.
-                          Create a novel without worrying about snoops!
-                          Our secure editor is a powerful
-                          document processing editor with all the features required to create 1st Class documents
-                          including full length novels.
-                      </div>
-                  </div>
-
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div class="p-4 align-self-end">
-                          Your personal Will: Write your will and keep it 100% private.
-                          Change it at any time. Special access code is available to decrypt for persons of interest.
-                          Completely under your control.
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div class="p-4 align-self-end">
-                          Clubs and social groups can communicate in private without the risk of sniffers, snoops
-                          or MI5 peeking in.
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div class="p-4 align-self-end">
-                          Send and store encrypted emails.
-                          You can include sensitive data like credit card and financial info without risk.
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div class="p-4 align-self-end">
-                          Encrypted all your personal and legal documents.
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div class="p-4 align-self-end">
-                          Send encrypted "chat" texts. (i.e. secure text messaging)
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div class="p-4 align-self-end">
-                          You can even keep your calendar of meetings, comments, events, gift ideas all private.
-                      </div>
-                  </div>
-                  <div class="d-flex flex-row">
-                      <div class="p-4 align-self-start">
-                          <i class="fa fa-check"></i>
-                      </div>
-                      <div class="p-4 align-self-end">
-                          All the above for only $7 per year!!! For storage equal to about 300,000 books or
-                          approximately
-                          60,000 photos. (100 gigabytes)
-                          Business/high volume services add $5 per year per 100 gigabytes.
-                          Large volumes of data require custom quote.
-                      </div>
-                  </div>
-              </div>
+          <div class="d-flex flex-row">
+            <div header="Character Based Encryption Without Holes or Cycles">
+              <p>
+                During the encryption process, text, space bar characters (holes), numbers and special characters are all encrypted. dbArmor's
+                encryption algorithm makes requests to a random character generation matrix with an "unobservable cycle"
+                or period that is essentially infinite. Once again, 100% Crackproof! Character base encryption also provides
+                several key features that "bit flippers" cannot provide. Read on.
+              </p>
+              <p>
+                <button pButton type="button" style="color: green" class="ui-button-secondary" label="Discover more here..." (click)="onClick()"></button>
+              </p>
+            </div>
           </div>
+          <div class="d-flex flex-row">
+            <div header="Advantage - High Speed Data Retrieval">
+              dbARMOR provides numerous advantages over "bit flipper" systems like AES, DES3, RSA and most others. Besides being 100% crackproof,
+              dbARMOR provides
+              <b>high speed retrieval of encrypted data</b> while it is still encrypted. This is difficult for other encryption
+              system to provide. dbARMOR's secure document editor offers a "white-out" or "black-out" feature which allows
+              partially encrypted text within normal visible unexcrypted text. Parallel processing of data is a snap for
+              dbARMOR. This unique feature allows large documents to be split into chunks and either stored as one document
+              or as multiple (related) documents and then stitched together during decryption. Data stored in databases can
+              have partial and/or cloned encryption of key/indexed data. This allows specific encrypted data to be located
+              almost as fast as unsecured data. More good news, there is no "database bloat" or special fields required with
+              dbARMOR. Read on.
+              <p>
+                <button pButton type="button" style="color: green" class="ui-button-secondary" label="Discover more here..." (click)="onClick()"></button>
+              </p>
+            </div>
+          </div>
+          <div class="d-flex flex-row">
+            <div header="CBE Done Right - No Doors or Clues Available">
+              <p> With dbARMOR there are no keys laying around to be found and hacked. A large active hyper-matrix is maintained
+                in memory and generates random characters 24/7. Even when there are no requests, the matrix remains active.
+                If a character is requested from the same index a different character is likely provided. (i.e., matrix cells
+                are not static). The same message/document encrypted multiple times will produce a different result every
+                time.
+                <b>If you send the same document to 50 different individuals they will receive 50 different encrypted text.
+                </b>
+                CBE, done right, has been mathematically proven that it cannot be cracked using brute force methods. Read on, learn more.
+              </p>
+              In short, if hackers get data protected by dbARMOR, they get pure garbage.
+              <p>
+                <button pButton type="button" style="color: green" class="ui-button-secondary" label="Discover more here..." (click)="onClick()"></button>
+              </p>
+            </div>
+          </div>
+          <div class="d-flex flex-row">
+            <div header="Explore, Discover, Try It Yourself - It's Easy">
+              Explore our web site to learn more about encryption and why dbARMOR is 100% crackproof. Create some sample data, send an
+              encrypted message to a friend. It's easy. Then take advantage of our 30 day FREE Trial (no credit card info
+              required). Full service fee based plans start as low a $7 per
+              <b>YEAR</b>! High volume plans are based on storage requirements.
+              <p>
+                <button pButton type="button" style="color: green" class="ui-button-secondary" label="Join Us Today..." (click)="onClick()"></button>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
-</div>
 
-<!--
-<div class="container">
-  <div class="row">
       <div class="col-md-5">
-          <h3>OTP and the Tri-graph</h3>
-          <p>Description of tri-graph goes here</p>
+        <h1> I/O at
+          <b>
+            <i>Sonic Speeds</i>
+          </b>
+        </h1>
+        <div header="Private Data That's Always Private">
+          <p>
+            <i class="fa fa-check-circle fa-2x fa-pull-left"></i>
+            How fast? dbARMOR can encrypt and/or decrypt the entire 44 million words of the Encyclopedia Britannica (approximately 220
+            million characters) in 2 seconds or less using a single average desktop computer!
+          </p>
+          <p>No other encryption system can find, decrypt and deliver data faster than dbARMOR. Not even close! Locating data
+            is a special feature of character based encryption and dbARMOR runs at hyper-speeds.
+          </p>
+          <p>We offer a wide range of services, some of which we haven't even thought of yet! But keeping your private data
+            private is our main mission.
+          </p>
           <div class="d-flex flex-row">
-              <div class="p-4 align-self-start">
-                  <i class="fa fa-check"></i>
-              </div>
-              <div class="p-4 align-self-end">
-                  History and how the OTP tri-graph (page) works goes here
-              </div>
-          </div>
-          <div class="d-flex flex-row">
-              <div class="p-4 align-self-start">
-                  <i class="fa fa-check"></i>
-              </div>
-              <div class="p-4 align-self-end">
-                  Issues related to OTP and how they are fixed.
-              </div>
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check-circle fa-2x fa-pull-left"></i>
+              Unlimited possibilities! Here are a few tasks and/or documents that you might want to keep private.
+            </div>
           </div>
 
           <div class="d-flex flex-row">
-              <div class="p-4 align-self-start">
-                  <i class="fa fa-check"></i>
-              </div>
-              <div class="p-4 align-self-end">
-                  Mathematical Proofs and logic behind OTP
-              </div>
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div></div>
+            <div class="p-4 align-self-end">
+              Keep a daily log/diary. You could be the first to keep a diary that is 100% accurate! Never need to worry about anyone accessing
+              your private thoughts unless you approve first. You can choose to fully encrypt text or partially encrypt using
+              our "blackout" feature. Your diary is now crackproof and safe from snoops and accessible from anywhere 24/7.
+            </div>
+          </div>
+
+          <div class="d-flex flex-row">
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p-4 align-self-end">
+              Write your life-book: Write the story of your life with total privacy. Create a novel without worrying about snoops! Our
+              secure editor is a powerful document processing editor with all the features required to create 1st Class documents
+              including full length novels.
+            </div>
+          </div>
+
+          <div class="d-flex flex-row">
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p-4 align-self-end">
+              Your personal Will: Write your will and keep it 100% private. Change it at any time. Special access code is available to
+              decrypt for persons of interest. Completely under your control.
+            </div>
           </div>
           <div class="d-flex flex-row">
-              <div class="p-4 align-self-start">
-                  <i class="fa fa-check"></i>
-              </div>
-              <div class="p-4 align-self-end">
-                  The famous pigeon and OTP - 2012
-              </div>
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p-4 align-self-end">
+              Clubs and social groups can communicate in private without the risk of sniffers, snoops or MI5 peeking in.
+            </div>
           </div>
           <div class="d-flex flex-row">
-              <div class="p-4 align-self-start">
-                  <i class="fa fa-check"></i>
-              </div>
-              <div class="p-4 align-self-end">
-                  More reading material about OTP
-              </div>
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p-4 align-self-end">
+              Send and store encrypted emails. You can include sensitive data like credit card and financial info without risk.
+            </div>
           </div>
+          <div class="d-flex flex-row">
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p-4 align-self-end">
+              Encrypted all your personal and legal documents.
+            </div>
+          </div>
+          <div class="d-flex flex-row">
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p-4 align-self-end">
+              Send encrypted "chat" texts. (i.e. secure text messaging)
+            </div>
+          </div>
+          <div class="d-flex flex-row">
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p-4 align-self-end">
+              You can even keep your calendar of meetings, comments, events, gift ideas all private.
+            </div>
+          </div>
+          <div class="d-flex flex-row">
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p-4 align-self-end">
+              All the above for only $7 per year!!! For storage equal to about 300,000 books or approximately 60,000 photos. (100 gigabytes)
+              Business/high volume services add $5 per year per 100 gigabytes. Large volumes of data require custom quote.
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-</div>
--->
-
-
-<!--
-<div class="d-flex flex-row">
-  <div class="p-4 align-self-start">
-      <i class="fa fa-check"></i>
-  </div>
-  <div class="p-4 align-self-end">
-      You personal Photo library: Keep all your important images and photos totally private.
-      Never have a valuable image hacked to the Internet.
-      This is our only add-on service. Photos and especially encrypted photos consume
-      a lot of storage space (close to 200% unencrypted size). $1 per year per gigabyte (1,000
-      megabytes).
-      Photos also take more time to encrypt/decrypt, transfer and store than plain text. Photos
-      contain
-      a lot of information and all of it must be encrypted. We have plans on the drawing board for
-      encrypting videos.
-  </div>
-</div>
--->
-
+</div> -->

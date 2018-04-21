@@ -7,7 +7,7 @@
       <br>
       <span class="ui-float-label">
         <input id="float-input" type="text" pInputText size=53 required [(ngModel)]="emailTo">
-        <label for="float-input">Send Secure Message To:</label>
+        <label for="float-input">Send Encrypted Message To:</label>
         <!-- <div [hidden]="to.valid || to.pristine" class="alert alert-danger">
       Invalid email address
   </div> -->
@@ -24,8 +24,8 @@
       <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
       <!-- <div [froalaView]="editorContent"></div> -->
       <p-footer>
-        <button type="button" class="btn btn-success" (click)="doEncrypt()">Encrypt</button>
-        <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt</button>
+        <button type="button" class="btn btn-success" (click)="doEncrypt()">Send Encrypted Message</button>
+        <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt Message</button>
         <!-- <button type="button" class="btn btn-success" [disabled]="!appRepository.isText" (click)="doEncrypt()">Encrypt</button>
         <button type="button" class="btn btn-danger" [disabled]="appRepository.isText" (click)="doDecrypt()">Decrypt</button> -->
         <!-- <button pButton type="button" class="ui-button-success" (click)="doEncrypt()">Encrypt</button>

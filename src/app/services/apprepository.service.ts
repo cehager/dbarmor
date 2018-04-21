@@ -140,6 +140,7 @@ export class AppRepositoryService {
         }, () => false );
 
         return this.isText;
+        // return false;
 
     }
 

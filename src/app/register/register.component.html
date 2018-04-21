@@ -1,56 +1,67 @@
-<!-- <section class="signup-form">
-  <span><h2 class="text-center text-primary">Privatize Yourself</h2></span>
-  <h5 class="text-center text-primary">(keep your private data private)</h5>
-  <form #f="ngForm" fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="register()" fxLayoutGap="15px">
-    <mat-form-field>
-      <input type="text" matInput placeholder="Create Your dbArmor Login ID/Name" [(ngModel)]="model.userLoginName" required name="userLoginName"
-        #userNameInput>
-      <mat-hint>{{ userNameInput.value }}@dbARMOR.net. Ok to use GMail name/ID</mat-hint>
-    </mat-form-field>
-    <mat-form-field hintLabel="(Password can be 6 to 20 characters in length)">
-      <input type="password" matInput placeholder="Create your password" [(ngModel)]="model.pwd" name="password" required minlength="6"
-        maxlength="20" #pwInput="ngModel">
-      <mat-hint align="end" *ngIf="pwInput.value?.length < 7"> {{ pwInput.value?.length}} / 6</mat-hint>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text" matInput placeholder="Contact Name" [(ngModel)]="model.userName" required name="userName">
-    </mat-form-field>
-    <mat-form-field>
-      <input type="email" matInput placeholder="Send email confirmation code to" [(ngModel)]="model.emailAddr" name="email" required
-        #emailInput="ngModel">
-      <mat-hint>Your current unsecure email address (in case you forget your password or login ID). We NEVER share or spam members.</mat-hint>
-      <mat-error *ngIf="emailInput.hasError('required')">Email address is required.</mat-error>
-      <mat-error *ngIf="!emailInput.hasError('required')">Email is not valid</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-          <input matInput [matDatepicker]="picker" [max]="maxDate" placeholder="Choose a date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-    <br>
-    <div fxFlex="100%">
-      <button mat-raised-button fxFlexOffset="-25%" color="primary" [disabled]="f.invalid">Submit</button>
-      <button mat-raised-button fxFlexOffset="45%" color="warn" (click)="cancel()">Cancel</button>
+<!-- <div class="container">
+  <form class="card card-w-title ui-g ui-fluid" [formGroup]="registerForm" (ngSubmit)="register()">
+    <p-header>
+      <h2>Privatize Yourself</h2>
+      <h5>(keep your private data private)</h5>
+    </p-header>
+    <div class="md-inputfield">
+      <input type="text" pInputText formControlName="userLoginName">
+      <label>Create a login Id</label>
+    </div>
+    <div class="md-inputfield">
+      <input type="text" pInputText formControlName="userName">
+      <label>Your name</label>
+    </div>
+    <div class="md-inputfield">
+      <input type="password" pPassword formControlName="pwd">
+      <label>Create a password</label>
+    </div>
+    <div class="md-inputfield">
+      <input type="text" pInputText formControlName="emailAddr">
+      <label>Email address</label>
+    </div>
+    <div class="md-inputfield card--fld6">
+      <input type="text" pInputText formControlName="pinnum">
+      <label>Create a secret pin number</label>
+    </div>
+    <p-footer>
+      <button pButton type="button" label="Register" style="margin-top:10px" class="blue-grey-btn"></button>
+      <button pButton type="button" (click)="cancel()" label="Cancel" style="margin-top:10px" class="red-btn"></button>
+    </p-footer>
+  </form>
+</div> -->
+
+<div class="container">
+  <div class="wrapper">
+  <form  [formGroup]="registerForm" (ngSubmit)="register()">
+    <div class="head">
+      <h2>Privatize Yourself</h2>
+      <h5>(keep your private data private)</h5>
+    </div>
+    <div class="md-inputfield">
+      <input type="text" pInputText formControlName="userLoginName">
+      <label>Create a login username</label>
+    </div>
+    <div class="md-inputfield">
+      <input type="text" pInputText formControlName="userName">
+      <label>Your name</label>
+    </div>
+    <div class="md-inputfield">
+      <input type="password" pPassword formControlName="pwd">
+      <label>Create a password</label>
+    </div>
+    <div class="md-inputfield">
+      <input type="text" pInputText formControlName="emailAddr">
+      <label>Email address</label>
+    </div>
+    <div class="md-inputfield card--fld6">
+      <input type="text" pInputText formControlName="pwd">
+      <label>Create a secret pin number</label>
+    </div>
+    <div>
+      <button pButton type="button" label="Register" style="margin-top:10px" class="blue-grey-btn"></button>
+      <button pButton type="button" (click)="cancel()" label="Cancel" style="margin-top:10px" class="red-btn"></button>
     </div>
   </form>
-</section> -->
-
-
-<form #registerForm="ngForm" (ngSubmit)="register()">
-  <h2 class="text-center text-primary">Privatize Yourself</h2>
-  <h5 class="text-center text-primary">(keep your private data private)</h5>
-  
-<hr>
-<div class="form-group">
-  <input type="text" class="form-control" required name="username" [(ngModel)]="model.userLoginName" placeholder="Create your login ID or use your email address" >
 </div>
-<div class="form-group">
-    <input type="password" class="form-control" required name="username" [(ngModel)]="model.pwd" placeholder="Create your password" >
-  </div>
-  
-<div class="form-group text-center">
-    <button class="btn btn-success btn-large">Register</button>
-    <button class="btn btn-default btn-large" (click)="cancel()">Cancel</button>
 </div>
-
-</form>

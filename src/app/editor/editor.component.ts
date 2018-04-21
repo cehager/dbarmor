@@ -20,23 +20,22 @@ export class EditorComponent implements OnInit {
   //     createdOn: '11/27/2017',
   //     deleteAfter: '12/27/2017'
   // };
+//   toolbarButtonsMD: ['bold', 'italic', 'underline', 'strikeThrough',
+//   'fontSize', 'alert', 'paragraphFormat'],
+
 
   constructor(public appRepository: AppRepositoryService) { }
 
   options: Object = {
       charCounterCount: true,
-      toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough',
-          'fontSize', 'alert', 'paragraphFormat'],
-      toolbarButtonsXS: ['bold', 'italic', 'underline', 'strikeThrough',
-          'fontSize', 'alert', 'paragraphFormat'],
-      toolbarButtonsSM: ['bold', 'italic', 'underline', 'strikeThrough',
-          'fontSize', 'alert', 'paragraphFormat'],
-      toolbarButtonsMD: ['bold', 'italic', 'underline', 'strikeThrough',
-          'fontSize', 'alert', 'paragraphFormat'],
-      quickInsertButtons: ['image', 'table'],
+      toolbarButtons: ['bold', 'italic', 'underline', 'alert', 'paragraphFormat'],
+      toolbarButtonsXS: ['bold', 'italic', 'underline', 'alert', 'paragraphFormat'],
+      toolbarButtonsSM: ['bold', 'italic', 'underline', 'alert', 'paragraphFormat'],
+      toolbarButtonsMD: ['bold', 'italic', 'underline', 'alert', 'paragraphFormat'],
+      quickInsertButtons: ['image'],
       height: 328,
       fontSizeDefaultSelection: '14',
-      placeholderText: 'Start typing here...',
+      placeholderText: 'Privatize yourself, start typing here...',
       saveInterval: 0,
       pastePlain: true,
       enter: $.FroalaEditor.ENTER_BR,
@@ -69,6 +68,8 @@ export class EditorComponent implements OnInit {
       this.ed = $('div#fred');
       this.editorContent = this.appRepository.reloadEditorContent();
 
+      // this.ed.froalaEditor('popups.hideAll');
+
       if (this.appRepository.isEdBufferEmpty()) {
           this.appRepository.isText = true;
       }
@@ -77,7 +78,8 @@ export class EditorComponent implements OnInit {
       // this.appRepository.reloadEditorContent();
       // this.setFocusEvent();
       this.setCounterUpdateEvent();
-      this.doAfterPaste();
+      // this.doAfterPaste();
+      // this.doBeforeCleanup();
   }
 
 
@@ -98,25 +100,28 @@ export class EditorComponent implements OnInit {
   //     });
   // }
 
-  // doBeforePaste() {
-  //     this.ed.on('froalaEditor.paste.before', (e, editor, original_event) => {
-  //         this.appRepository.isText = !this.appRepository.doIOF(clipboard_html);
-  //         this.appRepository.reloadEditorContent();
-  //
-  //     });
-  // }
+//   doBeforeCleanup() {
+//       this.ed.on('froalaEditor.paste.beforeCleanup', (e, editor, clipboard_html) => {
+//           console.log('clipboard is: ', clipboard_html );
+//           this.appRepository.isText = !this.appRepository.doIOF(clipboard_html);
+//           this.appRepository.reloadEditorContent();
+//       });
+//   }
 
   doAfterPaste() {
       this.ed.on('froalaEditor.paste.afterCleanup', (e, editor, clipboard_html) => {
-        this.appRepository.isText = !this.appRepository.doIOF(clipboard_html);
-        this.appRepository.reloadEditorContent();
+         this.appRepository.isText = !this.appRepository.doIOF(clipboard_html);
+         this.appRepository.reloadEditorContent();
       });
   }
 
   doEncrypt() {
       let rmsg = this.ed.froalaEditor(this.edContentGet);
+      console.log('editor content is before: ', rmsg);
       rmsg = rmsg.replace(/&nbsp;/gi, '');
       rmsg = rmsg.trim();
+      console.log('editor content is after: ', rmsg);
+
       if (this.ed.froalaEditor('charCounter.count') < 20) {
           this.editorContent = this.editorContent
               + '<br><br>Message must be at least 20 characters in length.';
@@ -136,7 +141,9 @@ export class EditorComponent implements OnInit {
   doDecrypt() {
       // this.apiPath = 'http://localhost:5445/dex/hypertext/l1/gettrialbymsgid/undo/';
       this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/gettrialbymsgid/undo/';
-      // this.appRepository.doDecrypt(this.ed.froalaEditor(this.edContentGet), this.apiPath)
+      console.log('messageDto is ', this.appRepository.messageDto);
+      this.appRepository.messageDto.message = this.ed.froalaEditor(this.edContentGet);
+      this.appRepository.messageDto.messageId = this.appRepository.messageDto.message.substring(0, 20);
       this.appRepository.doDecrypt(this.appRepository.messageDto.messageId, this.apiPath)
           .subscribe((data: MessageDto) => {
               this.editorContent = data.message;

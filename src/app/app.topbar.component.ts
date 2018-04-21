@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
 import {AppComponent} from './app.component';
+import { AppRepositoryService } from './services/apprepository.service';
+import { Router } from '@angular/router';
+import { AlertifyService } from './services/alertify.service';
 
 @Component({
     selector: 'app-topbar',
@@ -23,8 +26,8 @@ import {AppComponent} from './app.component';
                         [ngClass]="{'active-top-menu':app.activeTopbarItem === profile}">
 
                         <a href="#" (click)="app.onTopbarItemClick($event,profile)">
-                            <img class="profile-image" src="assets/layout/images/avatar.png" />
-                            <span class="topbar-item-name">Jane Williams</span>
+                            <img class="profile-image" src="favicon.ico" />
+                            <span class="topbar-item-name">Username</span>
                         </a>
 
                         <ul class="ultima-menu animated fadeInDown">
@@ -47,7 +50,7 @@ import {AppComponent} from './app.component';
                                 </a>
                             </li>
                             <li role="menuitem">
-                                <a href="#">
+                                <a href="#" (click)="logout()" >
                                     <i class="material-icons">power_settings_new</i>
                                     <span>Logout</span>
                                 </a>
@@ -157,13 +160,22 @@ import {AppComponent} from './app.component';
                         </ul>
                     </li>
                 </ul>
-                <span class="trademark">Privatize Yourself</span>
+                <span *ngIf="show" class="trademark">Privatize Yourself&trade;</span>
             </div>
         </div>
     `
 })
 export class AppTopbarComponent {
+    show: boolean;
 
-    constructor(public app: AppComponent) {}
+    constructor(private appService: AppRepositoryService, public app: AppComponent,
+         private alertify: AlertifyService, private router: Router) {
+         this.show = true;
+        }
 
+        logout() {
+            this.appService.userToken = null;
+            this.router.navigate(['/home']);
+            this.alertify.success('You are now logged out.');
+          }
 }

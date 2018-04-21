@@ -1,4 +1,10 @@
-// @import '~sass/variables';
+//@import '../assets/sass/_variables';
+
+$color-primary: #727074;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+$color-white: white;
+$color-lightgray: rgb(233, 232, 232);
 
 button {
     width: 50%;
@@ -17,3 +23,86 @@ div {
 .editor-section {
     width: 50%;
 }
+
+.editor-section {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    // font-size: 62.5%; // 1rem = 10px, 10px/16px = 62.5%
+    display: grid;
+    grid-template-rows: 6rem 37.7rem 6rem;
+    grid-template-columns: minmax(30rem, 1fr)  minmax(30rem, 1fr);
+    grid-column-gap: 5px;
+    margin: 0;
+    //background-color: $color-lightgray;
+}
+
+.editor-heading {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    background-color: $color-primary;
+    color: $color-white;
+    padding: 1rem;
+    // border-radius: 5px;
+    margin: 0;
+}
+
+.editor-container {
+    grid-column:  1 / 1;
+    grid-row: 2 / 2;
+    background-color: $color-primary;
+    margin: 1px;
+}
+
+.editor-footer {
+    grid-column: 1 / 1;
+    // grid-row: 3 / 3;
+    background-color: $color-primary;
+    // color: $color-white;
+    padding: 0;
+    // border-radius: 5px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+
+.editor-instructions {
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+    // background-color: $color-lightgray;
+    // color: $color-white;
+    padding: 20px;
+    // border-radius: 5px;
+    margin: 0;
+    // box-sizing: border-box;
+}
+
+.instructions-header {
+    grid-row: 1 / 1;
+    grid-column: 2 / 2;
+    background-color: $color-primary;
+    margin: 0;
+    padding: 10px;
+    color: $color-white;
+}
+
+.instructions-footer {
+    grid-row: 3 / 3;
+    grid-column: 2 / 2;
+    // background-color: $color-primary;
+    margin: 0;
+    padding: 0;
+    color: $color-white;
+}
+
+.footer-btn {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+
+

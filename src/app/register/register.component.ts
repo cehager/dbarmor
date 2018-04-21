@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AlertifyService } from '../services/alertify.service';
 import { AppRepositoryService } from '../services/apprepository.service';
 import { Observable } from 'rxjs/Observable';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,42 +12,47 @@ import { Observable } from 'rxjs/Observable';
 })
 export class RegisterComponent implements OnInit {
 model: any = {};
-
+registerForm: FormGroup;
 
 @Output() cancelRegister = new EventEmitter();
 
-  constructor(private alertify: AlertifyService, private appsvc: AppRepositoryService) { }
+constructor(private alertify: AlertifyService, private fb: FormBuilder,
+  private appsvc: AppRepositoryService, private router: Router) { }
 
   ngOnInit() {
-     let bnum = Math.random() * (Math.random() * Math.PI) * Math.random() * 10000000;
-     bnum = Math.floor(bnum);
-    this.model.userId = bnum;
-    this.model.userLoginName = '';
-    this.model.userName = '';
-    this.model.emailAddr = '';
-    this.model.pwd = '';
-    this.model.country = 'not set yet';
-    this.model.postalCode = 'not set yet';
+    this.createRegisterForm();
+  }
+
+  createRegisterForm() {
+    this.registerForm = this.fb.group({
+      userLoginName: ['',  [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      userName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      emailAddr: ['', Validators.email],
+      pwd: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
+    });
   }
 
   register() {
+     let bnum = Math.random() * (Math.random() * Math.PI) * Math.random() * 10000000;
+     bnum = Math.floor(bnum);
+    this.model = Object.assign({}, this.registerForm.value);
+    this.model.userId = bnum;
     // console.log(this.model);
     this.appsvc.register(this.model).subscribe(() => {
       this.alertify.success('Welcome to dbArmor!');
-      console.log('Registration successful');
-      // this.appsvc.goHome();
+      // console.log('Registration successful');
        this.cancelRegister.emit(false);
     }, error => {
-      console.log('Registration failed.');
+      // console.log('Registration failed.');
       this.alertify.error('Registration failed, try different login values.');
     });
-    // this.alertify.success('Welcome, registration successful.');
-  }
+   }
 
   cancel() {
     this.cancelRegister.emit(false);
     console.log(this.model);
     this.alertify.warning('Registration cancelled.');
+    this.router.navigate(['/home']);
   }
 
   // private handleError(error: any) {

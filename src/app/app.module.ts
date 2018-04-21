@@ -10,7 +10,7 @@ import {AlertifyService} from './services/alertify.service';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AppRepositoryService } from './services/apprepository.service';
-import { MaterialModule } from './material.module';
+// import { MaterialModule } from './material.module';
 import { AppRoutes } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -26,19 +26,20 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SignupComponent } from './signup/signup.component';
 import { NavHeaderComponent } from './nav/nav-header/nav-header.component';
 import { SidenavListComponent } from './nav/sidenav-list/sidenav-list.component';
-import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.component';
+// import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.component';
 import {AppTopbarComponent} from './app.topbar.component';
 
 
 // import {AccordionModule} from 'primeng/primeng'; // in use
 import {AutoCompleteModule} from 'primeng/primeng';
 // import {BreadcrumbModule} from 'primeng/primeng';
-import {ButtonModule} from 'primeng/primeng';
+import {ButtonModule} from 'primeng/primeng'; // in use
 // import {CalendarModule} from 'primeng/primeng';
 // import {CarouselModule} from 'primeng/primeng';
 // import {ColorPickerModule} from 'primeng/primeng';
 // import {ChartModule} from 'primeng/primeng';
 import {CheckboxModule} from 'primeng/primeng';
+import {CardModule} from 'primeng/primeng';
 // import {ChipsModule} from 'primeng/primeng';
 // import {CodeHighlighterModule} from 'primeng/primeng';
 // import {ConfirmDialogModule} from 'primeng/primeng';
@@ -65,7 +66,7 @@ import {KeyFilterModule} from 'primeng/primeng';
 import {ListboxModule} from 'primeng/primeng';
 // import {MegaMenuModule} from 'primeng/primeng';
 import {MenuModule} from 'primeng/primeng'; // in use
-// import {MenubarModule} from 'primeng/primeng'; 
+// import {MenubarModule} from 'primeng/primeng';
 import {MessagesModule} from 'primeng/primeng'; // in use
 import {MultiSelectModule} from 'primeng/primeng';
 import {OrderListModule} from 'primeng/primeng';
@@ -103,6 +104,10 @@ import {AppFooterComponent} from './app.footer.component';
 import { BreadcrumbService } from './breadcrumb.service';
 import {AppBreadcrumbComponent } from './app.breadcrumb.component';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { ChatsComponent } from './chats/chats.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { TodosComponent } from './todos/todos.component';
+import { RegisternaComponent } from './registerna/registerna.component';
 
 // import {TreeModule} from 'primeng/primeng';
 // import {TreeTableModule} from 'primeng/primeng';
@@ -123,23 +128,27 @@ import { MessageService } from 'primeng/components/common/messageservice';
     SignupComponent,
     NavHeaderComponent,
     SidenavListComponent,
-    EditorFroalaComponent,
     AppTopbarComponent,
     AppRightpanelComponent,
     AppInlineProfileComponent,
     AppMenuComponent,
     AppSubMenuComponent,
     AppBreadcrumbComponent,
-    AppFooterComponent
+    AppFooterComponent,
+    ChatsComponent,
+    NotificationsComponent,
+    TodosComponent,
+    RegisternaComponent
 ],
   imports: [
     SharedModule,
     MenuModule,
     ScrollPanelModule,
+    ButtonModule,
     BrowserModule,
     BrowserAnimationsModule,
     PasswordModule,
-    MaterialModule,
+    CardModule,
     DataTableModule,
     PanelModule,
     InputTextModule,

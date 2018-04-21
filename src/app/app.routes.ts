@@ -8,6 +8,11 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { DailyLogComponent } from './daily-log/daily-log.component';
 import { DocumentComponent } from './document/document.component';
 import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './register/register.component';
+import { ChatsComponent } from './chats/chats.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { TodosComponent } from './todos/todos.component';
+import { RegisternaComponent } from './registerna/registerna.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -16,6 +21,11 @@ export const routes: Routes = [
     {path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard]},
     {path: 'dailylog', component: DailyLogComponent, canActivate: [AuthGuard]},
     {path: 'documents', component: DocumentComponent, canActivate: [AuthGuard]},
+    {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
+    {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
+    {path: 'todos', component: TodosComponent, canActivate: [AuthGuard]},
+    {path: 'register', component: RegisterComponent},
+    {path: 'registerna', component: RegisternaComponent},
     {path: '**', redirectTo: 'home', pathMatch: 'full'}
 ];
 

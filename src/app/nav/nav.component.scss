@@ -1,12 +1,44 @@
-// .dropdown-menu li, .dropdown-toggle {
-//     cursor: pointer;
-// }
+.fmcontainer {
+    display: grid;
+    //grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 180px);
+    grid-template-rows: 1fr 1fr;
+    //grid-template-columns: repeat(3, 150px);
+    //grid-column-gap: 10px;
+    //min-width: 260px;
+    justify-items: center;
+    background-color: rgb(248, 245, 245);
+    max-width: 360px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    //margin-top: 10px;
+    padding-top: 20px;
+    //border-radius: 3%;
 
-a {
-    color: white;
-    text-decoration: none;
+
 }
 
-.navbar {
-    background-color: #30166d;    
+// form {
+//     display: grid;
+//     //grid-column-gap: 10px;
+//     min-width: 260px;
+//     margin: 0;
+//     padding: 0;
+//     //align-items: flex-start;
+//     //justify-items: center;
+// }
+
+.login-btn {
+    margin-top: 10px;
+    grid-row: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-column-gap: 10px;
+
+    justify-content: center;
+    padding-top: 5px;
+}
+
+button {
+    width: 150px;
 }

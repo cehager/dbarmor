@@ -1,25 +1,29 @@
-<div fxLayout="column" fxLayoutAlign="center center"  *ngIf="!registerMode" style="text-align:center">
-  <div class="privatize">&trade;</div>
-  <h1>PRIVATIZE YOURSELF</h1>
+<!-- NOTICE: app-nav is in the nav folder as the navcomponent -->
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!registerMode" style="text-align:center">
+  <h1>
+    <h5>
+      <!-- <button pButton type="button" label="Login">
+      </button> -->
+      <button pButton type="button"  (click)="registerToggle()"  label="Register for FREE trial"></button>
+    </h5>
+    PRIVATIZE YOURSELF</h1>
   <h3>Keep your private data PRIVATE with dbARMOR!</h3>
-<p class="lead">Emails, documents, books, photos, contacts and financial data that can't be cracked! Ultra fast search and retrieval. </p>
-<div>
-  <button class="btn btn-primary btn-large" (click)="registerToggle()">Register for FREE</button>
-  <button class="btn btn-primary btn-large" (click)="goFree()">Send Encrypted Message for FREE....</button>
-</div>
+  <p class="lead">Secure your emails, documents, memories, books, photos, contacts and financial data. 100% Crackproof!</p>
+  <div *ngIf="!isUserLoggedIn">
+  <app-nav></app-nav>
+  </div>
+  <!-- <div>
+    <p-button icon="fa fa-check" iconPos="left" (click)="registerToggle()" label="Register for a FREE trial"></p-button>
+    <p-button (click)="goFree()" icon="fa fa-check" iconPos="left" label="Send Encrypted Message for FREE...."></p-button>
+  </div> -->
 </div>
 
- <div fxLayout="column" fxLayoutAlign="center center" *ngIf="registerMode" class="container">
+
+
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf="registerMode" class="container">
   <div>
     <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
   </div>
 </div>
-
-<app-nav></app-nav>
-
-
-
-<!-- <mat-tab-group>
-    <mat-tab label="Create Message"><app-editor-froala></app-editor-froala></mat-tab>
-    <mat-tab label="Sign Up"><app-register></app-register></mat-tab>
-  </mat-tab-group> -->
+<br>
+<br>

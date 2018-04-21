@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+// import { AppRepositoryService } from '../services/apprepository.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   registerMode = false;
 
-  constructor( private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {  }
 
@@ -18,10 +19,13 @@ export class HomeComponent implements OnInit {
   }
 
   registerToggle() {
-    this.registerMode = true;
+    // this.registerMode = true;
+    this.router.navigate(['/registerna']);
+    // this.router.navigate(['/register']);
   }
 
   cancelRegisterMode(registerMode: boolean) {
-    this.registerMode = registerMode;
+    // this.registerMode = registerMode;
+    this.router.navigate(['/home']);
   }
 }
