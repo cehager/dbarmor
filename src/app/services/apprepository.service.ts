@@ -190,7 +190,7 @@ export class AppRepositoryService {
         // http://mifawghorn20170405015815.azurewebsites.net/
         // ****************************************************************************************
         // this.getPath = 'http://localhost:5445/dex/hypertext/l1/do';
-        this.getPath = apiPath + msg.substring(0, 20);
+        this.getPath = apiPath + msg; // .substring(0, 20);
         // this.getPath = this.apiRoot + '/getbymsgid/undo/' + msg.substring(0, 10);
 
         console.log('api url: ', this.getPath);

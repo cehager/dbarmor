@@ -20,24 +20,31 @@ export class EditorComponent implements OnInit {
   //     createdOn: '11/27/2017',
   //     deleteAfter: '12/27/2017'
   // };
-//   toolbarButtonsMD: ['bold', 'italic', 'underline', 'strikeThrough',
-//   'fontSize', 'alert', 'paragraphFormat'],
+// toolbarButtonsMD: ['bold', 'italic', 'underline', 'strikeThrough',
+// toolbarButtons: ['bold', 'italic', 'underline', 'alert', ],
+// toolbarButtonsXS: ['bold', 'italic', 'underline', 'alert', ],
+// toolbarButtonsSM: ['bold', 'italic', 'underline', 'alert', ],
+// toolbarButtonsMD: ['bold', 'italic', 'underline', 'alert', ],
+// 'fontSize', 'alert', ],
 
 
   constructor(public appRepository: AppRepositoryService) { }
 
   options: Object = {
       charCounterCount: true,
-      toolbarButtons: ['bold', 'italic', 'underline', 'alert', 'paragraphFormat'],
-      toolbarButtonsXS: ['bold', 'italic', 'underline', 'alert', 'paragraphFormat'],
-      toolbarButtonsSM: ['bold', 'italic', 'underline', 'alert', 'paragraphFormat'],
-      toolbarButtonsMD: ['bold', 'italic', 'underline', 'alert', 'paragraphFormat'],
+      toolbarButtons: [],
+      toolbarButtonsXS: [],
+      toolbarButtonsSM: [],
+      toolbarButtonsMD: [],
       quickInsertButtons: ['image'],
       height: 328,
       fontSizeDefaultSelection: '14',
       placeholderText: 'Privatize yourself, start typing here...',
       saveInterval: 0,
-      pastePlain: true,
+      pastePlain: false,
+      pasteAllowLocalImages: true,
+      pasteDeniedTags: [],
+      pasteDeniedAttrs: [],
       enter: $.FroalaEditor.ENTER_BR,
       codeBeautifierOptions: {
           end_with_newline: true,

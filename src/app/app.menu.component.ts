@@ -21,7 +21,7 @@ export class AppMenuComponent implements OnInit {
         this.model = [
             {label: 'Home', icon: 'desktop_mac', routerLink: ['/home']},
             {label: 'Free Armor', icon: 'input', routerLink: ['/editor']},
-            {label: 'Armored eMail', icon: 'email', routerLink: ['/messages']},
+            {label: 'Armored A-mail', icon: 'email', routerLink: ['/messages']},
             {label: 'Armored Chat', icon: 'chat', routerLink: ['/chats']},
             {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
             {label: 'Memories', icon: 'local_library', routerLink: ['/dailylog']},
