@@ -152,6 +152,7 @@ import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.comp
     PasswordModule,
     CardModule,
     DataTableModule,
+    DialogModule,
     PanelModule,
     InputTextModule,
     InputSwitchModule,

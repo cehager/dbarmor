@@ -213,12 +213,16 @@ export class MessageComponent implements OnInit, AfterViewInit {
         console.log('editor content is: ', rmsg);
         rmsg = rmsg.replace(/&nbsp;/gi, '');
         rmsg = rmsg.trim();
-        console.log('editor content is: ', rmsg);
-        if (this.ed.froalaEditor('charCounter.count') < 20) {
-            this.editorContent = this.editorContent
-                + '<br><br>Message must be at least 20 characters in length. This will go away with automatic padding.';
+        if (rmsg.length === 0) {
             return;
         }
+
+        console.log('editor content is: ', rmsg);
+        // if (this.ed.froalaEditor('charCounter.count') < 1) {
+        //     this.editorContent = this.editorContent
+        //         + '<br><br>Message must be at least 20 characters in length. This will go away with automatic padding.';
+        //     return;
+        // }
         this.appRepository.messageDto.to = this.emailTo;
         this.appRepository.messageDto.from = this.appRepository.activeUserLoginName;  // this.emailFrom;
         this.appRepository.messageDto.messageId = 'mid';
@@ -230,7 +234,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         this.appRepository.messageDto.subject = this.emailSubject;
 
         this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/do';
-        // this.apiPath = 'http://localhost:5445/dex/hypertext/l1/do';
+        //this.apiPath = 'http://localhost:5445/dex/hypertext/l1/do';
         this.appRepository.doEncrypt(rmsg, this.apiPath)
             .subscribe((data: MessageDto) => {
                 this.editorContent = data.message; // updates secure editor
@@ -253,7 +257,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
     doDecrypt() {
         this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/getbymsgid/undo/';
-        // this.apiPath = 'http://localhost:5445/dex/hypertext/l1/getbymsgid/undo/';
+        //this.apiPath = 'http://localhost:5445/dex/hypertext/l1/getbymsgid/undo/';
         console.log('row selected msgid is: ', this.emailMsgId);
         // this.appRepository.doDecrypt(this.ed.froalaEditor(this.edContentGet), this.apiPath)
         this.appRepository.doDecrypt(this.emailMsgId, this.apiPath)
@@ -274,7 +278,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
             }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
                 () => {
                     console.log('before get touserid is: ', this.emailToUserId);
-                    this.appRepository.doGet('http://localhost:5445/dex/hypertext/l1/getbytouserid/keep/'
+                    this.appRepository.doGet('https://4226-25056.el-alt.com/dex/hypertext/l1/getbytouserid/keep/'
                      + this.emailToUserId)  // updates the email inbox list
                         .subscribe((data: MessageDto[] ) => {
                             this.appRepository.messages = data;

@@ -37,7 +37,7 @@ export class AppRepositoryService {
     activeUserName: string;
     decodedToken: any;
     jwtHelper: JwtHelper = new JwtHelper();
-
+    tempFreeId: string;
     // apiRoot: string = 'http://b2n.gotdns.com:52233/mail/mi/msgfawg';
      // apiRoot = 'http://mifawghorn20170405015815.azurewebsites.net/mail/mi/msgfawg';
     // apiRoot = 'http://localhost:52233/mail/mi/msgfawg';
@@ -223,7 +223,9 @@ export class AppRepositoryService {
         // this.getPath = 'http://localhost:52233/mail/mi/fawgedup/all/all';
         // this.numChars = this.message.length;
         // this.messageDto.userId = this.user;
+
         this.messageDto.message = msg; // this.message;
+        this.messageDto.messageId = this.tempFreeId;
         // this.messageDto.createdOn = new Date().toDateString();
         // const dhold = new Date();
         // this.messageDto.deleteAfter = dhold.setDate(dhold.getDate() + 15).toString();
