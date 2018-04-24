@@ -19,7 +19,7 @@
 
 <div class="msg-container ui-g ui-fluid">
   <div class="card ui-md-3">
-    <p-panel header="1. Your Private Information" [toggleable]="false">
+    <p-panel header="1. Your Private Information"  [style]="{'height':'512px'}" [toggleable]="false">
       <p>
         dbARMOR can encrypt and/or decrypt the entire 44 million words of the Encyclopedia Britannica (approximately 220 million
         characters) in 2 seconds or less using a single average desktop computer!
@@ -34,29 +34,17 @@
         "keys". With dbARMOR there are no keys lying around for hackers to find. Had Hillary used dbARMOR her stolen emails
         would have been nothing but crackproof giberish!
       </p>
-      <p-footer>this is the footer</p-footer>
     </p-panel>
   </div>
   <div class="card ui-md-3 ui-grid-pad ui-panel-content-wrapper-overflown">
-    <p-panel header="2. Your Privatized Information" [toggleable]="false">
+    <p-panel header="2. Your PRIVATIZED Information" [style]="{'height':'512px'}" [toggleable]="false">
       <p>
-        lhlmvtgesknvggeluzpecflvgeurvctKzethgjv
-        jsvolSzfzsvjaibkiknnrjgelqgmqzkmypcbnc
-        djiowwjdgtkcviovxrkxxihgiddzclqkhsrdjw
-        nkhtyoykrypjcqxvylyxxcvsnghkmoluwthadc!
-        Srqkzmeqtzpgvzvnomymhgoxixydnnfpxmgearl
-        tfwwhddqrcpzhgNahoynabrjhndygbbgkvhqjc
-        iecikvmwbdcpsktiljtfevjeuixzbvoutkckrmt
-        aeiyfk824rhkkdfpqmlt.fHragrnqlBbkkongs
-        isrntXiywiohvocpaxcjpwlcykxygknhpzzmlea
-        lbfwiknypekubslbfnrcorgzawftvtmwopkakkv
-        ozpspyiuPxuprnbo;rndqkviudhtpegftjgbnj
-        kyurcdwxaymcxxlbxudowwqicnzgfowhowtEICJ
-        xulxasghnbeesanvpimjtujfw;ubphujvq.hOnd
-        ppwnACMUPfckenokihljscatqaciokrchheavfd
-        dlmfqjodomzogbjngvruc.mDcyaOpgtehwndols
-        uxaCUXSZksnjmuwrczopxnazhltwacoejggakmu
-        yyijychjcveawxdiwsazhvrgrqxjjjasxuo!
+        lhlmvtgesknvggeluzpecflvgeurvctKzeth jsvolSzfzsvjaibkiknnrjgelqgmqzkmypcbne djiowwjdgtkcviovxrkxxihgiddzclqkhsrd khtyoykrypjcqxvylyxxcvsnghkmolu
+        Srqkzmeqtzpgvzvnomymhgoxixydnnfpxmge  tfwwhddqrcpzhgNahoynabrjhndygbbgkvhqk iecikvmwbdcpsktiljtfevjeuixzbvoutkckr
+        aeiyfk824rhkkdfpqmlt.fHragrnqlBbkkon isrntXiywiohvocpaxcjpwlcykxygknhpzzmlh lbfwiknypekubslbfnrcorgzawftvtmwopkak
+        ozpspyiuPxuprnbo;rndqkviudhtpegftjgb kyurcdwxaymcxxlbxudowwqicnzgfowhowtEI xulxasghnbeesanvpimjtujfw;ubphujvq.hO
+        ppwnACMUPfckenokihljscatqaciokrchhea dlmfqjodomzogbjngvruc.mDcyaOpgtehwndo uxaCUXSZksnjmuwrczopxnazhltwacoejggak
+        yyijychjcveawxdiwsazhvrgrqxjjjasxuos
       </p>
       <p>
         The above text is a real sample of what dbARMOR encrypted data looks like. With most encryption systems everytime the same
@@ -66,9 +54,9 @@
     </p-panel>
   </div>
   <div class="card ui-md-3">
-    <p-panel header="3. For Your Eyes Only" [toggleable]="false">
+    <p-panel header="3. For Your Eyes Only" [style]="{'height':'512px'}" [toggleable]="false">
       <p>
-        Besides sending secure emails and chating with friends, there plenty of reasons for keeping your information private.
+        Besides sending secure emails and chating with friends, there plenty of other reasons for keeping your information private.
       </p>
       <p>
         Keeping a daily log or diary is now possible without having to worry about snoops. Write a novel. Create a true life story
@@ -81,7 +69,7 @@
     </p-panel>
   </div>
   <div class="card ui-md-3">
-    <p-panel header="4. No SPAN, No Ads, No Pests" [toggleable]="false">
+    <p-panel header="4. No SPAN, No Ads, No Pests" [style]="{'height':'512px'}" [toggleable]="false">
       <p>
         Only friends who are dbARMOR members can share information. All social connections are approved by you. There are no friends-of-friends
         who you don't know, only friends you really want to share information with.
@@ -98,7 +86,77 @@
   </div>
 </div>
 
+<div class="learn-more-btn ui-g ui-g-12 ui-fluid">
+    <button pButton type="button" (click)="registerToggle()"  label="Click here to learm more about dbARMOR encryption"></button>
+</div>
 
+<div class="a-plans ui-g ui-fluid">
+    <div class="card ui-md-4 ui-sm-12">
+      <p-panel header="FREE Messages & A-Mails" [style]="{'height':'370px'}" [toggleable]="false">
+        <ol>
+          <li>
+            300 Free Armored Messages per month
+          </li>
+          <li>
+            100 Free Armored A-Mails per month.
+            <p>(requires registration)</p>
+          </li>
+          <li>
+              Messages & A-Mails have a 30 day time limit
+            </li>
+         </ol>
+      </p-panel>
+    </div>
+    <div class="card ui-md-4 ui-sm-12">
+      <p-panel header="Full Service Plan Only $12/year" [style]="{'height':'370px'}" [toggleable]="false">
+        <ol>
+          <li>
+            5 Gigabytes of space (about 7,500 books)
+          </li>
+          <li>
+              Unlimited use with no time limits
+            </li>
+            <li>
+            A-Mails (Armored eMails)
+          </li>
+          <li>
+            Armored Chats
+          </li>
+          <li>
+            Armored Contacts
+          </li>
+          <li>
+            Armored Memories
+          </li>
+          <li>
+            Armored Alerts
+          </li>
+          <li>
+            Armored Documents
+          </li>
+          <li>
+            Armored Pictures
+          </li>
+        </ol>
+      </p-panel>
+    </div>
+    <div class="card ui-md-4 ui-sm-12">
+      <p-panel header="Active Members" [style]="{'height':'370px'}" [toggleable]="false">
+        <ol>
+          <li>
+            Additional space per year $1 per gigabyte. (about 1,500 books)
+          </li>
+          <li>
+            No disruption of services for temporary storage space overages
+          </li>
+        </ol>
+      </p-panel>
+    </div>
+  </div>
+  <div class="register-more-btn ui-g ui-g-12 ui-fluid">
+      <button pButton type="button" (click)="registerToggle()"  label="Click here to register"></button>
+  </div>
+    
 
 <div fxLayout="column" fxLayoutAlign="center center" *ngIf="registerMode" class="container">
   <div>
