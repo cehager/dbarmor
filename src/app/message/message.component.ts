@@ -69,7 +69,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         quickInsertButtons: ['image', 'table'],
         height: 328,
         fontSizeDefaultSelection: '14',
-        placeholderText: 'Start typing here...',
+        placeholderText: 'PRIVATIZE yourself, start typing here...',
         saveInterval: 0,
         pastePlain: true,
         enter: $.FroalaEditor.ENTER_BR,

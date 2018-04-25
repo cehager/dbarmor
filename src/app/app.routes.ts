@@ -18,7 +18,7 @@ export const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'editor', component: EditorComponent},
     {path: 'messages', component: MessageComponent, canActivate: [AuthGuard]},
-    {path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard]},
+    {path: 'contacts', component: ContactsComponent},
     {path: 'dailylog', component: DailyLogComponent, canActivate: [AuthGuard]},
     {path: 'documents', component: DocumentComponent, canActivate: [AuthGuard]},
     {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},

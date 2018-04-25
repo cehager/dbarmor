@@ -45,18 +45,14 @@ export class EditorComponent implements OnInit {
       charCounterCount: true,
       toolbarButtons: ['fontFamily', 'fontSize', 'color', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript',
       'superscript', 'align', 'outdent', 'indent', 'paragraphFormat',
-     'insertHR', 'clearFormatting', 'undo', 'redo',  'emoticons', 'print', 'spellChecker',
-      '|', 'alert', 'clear', 'save', 'archive', 'delete'],
-  toolbarButtonsXS: ['bold', 'italic', 'underline', 'strikeThrough',
+     'insertHR', 'clearFormatting', 'undo', 'redo', 'emoticons'],
+      toolbarButtonsXS: ['bold', 'italic', 'underline', 'strikeThrough',
       'fontSize', 'alert', 'paragraphFormat'],
-  toolbarButtonsSM: ['bold', 'italic', 'underline', 'strikeThrough',
+      toolbarButtonsSM: ['bold', 'italic', 'underline', 'strikeThrough',
       'fontSize', 'alert', 'paragraphFormat'],
-  toolbarButtonsMD: ['fontFamily', 'fontSize', 'color', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript',
-  'superscript', 'align', 'outdent', 'indent', 'paragraphFormat',
- 'insertHR', 'clearFormatting', 'undo', 'redo',  'emoticons', 'print', 'spellChecker',
-  '|', 'alert', 'clear', 'save', 'archive', 'delete'],
-      quickInsertButtons: [],
-      height: 290,
+      toolbarButtonsMD: ['bold', 'italic', 'underline', 'strikeThrough',
+      'fontSize', 'alert', 'paragraphFormat'],
+      height: 320,
       fontSizeDefaultSelection: '14',
       placeholderText: 'Privatize yourself, start typing here...',
       saveInterval: 0,
@@ -73,7 +69,9 @@ export class EditorComponent implements OnInit {
           indent_char: ' ',
           indent_size: 4,
           wrap_line_length: 0
-      }
+      },
+      pluginsEnabled: ['align', 'colors', 'emoticons', 'entities',
+          'fontFamily', 'fontSize', 'paragraphFormat', 'paragraphStyle', 'charCounter']
   };
 
   ngOnInit() {
