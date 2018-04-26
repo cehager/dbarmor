@@ -42,6 +42,7 @@ export class EditorComponent implements OnInit {
   constructor(public appRepository: AppRepositoryService) { }
 
   options: Object = {
+      key: 'WC7A5D4A4fG3A7A7C7A3B3C2G3C2F2ybeiB-11gdB-7A3c1jd==',
       charCounterCount: true,
       toolbarButtons: ['fontFamily', 'fontSize', 'color', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript',
       'superscript', 'align', 'outdent', 'indent', 'paragraphFormat',
@@ -75,8 +76,7 @@ export class EditorComponent implements OnInit {
   };
 
   ngOnInit() {
-      // console.log('in onInit' );
-      $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+       $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
       $.FroalaEditor.RegisterCommand('alert', {
           title: 'Blackout',
           focus: false,
@@ -91,8 +91,6 @@ export class EditorComponent implements OnInit {
       this.edContentGet = 'html.get';
       this.ed = $('div#fred');
       this.editorContent = this.appRepository.reloadEditorContent();
-
-      // this.ed.froalaEditor('popups.hideAll');
 
       if (this.appRepository.isEdBufferEmpty()) {
           this.appRepository.isText = true;

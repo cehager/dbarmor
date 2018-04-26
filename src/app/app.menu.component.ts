@@ -28,6 +28,7 @@ export class AppMenuComponent implements OnInit {
             {label: 'Document Mgr', icon: 'content_copy', routerLink: ['/documents']},
             {label: 'Alert Me', icon: 'event_available', routerLink: ['/notifications']},
             {label: 'Albums', icon: 'speaker_notes', routerLink: ['/todos']},
+            {label: 'FaFrOn', icon: 'chat', routerLink: ['/todos']},
             {
                 label: 'Themes', icon: 'palette',
                 items: [

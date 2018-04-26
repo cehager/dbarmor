@@ -1,110 +1,115 @@
-<div class="editor-section">
-  <h5 class="editor-heading">
-    Secure emails, documents, memories, books, photos, contacts and financial data.
-    <p>100% Crack Proof! Keep your private data PRIVATE!</p>
-  </h5>
-  <div class="editor-container">
-    <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
-  </div>
-  <div class="editor-footer">
-    <button pButton type="button" class="footer-btn" label="Encrypt" (click)="doEncrypt()"></button>
-    <button pButton type="button" class="footer-btn ui-button-danger" label="Decrypt" (click)="onOpen()"></button>
-    <!-- <button pButton type="button" class="footer-btn ui-button-danger" label="Decrypt" (click)="doDecrypt()"></button> -->
-  </div>
-  <!-- <div class="card"> -->
-  <p-dialog header="NOTICE: MESSAGE ID IS LONG FOR A REASON" [(visible)]="display" [closable]=false  modal="modal" showEffect="fade" width="400">
-    <p>IMPORTANT NOTICE:</p>
-    <p>You will need the message ID below in order to DECRYPT this message:</p>
-    <p>This is the Message ID -> <b>{{tempMsgId}}</b> 
-    <p>Your recipient will be asked to enter this message ID when they want to decrypt.</p>
-    <p>If this message has not been decrypted within 72 hours, it will be deleted automatically.</p>
-    <p>To keep messages indefinitely, PRIVATIZE YOURSELF, it's fun and easy.</p>
-    <p-footer>
-      <div class="ui-dialog-buttonpane ui-helper-clearfix">
-        <!-- <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button> -->
-        <button type="button" pButton icon="fa-check" (click)="display=false" label="Got it!"></button>
+<div class="ui-g ui-fluid">
+  <div class="ui-md-6">
+    <p-panel header="ARMORED Edior: Keep your private data PRIVATE with dbARMOR" [style]="{'height':'532px'}"
+      [toggleable]="false">
+      <div class="editor-container">
+        <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+      </div>
+      <p-footer>
+      <div class="editor-footer">
+        <button pButton type="button" class="footer-btn" label="Encrypt" (click)="doEncrypt()"></button>
+        <button pButton type="button" class="footer-btn ui-button-danger" label="Decrypt" (click)="onOpen()"></button>
+        <!-- <button pButton type="button" class="footer-btn ui-button-danger" label="Decrypt" (click)="doDecrypt()"></button> -->
       </div>
     </p-footer>
-  </p-dialog>
+    <!-- <div class="card"> -->
+      <p-dialog header="Anonymous Message ID (not registered)" [(visible)]="display" [closable]=false modal="modal" showEffect="fade"
+        width="400">
+        <p>IMPORTANT NOTICE: Anyone with this message ID can decrypt your message (but only once).</p>
+        <p>Your recipient will be asked to enter the message ID below when they want to decrypt.</p>
+        <p>This is the Message ID ->
+          <b>{{tempMsgId}}</b>
+          <p>If this message has not been decrypted within 72 hours, it will be deleted automatically.</p>
+          <p>To keep messages indefinitely, PRIVATIZE YOURSELF, ARMORED-Mail is fun and easy.</p>
+          <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+              <!-- <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button> -->
+              <button type="button" pButton icon="fa-check" (click)="display=false" label="Got it!"></button>
+            </div>
+          </p-footer>
+      </p-dialog>
+      <p-dialog header="NOTICE: MESSAGE ID REQUIRED" [(visible)]="decrypt" onClose="diaClose()" [closable]=false modal="modal"
+        showEffect="fade" width="400">
+        <!-- <p>Please enter the message phrase/ID:</p> -->
+        <br>
+        <div class="md-inputfield">
+          <!-- <input type="text" [(ngModel)]="tempMsgId" name="tempmsgid"> -->
+          <!-- <label>Enter message phrase/ID</label> -->
+          <span>Enter or paste in message ID:</span>
+          <input type="text" pInputText [(ngModel)]="msgId" name="tmpmsgid" />
+        </div>
+        <br>
+        <p>The person who sent you the encrypted message should have supplied the message ID for you.</p>
+        <p-footer>
+          <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <!-- <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button> -->
+            <button type="button" pButton icon="fa-check" (click)="diaClose()" label="Done"></button>
+          </div>
+        </p-footer>
+      </p-dialog>
+    </p-panel>
+  </div>
 
-  <p-dialog header="NOTICE: MESSAGE ID REQUIRED" [(visible)]="decrypt" onClose="diaClose()" [closable]=false
-          modal="modal" showEffect="fade" width="400">
-    <!-- <p>Please enter the message phrase/ID:</p> -->
-    <br>
-    <div class="md-inputfield">
-      <!-- <input type="text" [(ngModel)]="tempMsgId" name="tempmsgid"> -->
-      <!-- <label>Enter message phrase/ID</label> -->
-      <span>Enter or paste in message ID:</span>
-      <input type="text" pInputText [(ngModel)]="msgId" name="tmpmsgid"/>
+
+
+<!-- <button type="text" (click)="display=true" pButton icon="fa-external-link-square" label="Show"></button> -->
+<!-- </div> -->
+<div class="ui-g ui-md-6">
+  <p-panel header="It's easy, send an encrypted message to a friend for FREE:" [style]="{'height':'532px'}" [toggleable]="false">
+    <div class="ed-instructions ui-g">
+      <ol>
+        <li>
+          <p>Use
+            <b>Secure Editor</b> to create your message.
+          </p>
+        </li>
+        <li>
+          <p>Click Encrypt Button. A dialog will popup with a message ID that is required in order to decrypt the message.
+          </p>
+        </li>
+        <li>
+          <span>Copy & Paste encrypted text into your favorite email application. (Right click on the secure editor then choose
+            "Select All" from the popup menu followed by the Copy option. You can also use Ctrl-A, then Ctrl-C keys). Be
+            sure to
+            <b>send the message ID</b> along with the encrypted text. </span>
+        </li>
+      </ol>
+      <ol>
+        <li>
+          <p>
+            <b>To Decrypt:</b> Have recipient access dbArmor and then Copy & Paste encrypted text into the Secure Editor.</p>
+        </li>
+        <li>
+          <span>Click Decrypt button. A dialog will popup requesting the message ID in step 2 above. Enter the ID and press Ok
+            button.</span>
+        </li>
+      </ol>
+      <ol>
+        <li>
+          <p>
+            <b>Note:</b> Encrypted text sent to a friend can only be decrypted
+            <b>once</b>. If you decrypt your own message, re-encrypt and send again. You can encrypt and decrypt the same message
+            multiple times (within the editor). Be sure to examine the results, they are different each time. Your recipient
+            can also encrypt and send to exchange encrypted messages.</p>
+        </li>
+        <li>
+          <p>
+            <b>dbARMOR members</b> messages are delivered by our own proprietary ARMORED email system. 100% crackproof. PRIVATIZE
+            YOURSELF join today!
+          </p>
+        </li>
+        <li>
+            <b>dbARMOR members</b> also use a powerful, full-featured ARMORED word processor.
+        </li>
+      </ol>
     </div>
-    <br>
-    <p>The person who sent you the encrypted message should have supplied the message ID for you.</p>
     <p-footer>
-      <div class="ui-dialog-buttonpane ui-helper-clearfix">
-        <!-- <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button> -->
-        <button type="button" pButton icon="fa-check" (click)="diaClose()" label="Done"></button>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button pButton type="button" class="footer-btn" label="Click here to learn why dbARMOR is 100% Crackproof!"></button>
       </div>
     </p-footer>
-  </p-dialog>
-
-
-  <!-- <button type="text" (click)="display=true" pButton icon="fa-external-link-square" label="Show"></button> -->
-  <!-- </div> -->
-  <div class="instructions-header">
-    It's easy, send an encrypted message to a friend for FREE:
-  </div>
-  <div class="editor-instructions">
-    <ol>
-      <li>
-        <span>Use
-          <b>Secure Editor</b> to create your message.
-        </span>
-      </li>
-      <li>
-        <span>Click Encrypt Button. A dialog will popup with a message ID that is required in order to decrypt the message.
-        </span>
-      </li>
-      <li>
-        <span>Copy & Paste encrypted text into your favorite email application. (Right click on the secure editor then choose "Select
-          All" from the popup menu followed by the Copy option. You can also use Ctrl-A, then Ctrl-C keys). Be sure to
-          <b>send the message ID</b> along with the encrypted text. </span>
-      </li>
-    </ol>
-    <ol>
-      <li>
-        <span>
-          <b>To Decrypt:</b> Have recipient access dbArmor and then Copy & Paste encrypted text into the Secure Editor.</span>
-      </li>
-      <li>
-        <span>Click Decrypt button. A dialog will popup requesting the message ID provided in step 2 above. Enter the ID and press Ok button. Decrypted
-          text will appear in the secure editor.</span>
-      </li>
-    </ol>
-    <ol>
-      <li>
-        <span>
-          <b>Note:</b> Encrypted text sent to a friend can only be decrypted
-          <b>once</b>. If you decrypt your own message, re-encrypt and send again. You can encrypt and decrypt the same message
-          multiple times (within the editor). Be sure to examine the results, they are different each time. Your recipient
-          can also encrypt and send to exchange encrypted messages.</span>
-      </li>
-      <li>
-        <span>
-          <p></p>
-          <b>dbARMOR members</b> messages are delivered by our own proprietary ARMORED email system. 100% crackproof. PRIVATIZE YOURSELF
-           join today!</span>
-      </li>
-      <li>
-        <span>
-          <p></p>
-          <b>dbARMOR members</b> also use a powerful, full-featured ARMORED word processor.</span>
-      </li>
-    </ol>
-  </div>
-  <div class="instructions-footer">
-    <button pButton type="button" class="footer-btn" label="Click here to learn why dbARMOR is 100% Crackproof!"></button>
-  </div>
-
+  </p-panel>
+</div>
 </div>
 
 

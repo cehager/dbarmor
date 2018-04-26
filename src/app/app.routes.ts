@@ -19,11 +19,12 @@ export const routes: Routes = [
     {path: 'editor', component: EditorComponent},
     {path: 'messages', component: MessageComponent, canActivate: [AuthGuard]},
     {path: 'contacts', component: ContactsComponent},
-    {path: 'dailylog', component: DailyLogComponent, canActivate: [AuthGuard]},
+    {path: 'dailylog', component: DailyLogComponent},
     {path: 'documents', component: DocumentComponent, canActivate: [AuthGuard]},
     {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
     {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
     {path: 'todos', component: TodosComponent, canActivate: [AuthGuard]},
+    {path: 'fafro', component: TodosComponent, canActivate: [AuthGuard]},
     {path: 'register', component: RegisterComponent},
     {path: 'registerna', component: RegisternaComponent},
     {path: '**', redirectTo: 'home', pathMatch: 'full'}

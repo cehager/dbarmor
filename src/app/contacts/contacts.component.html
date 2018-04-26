@@ -87,4 +87,48 @@
     </div>
     <button class="save-btn" type="button" style="margin-top:20px" label="Submit" pButton></button>
   </p-panel>
+
+  <!-- <div class="ui-md-6 ui-sm-12 ui-fluid">
+    <p-dataTable [value]="contacts" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
+      [responsive]="true" (onRowSelect)="onRowSelected($event)" [editable]="false" [rows]="20" [paginator]="true">
+      <p-column field="firstname" [style]="{'width':'275px'}" header="First Name" [editable]="true"></p-column>
+      <p-column field="lastname" header="Last Name"></p-column>
+      <p-column field="amailaddr" [style]="{'width':'120px'}" header="A-Mail Address" [editable]="true"></p-column>
+    </p-dataTable>
+  </div> -->
+
+</div>
+<div class="ui-g-12 ui-md-4 contacts">
+  <p-panel header="Contacts">
+      <ul>
+          <li>
+              <a href="#">
+                  <img src="assets/layout/images/avatar1.png" width="45">
+                  <span class="name">Joshua Williams</span>
+                  <span class="email">joshua@pf-ultima.com</span>
+              </a>
+          </li>
+          <li>
+              <a href="#">
+                  <img src="assets/layout/images/avatar2.png" width="45">
+                  <span class="name">Emily Clark</span>
+                  <span class="email">emily@pf-ultima.com</span>
+              </a>
+          </li>
+          <li>
+              <a href="#">
+                  <img src="assets/layout/images/avatar3.png" width="45">
+                  <span class="name">Susan Johnson</span>
+                  <span class="email">susan@pf-ultima.com</span>
+              </a>
+          </li>
+          <li>
+              <a href="#">
+                  <img src="assets/layout/images/avatar4.png" width="45">
+                  <span class="name">Kelly Stark</span>
+                  <span class="email">kelly@pf-ultima.com</span>
+              </a>
+          </li>
+      </ul>
+  </p-panel>
 </div>
