@@ -15,6 +15,7 @@ export class DailyLogComponent implements OnInit {
 
 
   options: Object = {
+    key: 'WC7A5D4A4fG3A7A7C7A3B3C2G3C2F2ybeiB-11gdB-7A3c1jd==',
     charCounterCount: true,
     toolbarButtons: ['fontFamily', 'fontSize', 'color', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript',
         'superscript', 'align', 'outdent', 'indent', 'paragraphFormat',

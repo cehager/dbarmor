@@ -32,14 +32,14 @@
         showEffect="fade" width="400">
         <!-- <p>Please enter the message phrase/ID:</p> -->
         <br>
-        <div class="md-inputfield">
-          <!-- <input type="text" [(ngModel)]="tempMsgId" name="tempmsgid"> -->
-          <!-- <label>Enter message phrase/ID</label> -->
-          <span>Enter or paste in message ID:</span>
-          <input type="text" pInputText [(ngModel)]="msgId" name="tmpmsgid" />
-        </div>
+          <div class="md-inputfield ui-g-12 ui-md-7">
+              <input type="text" pInputText [(ngModel)]="msgId" name="tmpmsgid" />
+              <label>Enter message ID here</label>
+            </div>
         <br>
+        <div class="ui-g-12">
         <p>The person who sent you the encrypted message should have supplied the message ID for you.</p>
+        </div>
         <p-footer>
           <div class="ui-dialog-buttonpane ui-helper-clearfix">
             <!-- <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button> -->
