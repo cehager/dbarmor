@@ -27,7 +27,8 @@ export const routes: Routes = [
     {path: 'fafro', component: TodosComponent, canActivate: [AuthGuard]},
     {path: 'register', component: RegisterComponent},
     {path: 'registerna', component: RegisternaComponent},
-    {path: '**', redirectTo: 'home', pathMatch: 'full'}
+    {path: '', component: HomeComponent},
+    {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes);

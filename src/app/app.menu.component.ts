@@ -19,7 +19,7 @@ export class AppMenuComponent implements OnInit {
 
     ngOnInit() {
         this.model = [
-            {label: 'Home', icon: 'desktop_mac', routerLink: ['/home']},
+            {label: 'Home', icon: 'desktop_mac', routerLink: ['']},
             {label: 'Free Armor', icon: 'input', routerLink: ['/editor']},
             {label: 'Armored A-mail', icon: 'email', routerLink: ['/messages']},
             {label: 'Armored Chat', icon: 'chat', routerLink: ['/chats']},
