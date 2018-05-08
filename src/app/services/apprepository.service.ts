@@ -508,12 +508,14 @@ export class AppRepositoryService {
   }
 
   getApiBasePath(): string {
+    return  'https://4226-25056.el-alt.com/dex/';
     // isApiLocal is set in the constructor above
-    if (this.isApiLocal) {
-      return this.baseApiUrl.apiBaseUrlLocal;
-    } else {
-       return this.baseApiUrl.apiBaseUrlRemote;
-    }
+    // if (this.isApiLocal) {
+    //   return this.baseApiUrl.apiBaseUrlLocal;
+    // } else {
+    //    return this.baseApiUrl.apiBaseUrlRemote;
+    // }
+
       //  'https://4226-25056.el-alt.com/dex/';
   }
 
