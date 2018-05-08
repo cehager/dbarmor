@@ -6,7 +6,7 @@ import {MessageService} from 'primeng/components/common/messageservice';
 import {Message} from 'primeng/primeng';
 import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
-import {DailyLog} from '../services/models/Daily-Log'; //interface definition
+import {DailyLog} from '../services/models/daily-log'; //interface definition
 declare var $: any;
 
 @Component({

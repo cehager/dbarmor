@@ -31,7 +31,7 @@ export class AppRepositoryService {
   hold: any;
   baseUrl = environment.apiUrl;
   baseApiUrl = environment;
-  isApiLocal: boolean;
+ //isApiLocal: boolean;
   // http://mifawghorn20170405015815.azurewebsites.net/
 
   // apiRoot = 'http://localhost:52233/mail/mi/msgfawg';
@@ -71,7 +71,7 @@ export class AppRepositoryService {
 
 
   constructor(private http: Http, private router: Router) {
-    this.isApiLocal = false;
+    //this.isApiLocal = false;
     this.apiRoot = this.getApiBasePath() + 'hypertext/l1';
     this.messageDto = {
       messageId: '',
@@ -509,14 +509,7 @@ export class AppRepositoryService {
 
   getApiBasePath(): string {
     return  'https://4226-25056.el-alt.com/dex/';
-    // isApiLocal is set in the constructor above
-    // if (this.isApiLocal) {
-    //   return this.baseApiUrl.apiBaseUrlLocal;
-    // } else {
-    //    return this.baseApiUrl.apiBaseUrlRemote;
-    // }
-
-      //  'https://4226-25056.el-alt.com/dex/';
+    //return  'http://localhost:5445/dex/';
   }
 
 }
