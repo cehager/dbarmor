@@ -4,23 +4,23 @@
       <h2>Privatize Yourself</h2>
       <h5>(keep your private data private)</h5>
     </p-header>
-    <div class="md-inputfield">
+    <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld">
       <input type="text" pInputText formControlName="userLoginName">
       <label>Create a login Id</label>
     </div>
-    <div class="md-inputfield">
+    <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld">
       <input type="text" pInputText formControlName="userName">
       <label>Your name</label>
     </div>
-    <div class="md-inputfield">
+    <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld">
       <input type="password" pPassword formControlName="pwd">
       <label>Create a password</label>
     </div>
-    <div class="md-inputfield">
+    <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld">
       <input type="text" pInputText formControlName="emailAddr">
       <label>Email address</label>
     </div>
-    <div class="md-inputfield card--fld6">
+    <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld card--fld6">
       <input type="text" pInputText formControlName="pinnum">
       <label>Create a secret pin number</label>
     </div>
@@ -31,37 +31,64 @@
   </form>
 </div> -->
 
-<div class="container">
-  <div class="wrapper">
-  <form  [formGroup]="registerForm" (ngSubmit)="register()">
-    <div class="head">
-      <h2>Privatize Yourself</h2>
-      <h5>(keep your private data private)</h5>
-    </div>
-    <div class="md-inputfield">
-      <input type="text" pInputText formControlName="userLoginName">
-      <label>Create a login username</label>
-    </div>
-    <div class="md-inputfield">
-      <input type="text" pInputText formControlName="userName">
-      <label>Your name</label>
-    </div>
-    <div class="md-inputfield">
-      <input type="password" pPassword formControlName="pwd">
-      <label>Create a password</label>
-    </div>
-    <div class="md-inputfield">
-      <input type="text" pInputText formControlName="emailAddr">
-      <label>Email address</label>
-    </div>
-    <div class="md-inputfield card--fld6">
-      <input type="text" pInputText formControlName="pwd">
-      <label>Create a secret pin number</label>
-    </div>
-    <div>
-      <button pButton type="button" label="Register" style="margin-top:10px" class="blue-grey-btn"></button>
+  <div class="header">
+      <div>
+        <h2>Privatize Yourself</h2>
+        <h5>(keep your private data private)</h5>
+      </div>
+     <form class="header" [formGroup]="registerForm" (ngSubmit)="register()">
+    <div class="ui-g ui-fluid ui-md-9 ui-sm-12">
+      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="userLoginName">
+        <label>Create your ARMORED login ID</label>
+      </div>
+      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+        <input type="password" pPassword formControlName="pwd">
+        <label>Password</label>
+      </div>
+      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="userName">
+        <label>Your Legal name</label>
+      </div>
+      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="amailAddr">
+        <label>Create your ARMORED A-MAIL ID</label>
+      </div>
+      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="emailAddr">
+        <label>Your current (unsecure) Email</label>
+      </div>
+      <div class="md-inputfield ui-md-1 ui-sm-12 input-fld">
+        <input type="number" pInputText formControlName="age">
+        <label>Age</label>
+      </div>
+      <div class="md-inputfield  ui-md-2 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="gender">
+        <label>Gender</label>
+      </div>
+      <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="country">
+        <label>Country</label>
+      </div>
+      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="city">
+        <label>City</label>
+      </div>
+      <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="occupation">
+        <label>Occupation</label>
+      </div>
+  </div>
+  <div class="header ui-md-5">
+      <button pButton type="submit" label="Register" style="margin-top:10px" class="blue-grey-btn"></button>
+      <div class="early-version-notice">
+        <h4>This is a pre-alpha version for testing purposes only! We are happy to have you as a tester.
+          Do NOT add valuable data yet. Everything is subject to change and data could be lost due to potential anomalies.
+           If you <b>lose your login or password</b> there isn't anyway for us to help you. Your data will be lost.</h4>
+      </div>
       <button pButton type="button" (click)="cancel()" label="Cancel" style="margin-top:10px" class="red-btn"></button>
     </div>
-  </form>
+</form>
 </div>
-</div>
+ 
+

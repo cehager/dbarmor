@@ -4,5 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'https://4226-25056.el-alt.com/dex/hypertext/l1/',
+  apiUrlLocal:  'http://localhost:5445/dex/hypertext/l1/',
+  apiBaseUrlRemote: 'https://4226-25056.el-alt.com/dex/',
+  apiBaseUrlLocal: 'http://localhost:5445/dex/'
 };

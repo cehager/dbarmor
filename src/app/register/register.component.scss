@@ -1,36 +1,95 @@
-*,
-*::after,
-*::before {
-    margin: 0;
+// *,
+// *::after,
+// *::before {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+//     font-family: 'Roboto', sans-serif;
+// }
+
+// .container {
+//     display: grid;
+//     grid-template-columns: 1fr 2fr 3fr;
+//     grid-template-rows: 2fr 8fr 4fr;
+//     //background-color: rgb(137, 137, 137);
+// }
+
+// .head {
+//     grid-row: 1;
+//     grid-column: 1 / 3;
+//     margin-top: 0;
+//     margin-bottom: 30px;
+//     justify-self: center;
+// }
+
+// input {
+//     //width: 100%;
+//     margin-bottom: 10px;
+// }
+
+// .register-form {
+//     display: flex;
+//     justify-items: center;
+   
+// }
+
+* {
+    //margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 3fr;
-    grid-template-rows: 1fr 8fr 4fr;
-    background-color: rgb(137, 137, 137);
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    //justify-content: center;
+    //height: 100px;
+    //width: 100%;
+    margin-top: 10px;
+    //margin-bottom: 30px;
 }
 
-input {
+.input-fld {
+    margin-bottom: 25px;
+    margin-left: 25px;
+    padding: 0;
+}
+
+button {
     width: 100%;
 }
 
-.wrapper {
-    background-color: ivory;
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    padding: 20px;
-}
+// .zform-btn {
+//     margin-left: 30px;
+//     margin-right: 100px;
+// }
 
-form {
-    display: grid;
-    grid-template-rows: 70px repeat(5, 55px);
-    grid-gap: 3px;
-    padding-top: 10px;
-    margin-top: -15px;
-    min-width: 260px;
-    justify-content: center;
-}
+// button {
+//     width: 100%;
+// }
+
+// .wrapper {
+//     background-color: rgb(255, 255, 241);
+//     grid-column: 2 / 3;
+//     grid-row: 1 / 3;
+//     padding: 15px;
+//     margin: 0;
+//     border-width: 1px;
+//     border: solid;
+//     border-radius: 5px;
+//     border-color: lightgrey;
+
+// }
+
+// form {
+//     display: grid;
+//     grid-template-rows: 70px repeat(5, 55px);
+//     grid-template-columns: 300px 300px;
+//     grid-gap: 10px;
+//     padding-top: 10px;
+//     margin-top: -15px;
+//     min-width: 260px;
+//     justify-content: center;
+// }

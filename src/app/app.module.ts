@@ -80,7 +80,7 @@ import {PickListModule} from 'primeng/primeng';
 import {ProgressBarModule} from 'primeng/primeng';
 import {RadioButtonModule} from 'primeng/primeng';
 // import {RatingModule} from 'primeng/primeng';
-import {ScheduleModule} from 'primeng/primeng';
+// import {ScheduleModule} from 'primeng/primeng';
 import {ScrollPanelModule} from 'primeng/scrollpanel'; // in use
 import {SelectButtonModule} from 'primeng/primeng';
 // import {SlideMenuModule} from 'primeng/primeng';
@@ -109,6 +109,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { TodosComponent } from './todos/todos.component';
 import { RegisternaComponent } from './registerna/registerna.component';
 import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.component';
+import { AblumsComponent } from './ablums/ablums.component';
+import { FafronComponent } from './fafron/fafron.component';
 
 // import {TreeModule} from 'primeng/primeng';
 // import {TreeTableModule} from 'primeng/primeng';
@@ -140,7 +142,9 @@ import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.comp
     NotificationsComponent,
     TodosComponent,
     RegisternaComponent,
-    EditorFroalaComponent
+    EditorFroalaComponent,
+    AblumsComponent,
+    FafronComponent
 ],
   imports: [
     SharedModule,
@@ -158,7 +162,6 @@ import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.comp
     PanelModule,
     PickListModule,
     OrderListModule,
-    ScheduleModule,
     InputTextModule,
     InputSwitchModule,
     InputMaskModule,

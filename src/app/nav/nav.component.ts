@@ -21,6 +21,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.createLoginForm();
+    //this.appService.userToken = null;
     // this.isUserLoggedIn = false;
   }
 
@@ -32,6 +33,7 @@ export class NavComponent implements OnInit {
   }
 
   login() {
+    this.appService.userToken = null;
     // this.model.userLoginName = this.userLoginName;
     // this.model.pwd = this.pwd;
     // console.log(this.loginForm.value);
@@ -43,6 +45,7 @@ export class NavComponent implements OnInit {
       this.alertify.success('Login successful, welcome to dbArmor, enjoy!');
       // this.isUserLoggedIn = true;
     }, error => {
+      this.appService.userToken = null;
       this.alertify.error('Login unsuccesful, try again.');
       // this.isUserLoggedIn = false;
       // console.log('failed to login');

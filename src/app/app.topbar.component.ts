@@ -32,6 +32,12 @@ import { AlertifyService } from './services/alertify.service';
 
                         <ul class="ultima-menu animated fadeInDown">
                             <li role="menuitem">
+                                <a (click)="getActiveUserName()">
+                                <i class="material-icons">person</i>
+                                <span>{{ userName }}</span>
+                            </a>
+                            </li>
+                            <li role="menuitem">
                                 <a href="#">
                                     <i class="material-icons">person</i>
                                     <span>Profile</span>
@@ -167,15 +173,24 @@ import { AlertifyService } from './services/alertify.service';
 })
 export class AppTopbarComponent {
     show: boolean;
+    userName: string;
 
     constructor(private appService: AppRepositoryService, public app: AppComponent,
          private alertify: AlertifyService, private router: Router) {
          this.show = true;
+         this.userName = 'Not logged in.';
         }
+
+
 
         logout() {
             this.appService.userToken = null;
             this.router.navigate(['/home']);
             this.alertify.success('You are now logged out.');
+          }
+
+          getActiveUserName() {
+            this.userName = this.appService.activeUserLoginName;
+            //console.log('active user name: ' + this.userName);
           }
 }

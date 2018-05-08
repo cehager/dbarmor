@@ -22,6 +22,7 @@ import {MessageService} from 'primeng/components/common/messageservice';
 import {Message} from 'primeng/primeng';
 import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
+import { AlertifyService } from '../services/alertify.service';
 
 declare var $: any;
 
@@ -52,7 +53,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     edContentGet: string;
     delay: number;
     // rowSelected: any;
-    constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService) {  }
+    constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService, private alertify: AlertifyService) {  }
 
     options: Object = {
         key: 'WC7A5D4A4fG3A7A7C7A3B3C2G3C2F2ybeiB-11gdB-7A3c1jd==',
@@ -234,15 +235,22 @@ export class MessageComponent implements OnInit, AfterViewInit {
         console.log('email subject content is: ', this.emailSubject);
         this.appRepository.messageDto.subject = this.emailSubject;
 
-        this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/do';
+        this.apiPath = this.appRepository.getApiBasePath() + 'hypertext/l1/do';
         //this.apiPath = 'http://localhost:5445/dex/hypertext/l1/do';
         this.appRepository.doEncrypt(rmsg, this.apiPath)
             .subscribe((data: MessageDto) => {
-                this.editorContent = data.message; // updates secure editor
+                //this.editorContent = data.message; // updates secure editor
                 this.appRepository.isText = false;
-                this.appRepository.messageDto.messageId = data.messageId;
+                this.editorContent = '';
+                this.emailTo = '';
+                this.emailSubject = '';
+                this.alertify.success('ARMORED A-Mail Sent Successfully!');
+                //this.appRepository.messageDto.messageId = data.messageId;
                // this.ed.froalaEditor('edit.off');
-            }, () => { this.editorContent = 'Not authorized to encrypt text, please login first.';  this.appRepository.isText = true; });
+            }, () => { this.editorContent = 'Not authorized to encrypt text, please login first.';
+                          this.appRepository.isText = true;
+                          this.alertify.error('ARMORED A-Mail failed...try again.');
+                        });
                 // () => {
                 //     this.appRepository.doGet('http://localhost:5445/dex/hypertext/l1/getbymsgid/keep/'
                 // + this.appRepository.messageDto.messageId) // updates the email inbox list
@@ -257,7 +265,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     }
 
     doDecrypt() {
-        this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/getbymsgid/undo/';
+        this.apiPath = this.appRepository.getApiBasePath() + 'hypertext/l1/getbymsgid/undo/';
         //this.apiPath = 'http://localhost:5445/dex/hypertext/l1/getbymsgid/undo/';
         console.log('row selected msgid is: ', this.emailMsgId);
         // this.appRepository.doDecrypt(this.ed.froalaEditor(this.edContentGet), this.apiPath)
@@ -279,7 +287,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
             }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
                 () => {
                     console.log('before get touserid is: ', this.emailToUserId);
-                    this.appRepository.doGet('https://4226-25056.el-alt.com/dex/hypertext/l1/getbytouserid/keep/'
+                    this.appRepository.doGet(this.appRepository.getApiBasePath() + 'hypertext/l1/getbytouserid/keep/'
                      + this.emailToUserId)  // updates the email inbox list
                         .subscribe((data: MessageDto[] ) => {
                             this.appRepository.messages = data;

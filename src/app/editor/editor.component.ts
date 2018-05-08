@@ -137,7 +137,7 @@ export class EditorComponent implements OnInit {
   }
 
   doEncrypt() {
-      this.makeTempId();
+      this.makeTempId(8);
     // this.tempMsgId = 'littlefox102';  // need a method to generate an ID
     this.appRepository.tempFreeId = this.tempMsgId;
     this.display = true;
@@ -247,12 +247,12 @@ export class EditorComponent implements OnInit {
       }
 
 
-    makeTempId() {
+    makeTempId(len: number) {
         let j = 0;
     this.shuffle(this.letters);
     this.shuffle(this.letters);
 
-    const array = new Uint32Array(10);
+    const array = new Uint32Array(len);
     window.crypto.getRandomValues(array);
     // console.log('"Your lucky numbers:');
     for (let i = 0; i < array.length; i++) {

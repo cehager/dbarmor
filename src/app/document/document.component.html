@@ -1,3 +1,13 @@
 <p>
-  document works!
+ This encryption system is under development. When completed
+ this is the place to keep short stories (think grandpa's fish stories)
+ your blogs (public or private) and various documents. They can be text files, ms-word documents and/or pdfs.
 </p>
+<div class="contact-table ui-md-6 ui-sm-12 ui-g ui-fluid ui-g-nopad">
+  <p-dataTable [value]="documents" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
+    [responsive]="true" (onRowSelect)="onRowSelected($event)" [editable]="false" [rows]="20" [paginator]="true">
+    <p-column field="name" [style]="{'width':'120px'}" header="Name" [editable]="true"></p-column>
+    <p-column field="type" header="Type" [style]="{'width':'120px'}" [editable]="true"></p-column>
+    <p-column field="summary" [style]="{'width':'275px'}" header="Summary" [editable]="true"></p-column>
+  </p-dataTable>
+</div>

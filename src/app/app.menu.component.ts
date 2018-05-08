@@ -17,6 +17,8 @@ export class AppMenuComponent implements OnInit {
 
     constructor(public app: AppComponent) {}
 
+    // {label: 'Alert Me', icon: 'event_available', routerLink: ['/notifications']},
+
     ngOnInit() {
         this.model = [
             {label: 'Home', icon: 'desktop_mac', routerLink: ['']},
@@ -24,11 +26,10 @@ export class AppMenuComponent implements OnInit {
             {label: 'Armored A-mail', icon: 'email', routerLink: ['/messages']},
             {label: 'Armored Chat', icon: 'chat', routerLink: ['/chats']},
             {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
-            {label: 'Memories', icon: 'local_library', routerLink: ['/dailylog']},
-            {label: 'Document Mgr', icon: 'content_copy', routerLink: ['/documents']},
-            {label: 'Alert Me', icon: 'event_available', routerLink: ['/notifications']},
-            {label: 'Albums', icon: 'speaker_notes', routerLink: ['/todos']},
-            {label: 'FaFrOn', icon: 'chat', routerLink: ['/todos']},
+            {label: 'Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
+            {label: 'Shorts, Blogs, Docs', icon: 'content_copy', routerLink: ['/documents']},
+            {label: 'Albums', icon: 'speaker_notes', routerLink: ['/ablums']},
+            {label: 'FaFrOn', icon: 'chat', routerLink: ['/fafron']},
             {
                 label: 'Themes', icon: 'palette',
                 items: [
@@ -50,9 +51,9 @@ export class AppMenuComponent implements OnInit {
                 label: 'Customization', icon: 'settings_application',
                 items: [
                     {label: 'Compact Size', icon: 'fiber_manual_record', command: () => this.app.layoutCompact = true},
-                    {label: 'Material Size', icon: 'fiber_smart_record',  command: () => this.app.layoutCompact = false},
-                    {label: 'Static Menu', icon: 'menu',  command: () => this.app.changeToStaticMenu()},
-                    {label: 'Overlay Menu', icon: 'exit_to_app',  command: () => this.app.changeToOverlayMenu()},
+                    {label: 'Large Size', icon: 'fiber_smart_record',  command: () => this.app.layoutCompact = false},
+                    {label: 'Vertical Menu', icon: 'menu',  command: () => this.app.changeToStaticMenu()},
+                    {label: 'Slide Out Menu', icon: 'exit_to_app',  command: () => this.app.changeToOverlayMenu()},
                     {label: 'Slim Menu', icon: 'more_vert',  command: () => this.app.changeToSlimMenu()},
                     {label: 'Horizontal Menu', icon: 'border_horizontal',  command: () => this.app.changeToHorizontalMenu()},
                     {label: 'Light Menu', icon: 'label_outline',  command: () => this.app.darkMenu = false},
