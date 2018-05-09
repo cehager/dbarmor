@@ -290,8 +290,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
             }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
                 () => {
                     console.log('before do re-get userid is: ', this.userId);
-                    this.appRepository.doGet(this.appRepository.getApiBasePath() + 'dex/dailylog/l1/getbyuserid/keep/'
-                    //this.appRepository.doGet('https://4226-25056.el-alt.com/dex/hypertext/l1/getbytouserid/keep/'
+                    this.appRepository.doGet(this.appRepository.getApiBasePath() + 'dailylog/l1/getbyuserid/keep/'
                      + this.userId)  // updates the email inbox list
                         .subscribe((data: DailyLog[] ) => {
                             this.dailyLogs = data;

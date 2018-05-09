@@ -58,6 +58,7 @@ export class EditorComponent implements OnInit {
       placeholderText: 'Privatize yourself, start typing here...',
       saveInterval: 0,
       pastePlain: false,
+      htmlExecuteScripts: false,
       pasteAllowLocalImages: true,
       pasteDeniedTags: [],
       pasteDeniedAttrs: [],

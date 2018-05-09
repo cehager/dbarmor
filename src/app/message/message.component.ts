@@ -74,6 +74,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         placeholderText: 'PRIVATIZE yourself, start typing here...',
         saveInterval: 0,
         pastePlain: true,
+        htmlExecuteScripts: false,
         enter: $.FroalaEditor.ENTER_BR,
         codeBeautifierOptions: {
             end_with_newline: true,
@@ -176,6 +177,12 @@ export class MessageComponent implements OnInit, AfterViewInit {
               this.doEncrypt();
           }
       });
+
+    //   this.ed.froalaEditor({
+    //     width: '490',
+    //     height: '350'
+    //   });
+
 
       // this.appRepository.doGet().subscribe( (data: MessageDto[]) => {
       //     this.appRepository.messages = data;

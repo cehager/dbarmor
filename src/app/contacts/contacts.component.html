@@ -78,7 +78,7 @@
       </div>
       <div class="ui-md-4 ui-sm-12">
           <span class="md-inputfield">
-            <input type="text" pInputText formControlName="postalcode" />
+            <input type="text" pInputText formControlName="postalCode" />
             <label>Postal Code</label>
           </span>
         </div>
@@ -106,7 +106,7 @@
     <button class="save-btn" type="submit" style="margin-top:20px" label="Submit" pButton></button>
   </p-panel>
   <div class="contact-table ui-md-7 ui-sm-12 ui-g ui-fluid ui-g-nopad">
-    <p-dataTable [value]="contacts" selectionMode="multiple"  [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
+    <p-dataTable [value]="contacts" selectionMode="single"  [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
       [responsive]="true" (onRowSelect)="onRowSelected($event)" [editable]="true" [rows]="20" [paginator]="true">
       <p-column field="userName" [style]="{'width':'200px'}" header="Name" [editable]="true"  sortable="true"></p-column>
       <p-column field="amailAddr" header="ARMORED A-Mail Address" [style]="{'width':'255px'}" [editable]="true" sortable="true"></p-column>

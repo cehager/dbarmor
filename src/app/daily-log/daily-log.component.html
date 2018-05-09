@@ -34,7 +34,7 @@
     </p-panel>
   </div>
   <div class="ui-md-6 ui-sm-12 ui-fluid">
-    <p-dataTable [value]="dailyLogs" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
+    <p-dataTable [value]="dailyLogs" selectionMode="single" [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
       [responsive]="true" (onRowSelect)="onRowSelected($event)" [editable]="true" [rows]="20" [paginator]="true">
       <p-column field="logDate" [style]="{'width':'175px'}" header="Date" [editable]="true"></p-column>
       <p-column field="summary" header="Summary"></p-column>
