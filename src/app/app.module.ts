@@ -86,7 +86,7 @@ import {SelectButtonModule} from 'primeng/primeng';
 // import {SlideMenuModule} from 'primeng/primeng';
 import {SliderModule} from 'primeng/primeng';
 import {SpinnerModule} from 'primeng/primeng';
-// import {SplitButtonModule} from 'primeng/primeng';
+import {SplitButtonModule} from 'primeng/primeng';
 import {StepsModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 // import {TabMenuModule} from 'primeng/primeng';
@@ -151,6 +151,7 @@ import { FafronComponent } from './fafron/fafron.component';
     MenuModule,
     ScrollPanelModule,
     ButtonModule,
+    SplitButtonModule,
     BrowserModule,
     BrowserAnimationsModule,
     PasswordModule,

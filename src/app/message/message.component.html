@@ -2,7 +2,7 @@
   <div class="ui-md-6 ui-sm-12 ui-fluid">
     <p-panel class="ui-md-12">
       <p-header>
-        <span>Secure Editor</span>
+            <span>ARMORED Secure Editor:</span>
       </p-header>
       <br>
       <span class="ui-float-label">
@@ -24,8 +24,11 @@
       <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
       <!-- <div [froalaView]="editorContent"></div> -->
       <p-footer>
-        <button type="button" class="btn btn-success" (click)="doEncrypt()">Send Encrypted Message</button>
-        <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt Message</button>
+        <!-- <button type="button" class="btn btn-success" (click)="doEncrypt()">Send Encrypted Message</button> -->
+        <!-- <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt Message</button> -->
+        <p-splitButton styleClass="ui-button-success" label="Send Encrypted Message" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
+        <p-splitButton styleClass="ui-button-danger" label="Decrypt Message" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton>
+
         <!-- <button type="button" class="btn btn-success" [disabled]="!appRepository.isText" (click)="doEncrypt()">Encrypt</button>
         <button type="button" class="btn btn-danger" [disabled]="appRepository.isText" (click)="doDecrypt()">Decrypt</button> -->
         <!-- <button pButton type="button" class="ui-button-success" (click)="doEncrypt()">Encrypt</button>

@@ -19,7 +19,7 @@ import { AppRepositoryService, MessageDto } from '../services/apprepository.serv
 // import {AppRepositoryService, MessageDto} from './services/app-repository.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {MessageService} from 'primeng/components/common/messageservice';
-import {Message} from 'primeng/primeng';
+import {Message, MenuItem} from 'primeng/primeng';
 import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
 import { AlertifyService } from '../services/alertify.service';
@@ -34,6 +34,7 @@ declare var $: any;
 export class MessageComponent implements OnInit, AfterViewInit {
 
     // msgGrowls: Message[] = [];
+    items: MenuItem[];
 
   messages: MessageDto[];
     rowsSelected: Array<MessageDto>;
@@ -45,13 +46,15 @@ export class MessageComponent implements OnInit, AfterViewInit {
     emailFrom: string;
     emailFromUserId: string;
     emailToUserId: string;
+    emailId: string;
     toUserId: string;
-
+    isMsgText: boolean;
     lastRowSelected: any;
     apiPath: string;
     ed: any;
     edContentGet: string;
     delay: number;
+
     // rowSelected: any;
     constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService, private alertify: AlertifyService) {  }
 
@@ -61,7 +64,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         toolbarButtons: ['fontFamily', 'fontSize', 'color', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript',
             'superscript', 'align', 'outdent', 'indent', 'paragraphFormat',
            'insertHR', 'clearFormatting', 'undo', 'redo',  'emoticons', 'print', 'spellChecker',
-            '|', 'alert', 'clear', 'save', 'archive', 'delete' ],
+            '|', 'clear'],
         toolbarButtonsXS: ['bold', 'italic', 'underline', 'strikeThrough',
             'fontSize', 'alert', 'paragraphFormat'],
         toolbarButtonsSM: ['bold', 'italic', 'underline', 'strikeThrough',
@@ -97,57 +100,59 @@ export class MessageComponent implements OnInit, AfterViewInit {
         this.emailSubject = this.rowsSelected[0].subject;
         this.emailFrom = this.rowsSelected[0].from;
         this.lastRowSelected = lastRow;
+        this.emailId = this.rowsSelected[0].emailId;
+        this.isMsgText = false;
+
         // this.toUserId = this.rowsSelected[0].toUserId;
         // this.ed.froalaEditor('edit.off');
         // console.log('messages: ', this.rowsSelected[0].message);
     }
 
   ngOnInit() {
-      $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
-      $.FroalaEditor.RegisterCommand('alert', {
-          title: 'Blackout',
-          focus: false,
-          undo: false,
-          refreshAfterCallback: true,
+    //   $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+    //   $.FroalaEditor.RegisterCommand('alert', {
+    //       title: 'Blackout',
+    //       focus: false,
+    //       undo: false,
+    //       refreshAfterCallback: true,
 
-          callback: function () {
-              alert('This is a future feature that will cause highlighted text to be blacked out!');
-          }
-      });
+    //       callback: function () {
+    //           alert('This is a future feature that will cause highlighted text to be blacked out!');
+    //       }
+    //   });
 
       $.FroalaEditor.DefineIcon('clear', {NAME: 'ban'});
       $.FroalaEditor.RegisterCommand('clear', {
-          title: 'Clear (remove all text)',
+          title: 'Clear (erase and start over)',
           focus: false,
           undo: true,
           refreshAfterCallback: true,
           callback: function () {
               this.html.set('');
-              this.apprepository.isText = true;
+              //this.apprepository.isText = true;
               this.events.focus();
           }
       });
 
-      $.FroalaEditor.DefineIcon('archive', {NAME: 'shield'});
-      $.FroalaEditor.RegisterCommand('archive', {
-          title: 'Save Local',
-          focus: true,
-          undo: true,
-          refreshAfterCallback: true,
-          callback: function () {
-              this.events.focus();
-          }
-      });
+    //   $.FroalaEditor.DefineIcon('archive', {NAME: 'shield'});
+    //   $.FroalaEditor.RegisterCommand('archive', {
+    //       title: 'Save Local',
+    //       focus: true,
+    //       undo: true,
+    //       refreshAfterCallback: true,
+    //       callback: function () {
+    //           this.events.focus();
+    //       }
+    //   });
 
 
-      $.FroalaEditor.DefineIcon('delete', {NAME: 'trash'});
-      $.FroalaEditor.RegisterCommand('delete', {
-          title: 'Delete',
-          undo: true,
-          refreshAfterCallback: true,
-          callback: function () {
-          }
-      });
+    //   $.FroalaEditor.DefineIcon('delete', {NAME: 'trash'});
+    //   $.FroalaEditor.RegisterCommand('delete', {
+    //       title: 'Delete',
+    //       undo: true,
+    //       refreshAfterCallback: true,
+    //       callback: function () { }
+    //   });
 
       // NOTE: needs to be moved to emailRespository.getFor("userid") & returns all encrypted emails.
       // this.appRepository.doGet()
@@ -166,17 +171,50 @@ export class MessageComponent implements OnInit, AfterViewInit {
       // this.delay = 5000;
       // this.msgGrowls.push({severity: 'success', summary: 'In-Box Messages', detail: 'Click on message to view in editor.'});
 
-      this.ed.on('froalaEditor.save.before', (e, editor) => {
-          alert('Text has been encrypted and saved.');
-      });
+    //   this.ed.on('froalaEditor.commands.after', (e, editor, cmd, param1, param2) => {
+    //       alert('Text has been encrypted and saved.');
+    //   });
 
       // this.ed.clear();
-      this.ed.on('froalaEditor.commands.before', (e, editor, cmd, param1, param2) => {
+      this.ed.on('froalaEditor.commands.after', (e, editor, cmd, param1, param2) => {
           console.log('command is: ', cmd);
-          if (cmd === 'archive') {
+          if (cmd === 'save') {
               this.doEncrypt();
+              //this.alertify.success('Message has been saved!');
+            //   this.emailTo = '';
+            //   this.emailSubject = '';
+            //   this.editorContent = '';
+          }
+          if (cmd === 'clear') {
+              this.isMsgText = true;
+              this.emailTo = '';
+              this.emailSubject = '';
           }
       });
+
+
+      this.items = [
+        {label: 'Create New Message', icon: 'fa-refresh', command: () => {
+            this.doCreateNewMsg();
+            this.isMsgText = true;
+            //this.alertify.message('Create New Message');
+        }},
+        {label: 'Archive', icon: 'fa-close', command: () => {
+            this.alertify.message('Archive');
+            this.isMsgText = true;
+        }},
+        {label: 'Save Local', icon: 'fa-close', command: () => {
+            this.alertify.message('Save Local');
+            this.isMsgText = true;
+        }},
+        {label: 'Delete', icon: 'fa-close', command: () => {
+            this.alertify.message('delete');
+            this.isMsgText = true;
+        }}
+        ];
+
+        this.isMsgText = true;
+        this.emailTo = '';
 
     //   this.ed.froalaEditor({
     //     width: '490',
@@ -190,17 +228,36 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   }
 
-    ngAfterViewInit() {
+
+//   doDeleteInMem(to: string, subject: string, edContent: string) {
+//     to = '';
+//     subject = '';
+//     edContent = '';
+// }
+
+  ngAfterViewInit() {
         // this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/do';
          // this.appRepository.doGet('http://localhost:5445/dex/hypertext/l1/getbytouserid/keep/'
          // + this.appRepository.activeUserId) // updates the email inbox list
-         this.appRepository.doGet('https://4226-25056.el-alt.com/dex/hypertext/l1/getbytouserid/keep/'
+         this.appRepository.doGet(this.appRepository.getApiBasePath() + 'hypertext/l1/getbytouserid/keep/'
                 + this.appRepository.activeUserId) // updates the email inbox list
             .subscribe((data: MessageDto[] ) => {
                 this.appRepository.messages = data;
                 this.messages = this.appRepository.messages;
+                this.isMsgText = true;
+
                 console.log('ngAfterViewInit fired : ', this.messages);
             });
+
+
+            // this.ed.on('froalaEditor.commands.after', function (e, editor, cmd, param1, param2) {
+            //     console.log('editor command is: ', cmd);
+            //     if (cmd === 'clear') {
+            //         this.emailTo = '';
+            //         this.emailSubject = '';
+            //     }
+
+            //   });
 
          // this.appRepository.doGet().subscribe( (data: MessageDto[]) => {
          //     this.appRepository.messages = data;
@@ -216,15 +273,30 @@ export class MessageComponent implements OnInit, AfterViewInit {
       console.log('row values are: ', newRowValues);
     }
 
+    doCreateNewMsg() {
+        this.editorContent = '';
+        this.emailSubject = '';
+        this.emailTo = '';
+    }
 
     doEncrypt() {
+        let isformvalid: boolean;
+        isformvalid = true;
+        //TODO: need validation that emailto exists
+        //console.log('emailto value is: ', this.emailTo);
+        if (this.emailTo === 'undefined' || this.emailTo === '') {
+            this.alertify.error('EmailTo field: must have a value.');
+            isformvalid = false;
+        }
         let rmsg = this.ed.froalaEditor(this.edContentGet);
         console.log('editor content is: ', rmsg);
         rmsg = rmsg.replace(/&nbsp;/gi, '');
         rmsg = rmsg.trim();
         if (rmsg.length === 0) {
-            return;
+            this.alertify.error('Message must contain at least one character.');
+            isformvalid = false;
         }
+
 
         console.log('editor content is: ', rmsg);
         // if (this.ed.froalaEditor('charCounter.count') < 1) {
@@ -232,6 +304,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         //         + '<br><br>Message must be at least 20 characters in length. This will go away with automatic padding.';
         //     return;
         // }
+        if (isformvalid) {
         this.appRepository.messageDto.to = this.emailTo;
         this.appRepository.messageDto.from = this.appRepository.activeUserLoginName;  // this.emailFrom;
         this.appRepository.messageDto.messageId = 'mid';
@@ -247,15 +320,19 @@ export class MessageComponent implements OnInit, AfterViewInit {
         this.appRepository.doEncrypt(rmsg, this.apiPath)
             .subscribe((data: MessageDto) => {
                 //this.editorContent = data.message; // updates secure editor
-                this.appRepository.isText = false;
+               // this.appRepository.isText = false;
                 this.editorContent = '';
                 this.emailTo = '';
                 this.emailSubject = '';
+                this.isMsgText = true;
                 this.alertify.success('ARMORED A-Mail Sent Successfully!');
+                //this.ed.froalaEditor('events.focus');
+                //this.ed.focus();
                 //this.appRepository.messageDto.messageId = data.messageId;
                // this.ed.froalaEditor('edit.off');
             }, () => { this.editorContent = 'Not authorized to encrypt text, please login first.';
                           this.appRepository.isText = true;
+                          this.isMsgText = true;
                           this.alertify.error('ARMORED A-Mail failed...try again.');
                         });
                 // () => {
@@ -268,7 +345,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
                 //         }, (error) => { console.log('doGet failed', error); });
                 // });
 
-
+        }
     }
 
     doDecrypt() {
@@ -289,6 +366,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
                 this.emailFrom = data.from;
                 this.emailFromUserId = data.from;
                 this.emailFrom = data.fromUserId;
+                this.isMsgText = true;
 
                 this.appRepository.isText = true;
             }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
@@ -305,6 +383,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
                         }, (error) => {
                             this.appRepository.messages = [];
                             this.messages = []; // this.appRepository.messages;
+                            this.isMsgText = false;
                             console.log('doGet failed', error);
                         });
                 });

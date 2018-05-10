@@ -25,6 +25,7 @@ export interface MessageDto {
   userLoginName: string;
   toUserId: string;
   fromUserId: string;
+  emailId: string;
 }
 
 @Injectable()
@@ -86,7 +87,8 @@ export class AppRepositoryService {
       userName: '',
       userLoginName: '',
       toUserId: '',
-      fromUserId: ''
+      fromUserId: '',
+      emailId: ''
     };
   }
 
@@ -470,19 +472,27 @@ export class AppRepositoryService {
 
   }
 
-
-  doEncryptDailyLog(dl: DailyLog, apiPath: string): Observable<any> {
+  setHttpHeaders(): Headers {
     const header = new Headers({ 'Content-type': 'application/json' });
     header.append('Authorization', 'Bearer ' + this.userToken);
     header.append('Access-Control-Allow-Origin', '*');
+    return header;
+  }
 
+
+  doEncryptDailyLog(dl: DailyLog, apiPath: string): Observable<any> {
+    // const header = new Headers({ 'Content-type': 'application/json' });
+    // header.append('Authorization', 'Bearer ' + this.userToken);
+    // header.append('Access-Control-Allow-Origin', '*');
+
+    //const header = this.setHttpHeaders();
     const options = new RequestOptions({
-      headers: header,
+      headers: this.setHttpHeaders(),
       withCredentials: false
     });
 
     console.log('Daily log is: ', dl);
-
+    console.log('log header is: ', options.headers);
     return this.http
       .post(apiPath, dl, options)
       .map((response: Response) => {
@@ -493,12 +503,12 @@ export class AppRepositoryService {
 
 
   doDecryptDailyLog(dl: DailyLog, apiPath: string): Observable<any> {
-    const header = new Headers({ 'Content-type': 'application/json' });
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    header.append('Access-Control-Allow-Origin', '*');
+    // const header = new Headers({ 'Content-type': 'application/json' });
+    // header.append('Authorization', 'Bearer ' + this.userToken);
+    // header.append('Access-Control-Allow-Origin', '*');
 
     const options = new RequestOptions({
-      headers: header,
+      headers: this.setHttpHeaders(),
       withCredentials: false
     });
 
@@ -513,12 +523,12 @@ export class AppRepositoryService {
   }
 
   doEncryptDocument(dl: Doc, apiPath: string): Observable<any> {
-    const header = new Headers({ 'Content-type': 'application/json' });
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    header.append('Access-Control-Allow-Origin', '*');
+    // const header = new Headers({ 'Content-type': 'application/json' });
+    // header.append('Authorization', 'Bearer ' + this.userToken);
+    // header.append('Access-Control-Allow-Origin', '*');
 
     const options = new RequestOptions({
-      headers: header,
+      headers: this.setHttpHeaders(),
       withCredentials: false
     });
 
@@ -534,12 +544,12 @@ export class AppRepositoryService {
 
 
   doDecryptDocument(dl: Doc, apiPath: string): Observable<any> {
-    const header = new Headers({ 'Content-type': 'application/json' });
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    header.append('Access-Control-Allow-Origin', '*');
+    // const header = new Headers({ 'Content-type': 'application/json' });
+    // header.append('Authorization', 'Bearer ' + this.userToken);
+    // header.append('Access-Control-Allow-Origin', '*');
 
     const options = new RequestOptions({
-      headers: header,
+      headers: this.setHttpHeaders(),
       withCredentials: false
     });
 
@@ -556,8 +566,8 @@ export class AppRepositoryService {
 
 
   getApiBasePath(): string {
-    return  'https://4226-25056.el-alt.com/dex/';
-    //return  'http://localhost:5445/dex/';
+    //return  'https://4226-25056.el-alt.com/dex/';
+    return  'http://localhost:5445/dex/';
   }
 
 }
