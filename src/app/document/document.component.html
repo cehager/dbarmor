@@ -1,13 +1,44 @@
-<p>
- This encryption system is under development. When completed
- this is the place to keep short stories (think grandpa's fish stories)
- your blogs (public or private) and various documents. They can be text files, ms-word documents and/or pdfs.
-</p>
-<div class="contact-table ui-md-6 ui-sm-12 ui-g ui-fluid ui-g-nopad">
-  <p-dataTable [value]="documents" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
+<div class="ui-g">
+  <div class="ui-md-6 ui-sm-12 ui-fluid">
+    <p-panel class="ui-md-12">
+      <p-header>
+        <span>Secure Memories Editor</span>
+      </p-header>
+      <br>
+      <span class="ui-float-label ui-md-6">
+        <input id="float-input" type="text" pInputText required [(ngModel)]='contentType'>
+        <label for="float-input">Document Type:</label>
+        <!-- <div [hidden]="to.valid || to.pristine" class="alert alert-danger">
+      Invalid email address
+  </div> -->
+      </span>
+      <br>
+      <span class="ui-float-label">
+        <input id="float-input2" type="text" pInputText required [(ngModel)]='desc'>
+        <label for="float-input2">Summary/Description:</label>
+        <!-- <div [hidden]="subject.valid || subject.pristine" class="alert alert-danger">
+      A subject is required.
+  </div>  -->
+      </span>
+      <br>
+      <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+      <!-- <div [froalaView]="editorContent"></div> -->
+      <p-footer>
+        <button type="button" class="btn btn-success" (click)="doEncrypt()">Encrypt</button>
+        <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt</button>
+        <!-- <button type="button" class="btn btn-success" [disabled]="!appRepository.isText" (click)="doEncrypt()">Encrypt</button>
+        <button type="button" class="btn btn-danger" [disabled]="appRepository.isText" (click)="doDecrypt()">Decrypt</button> -->
+        <!-- <button pButton type="button" class="ui-button-success" (click)="doEncrypt()">Encrypt</button>
+          <button pButton type="button" class="ui-button-danger" (click)="doDecrypt()">Decrypt</button> -->
+      </p-footer>
+    </p-panel>
+  </div>
+<div class="document-table ui-md-6 ui-sm-12 ui-g ui-fluid ui-g-nopad">
+  <p-dataTable [value]="docs" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
     [responsive]="true" (onRowSelect)="onRowSelected($event)" [editable]="false" [rows]="20" [paginator]="true">
-    <p-column field="name" [style]="{'width':'120px'}" header="Name" [editable]="true"></p-column>
-    <p-column field="type" header="Type" [style]="{'width':'120px'}" [editable]="true"></p-column>
-    <p-column field="summary" [style]="{'width':'275px'}" header="Summary" [editable]="true"></p-column>
+    <p-column field="desc" [style]="{'width':'120px'}" header="Description" [editable]="true"></p-column>
+    <p-column field="contentType" header="Type" [style]="{'width':'120px'}" [editable]="true"></p-column>
+    <p-column field="content" [style]="{'width':'275px'}" header="Text" [editable]="true"></p-column>
   </p-dataTable>
+</div>
 </div>

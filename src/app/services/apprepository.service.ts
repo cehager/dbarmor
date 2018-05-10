@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { User } from './models/User';
 import { Contact } from './models/contact';
 import { DailyLog } from './models/daily-log';
+import { Doc } from './models/document';
 // import {ContentType} from '@angular/http/src/enums';
 
 export interface MessageDto {
@@ -416,10 +417,14 @@ export class AppRepositoryService {
       .catch(this.handleError);
   }
 
-  getDocuments(): Observable<Document[]> {
+  getDocuments(): Observable<Doc[]> {
     return this.http
-      .get(this.getApiBasePath() + 'hypertext/l1/documents/' + this.activeUserId, this.jwt())
-      .map(response => <Document[]>response.json())
+      .get(this.getApiBasePath() + 'docs/l1/getdocbyuserid/keep/' + this.activeUserId, this.jwt())
+      .map((response: Response) => {
+        const r = <Doc[]>response.json();
+        console.log('document respone', r);
+        return r;
+      })
       .catch(this.handleError);
   }
 
@@ -506,6 +511,49 @@ export class AppRepositoryService {
         return dl;
       }).catch(this.handleError);
   }
+
+  doEncryptDocument(dl: Doc, apiPath: string): Observable<any> {
+    const header = new Headers({ 'Content-type': 'application/json' });
+    header.append('Authorization', 'Bearer ' + this.userToken);
+    header.append('Access-Control-Allow-Origin', '*');
+
+    const options = new RequestOptions({
+      headers: header,
+      withCredentials: false
+    });
+
+    console.log('Daily log is: ', dl);
+
+    return this.http
+      .post(apiPath, dl, options)
+      .map((response: Response) => {
+        dl = <Doc>response.json();
+        return dl;
+      }).catch(this.handleError);
+  }
+
+
+  doDecryptDocument(dl: Doc, apiPath: string): Observable<any> {
+    const header = new Headers({ 'Content-type': 'application/json' });
+    header.append('Authorization', 'Bearer ' + this.userToken);
+    header.append('Access-Control-Allow-Origin', '*');
+
+    const options = new RequestOptions({
+      headers: header,
+      withCredentials: false
+    });
+
+    console.log('Daily log is: ', dl);
+
+    return this.http
+      .get(apiPath, options)
+      .map((response: Response) => {
+        dl = <Doc>response.json();
+        return dl;
+      }).catch(this.handleError);
+  }
+
+
 
   getApiBasePath(): string {
     return  'https://4226-25056.el-alt.com/dex/';

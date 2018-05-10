@@ -1,8 +1,9 @@
-export interface Document {
+export interface Doc {
     Id: number;
-    Name: string;
-    Summary: string;
-    Location: string;
-    Type: string;
-    body: string;
+    documentId: string;
+    userId: string;
+    relatedId: string;
+    contentType: string;
+    desc: string;
+    content: string;
 }

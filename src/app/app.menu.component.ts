@@ -27,7 +27,7 @@ export class AppMenuComponent implements OnInit {
             {label: 'Armored Chat', icon: 'chat', routerLink: ['/chats']},
             {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
             {label: 'Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
-            {label: 'Shorts, Blogs, Docs', icon: 'content_copy', routerLink: ['/documents']},
+            {label: 'Shorts, Docs', icon: 'content_copy', routerLink: ['/documents']},
             {label: 'Albums', icon: 'speaker_notes', routerLink: ['/ablums']},
             {label: 'FaFrOn', icon: 'chat', routerLink: ['/fafron']},
             {
