@@ -566,8 +566,8 @@ export class AppRepositoryService {
 
 
   getApiBasePath(): string {
-    return  'https://4226-25056.el-alt.com/dex/';
-    //return  'http://localhost:5445/dex/';
+    //return  'https://4226-25056.el-alt.com/dex/';
+    return  'http://localhost:5445/dex/';
   }
 
 }

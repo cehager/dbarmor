@@ -177,7 +177,7 @@ export class EditorComponent implements OnInit {
       this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/gettrialbymsgid/undo/';
       console.log('messageDto is ', this.appRepository.messageDto);
       this.appRepository.messageDto.message = this.ed.froalaEditor(this.edContentGet);
-      this.appRepository.messageDto.messageId = this.msgId;   // this.appRepository.messageDto.message.substring(0, 20);
+      this.appRepository.messageDto.messageId = this.msgId.trim();   // this.appRepository.messageDto.message.substring(0, 20);
       this.appRepository.doDecrypt(this.appRepository.messageDto.messageId, this.apiPath)
           .subscribe((data: MessageDto) => {
               this.editorContent = data.message;
@@ -199,7 +199,7 @@ export class EditorComponent implements OnInit {
 
     diaClose() {
         // this.makeTempId();
-        this.appRepository.tempFreeId = this.msgId;
+        this.appRepository.tempFreeId = this.msgId.trim();
         this.doDecrypt();
         this.decrypt = false;
         this.tempMsgId = '';
