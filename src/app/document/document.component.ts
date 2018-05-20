@@ -2,10 +2,11 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { AppRepositoryService} from '../services/apprepository.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {MessageService} from 'primeng/components/common/messageservice';
-import {Message} from 'primeng/primeng';
+import {Message, MenuItem} from 'primeng/primeng';
 import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
 import { Doc } from '../services/models/document';
+import { AlertifyService } from '../services/alertify.service';
 declare var $: any;
 
 @Component({
@@ -16,6 +17,7 @@ declare var $: any;
 export class DocumentComponent implements OnInit, AfterViewInit {
 
   docs: Doc[];
+  items: MenuItem[];
   doc: Doc;
   rowsSelected: Array<Doc>;
   editorContent: string;
@@ -24,17 +26,21 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   docContents: string;
   //message: string;
   userId: string;
+  Id: number;
+  documentId: string;
+  relatedId: string;
   lid: number;
   //logId: string;
   //currentDailyLog: any;
-
+  currentDoc: any;
   lastRowSelected: any;
   apiPath: string;
   ed: any;
   edContentGet: string;
   delay: number;
+  isMsgText: boolean;
   // rowSelected: any;
-  constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService) {  }
+  constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService, private alertify: AlertifyService) {  }
 
   options: Object = {
       key: 'WC7A5D4A4fG3A7A7C7A3B3C2G3C2F2ybeiB-11gdB-7A3c1jd==',
@@ -52,7 +58,7 @@ export class DocumentComponent implements OnInit, AfterViewInit {
       quickInsertButtons: ['image', 'table'],
       height: 328,
       fontSizeDefaultSelection: '14',
-      placeholderText: 'PRIVATIZE your memories, start typing here...',
+      placeholderText: 'PRIVATIZE your life, start typing here...',
       saveInterval: 0,
       pastePlain: true,
       enter: $.FroalaEditor.ENTER_BR,
@@ -72,26 +78,16 @@ export class DocumentComponent implements OnInit, AfterViewInit {
     this.editorContent = event.data.content;
     this.contentType = event.data.contentType;
     this.desc = event.data.desc;
-    this.doc.Id = event.data.id;
-    this.doc.documentId = event.data.documentId;
-    this.doc.content = event.data.content;
-    this.doc.contentType = event.data.contentType;
-    this.doc.desc = event.data.desc;
-    this.doc.relatedId = event.data.relatedId;
-    this.doc.userId = event.data.userid;
-    console.log('on row selected is: ', this.doc);
+    this.Id = event.data.id;
+    this.documentId = event.data.documentId;
+    this.relatedId = event.data.relatedId;
+    this.userId = event.data.userid;
+    this.isMsgText = false;
+    console.log('row selected values are: ', event.data);
   }
 
 
 ngOnInit() {
-    this.doc.Id = 0;
-    this.doc.documentId = '';
-    this.doc.content = '';
-    this.doc.contentType = '';
-    this.doc.desc = '';
-    this.doc.relatedId = '';
-    this.doc.userId = '';
-
     $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
     $.FroalaEditor.RegisterCommand('alert', {
         title: 'Blackout',
@@ -150,7 +146,7 @@ ngOnInit() {
     this.edContentGet = 'html.get';
     this.ed = $('div#fred');
 
-    this.appRepository.isText = true;
+   // this.appRepository.isText = true;
     // this.messageSvc.add({severity: 'success', summary: 'In-Box Messages', detail: 'Click on message to view in editor.'});
     // this.delay = 5000;
     // this.msgGrowls.push({severity: 'success', summary: 'In-Box Messages', detail: 'Click on message to view in editor.'});
@@ -171,6 +167,28 @@ ngOnInit() {
     //     this.appRepository.messages = data;
     //     this.messages = data; });
 
+    this.items = [
+        {label: 'Create New Document/Story', icon: 'fa-refresh', command: () => {
+            this.doCreateNewDoc();
+            this.isMsgText = true;
+            //this.alertify.message('Create New Message');
+        }},
+        {label: 'Archive', icon: 'fa-close', command: () => {
+            this.alertify.message('Archive');
+            this.isMsgText = true;
+        }},
+        {label: 'Save Local', icon: 'fa-close', command: () => {
+            this.alertify.message('Save Local');
+            this.isMsgText = true;
+        }},
+        {label: 'Delete', icon: 'fa-close', command: () => {
+            this.alertify.message('delete');
+            this.isMsgText = true;
+        }}
+        ];
+
+        this.isMsgText = true;
+        this.currentDoc = new Object();
 }
 
   ngAfterViewInit() {
@@ -190,6 +208,16 @@ ngOnInit() {
        //     this.messages = data; });
       // console.log('ngAfterViewInit fired : ', this.messages);
   }
+
+  doCreateNewDoc() {
+    this.editorContent = '';
+    this.contentType = '';
+    this.desc = '';
+    this.isMsgText = true;
+    this.documentId = '';
+    this.relatedId = '';
+    this.Id = 0;
+}
 
 
   doEditCompleted(editInfo) {
@@ -227,11 +255,27 @@ ngOnInit() {
       // this.currentDailyLog.summary = this.summary;
       // this.currentDailyLog.logId = this.appRepository.makeId(32); //this.logId;
       // console.log('current daily log is: ', this.currentDailyLog);
+      //this.currentDoc = new Object();
+      this.currentDoc.content = rmsg;
+      this.currentDoc.contentType = this.contentType;
+      this.currentDoc.desc = this.desc;
+      this.currentDoc.userId = this.appRepository.activeUserId;
+      this.currentDoc.documentId = this.appRepository.makeId(20);
+      this.currentDoc.relatedId = 'none';
+      this.currentDoc.Id = 0;
+      //this.documentId = this.currentDoc.documentId;
 
-      this.appRepository.doEncryptDocument(this.doc, this.apiPath)
+      this.appRepository.doEncryptDocument(this.currentDoc, this.apiPath)
           .subscribe((data: Doc) => {
               this.editorContent = data.content; // updates secure editor
-              this.appRepository.isText = false;
+              this.contentType = data.contentType;
+              this.desc = data.desc;
+              this.userId = data.userId;
+              this.documentId = data.documentId;
+              this.relatedId = data.relatedId;
+              this.Id = data.Id;
+              //this.appRepository.isText = false;
+                this.isMsgText = false;
 
               //this.appRepository.messageDto.messageId = data.messageId;
              // this.ed.froalaEditor('edit.off');
@@ -257,22 +301,38 @@ ngOnInit() {
 
   doDecrypt() {
       //this.apiPath = 'https://4226-25056.el-alt.com/dex/dailylog/l1/getbylogid/undo/';
-      this.apiPath = this.appRepository.getApiBasePath() + 'docs/l1/getbydocid/undo/' + this.doc.documentId;
-      console.log('row selected logid is: ', this.doc.documentId);
+      console.log('row selected documentId is: ', this.documentId);
+      this.apiPath = this.appRepository.getApiBasePath() + 'docs/l1/getbydocid/undo/' + this.documentId;
+
+      //this.currentDoc = new Object();
+      this.currentDoc.content = this.editorContent;
+      this.currentDoc.userId = this.appRepository.activeUserId;
+      this.currentDoc.contentType = this.contentType;
+      this.currentDoc.documentId = this.documentId;
+      this.currentDoc.desc = this.desc;
+      this.currentDoc.Id = this.Id;
+      this.currentDoc.relatedId = this.relatedId;
+      console.log('Document before being decrypted is: ', this.currentDoc);
       // this.appRepository.doDecrypt(this.ed.froalaEditor(this.edContentGet), this.apiPath)
-      this.appRepository.doDecryptDocument(this.doc, this.apiPath)
+      this.appRepository.doDecryptDocument(this.currentDoc, this.apiPath)
           .subscribe((data: Doc) => {
               //console.log('last row selected', this.lastRowSelected);
-              console.log('DailyLog back from server is: ', data);
+              console.log('Document back from server is: ', data);
               this.editorContent = data.content; // updates the secure editor
               this.userId = data.userId;
+              this.contentType = data.contentType;
+              this.documentId = '';   //data.documentId;
+              this.desc = data.desc;
+              this.Id = data.Id;
+              this.relatedId = data.relatedId;
+
               //this.logId = data.logId;
               //this.message = data.message;
               //this.summary = data.summary;
               //this.logDate = data.logDate;
               this.lid = data.Id;
-
-              this.appRepository.isText = true;
+              this.isMsgText = true;
+              //this.appRepository.isText = true;
           }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
               () => {
                   console.log('before do re-get userid is: ', this.userId);
@@ -281,7 +341,7 @@ ngOnInit() {
                       .subscribe((data: Doc[] ) => {
                           this.docs = data;
                           //this.messages = data; // this.appRepository.messages;
-                          console.log('content of returned data is: ', data);
+                          console.log('content for list from server is: ', data);
                           //console.log('touserid is: ', this.emailToUserId);
 
                       }, (error) => {

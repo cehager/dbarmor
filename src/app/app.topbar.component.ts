@@ -27,12 +27,12 @@ import { AlertifyService } from './services/alertify.service';
 
                         <a href="#" (click)="app.onTopbarItemClick($event,profile)">
                             <img class="profile-image" src="favicon.ico" />
-                            <span class="topbar-item-name">Username</span>
+                            <span class="topbar-item-name">Logout</span>
                         </a>
 
                         <ul class="ultima-menu animated fadeInDown">
                             <li role="menuitem">
-                                <a (click)="getActiveUserName()">
+                                <a (mouseover)="getActiveUserName()">
                                 <i class="material-icons">person</i>
                                 <span>{{ userName }}</span>
                             </a>
@@ -178,7 +178,7 @@ export class AppTopbarComponent {
     constructor(private appService: AppRepositoryService, public app: AppComponent,
          private alertify: AlertifyService, private router: Router) {
          this.show = true;
-         this.userName = 'Not logged in.';
+         this.userName = 'dbArmor';
         }
 
 
@@ -190,6 +190,7 @@ export class AppTopbarComponent {
           }
 
           getActiveUserName() {
+              console.log('login name is: ', this.appService.activeUserLoginName);
             this.userName = this.appService.activeUserLoginName;
             //console.log('active user name: ' + this.userName);
           }

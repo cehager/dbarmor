@@ -1,5 +1,6 @@
 import {Component, AfterViewInit, ElementRef, Renderer, ViewChild, OnDestroy, OnInit, NgZone} from '@angular/core';
 import { ScrollPanel} from 'primeng/primeng';
+import { AppRepositoryService } from './services/apprepository.service';
 
 enum MenuOrientation {
     STATIC,
@@ -238,7 +239,6 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
     onTopbarItemClick(event, item) {
         this.topbarItemClick = true;
-
         if (this.activeTopbarItem === item) {
             this.activeTopbarItem = null; } else {
             this.activeTopbarItem = item; }

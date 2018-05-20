@@ -3,10 +3,11 @@ import { AppRepositoryService} from '../services/apprepository.service';
 // import {AppRepositoryService, MessageDto} from './services/app-repository.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {MessageService} from 'primeng/components/common/messageservice';
-import {Message} from 'primeng/primeng';
+import {Message, MenuItem} from 'primeng/primeng';
 import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
 import {DailyLog} from '../services/models/daily-log'; //interface definition
+import { AlertifyService } from '../services/alertify.service';
 declare var $: any;
 
 @Component({
@@ -16,6 +17,7 @@ declare var $: any;
 })
 export class DailyLogComponent implements OnInit, AfterViewInit {
     dailyLogs: DailyLog[];
+    items: MenuItem[];
     rowsSelected: Array<DailyLog>;
     editorContent: string;
     logDate: string;
@@ -31,8 +33,9 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
     ed: any;
     edContentGet: string;
     delay: number;
+    isMsgText: boolean;
     // rowSelected: any;
-    constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService) {  }
+    constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService, private alertify: AlertifyService) {  }
 
     options: Object = {
         key: 'WC7A5D4A4fG3A7A7C7A3B3C2G3C2F2ybeiB-11gdB-7A3c1jd==',
@@ -78,6 +81,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
         this.userId = event.data.userId;
         this.message = event.data.message;
         this.editorContent = event.data.message;
+        this.isMsgText = false;
         console.log('on row selected is: ', this.currentDailyLog);
     }
 
@@ -184,6 +188,29 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
       //     this.appRepository.messages = data;
       //     this.messages = data; });
 
+      this.items = [
+        {label: 'Create New Log/Diary Entry', icon: 'fa-refresh', command: () => {
+            this.doCreateNewLogEntry();
+            this.isMsgText = true;
+            //this.alertify.message('Create New Message');
+        }},
+        {label: 'Archive', icon: 'fa-close', command: () => {
+            this.alertify.message('Archive');
+            this.isMsgText = true;
+        }},
+        {label: 'Save Local', icon: 'fa-close', command: () => {
+            this.alertify.message('Save Local');
+            this.isMsgText = true;
+        }},
+        {label: 'Delete', icon: 'fa-close', command: () => {
+            this.alertify.message('delete');
+            this.isMsgText = true;
+        }}
+        ];
+
+        this.isMsgText = true;
+
+
   }
 
     ngAfterViewInit() {
@@ -210,6 +237,13 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
       const newRowValues = editInfo.data;
       console.log('field changed is: ', fieldChanged);
       console.log('row values are: ', newRowValues);
+    }
+
+    doCreateNewLogEntry() {
+        this.editorContent = '';
+        this.logDate = '';
+        this.summary = '';
+        this.isMsgText = true;
     }
 
     doEncrypt() {
@@ -244,7 +278,8 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
         this.appRepository.doEncryptDailyLog(this.currentDailyLog, this.apiPath)
             .subscribe((data: DailyLog) => {
                 this.editorContent = data.message; // updates secure editor
-                this.appRepository.isText = false;
+                this.isMsgText = false;
+                //this.appRepository.isText = true;
 
                 //this.appRepository.messageDto.messageId = data.messageId;
                // this.ed.froalaEditor('edit.off');
@@ -279,6 +314,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
                 console.log('last row selected', this.lastRowSelected);
                 console.log('DailyLog back from server is: ', data);
                 this.editorContent = data.message; // updates the secure editor
+                this.isMsgText = true;
                 this.userId = data.userId;
                 this.logId = data.logId;
                 this.message = data.message;
@@ -286,7 +322,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
                 this.logDate = data.logDate;
                 this.lid = data.Id;
 
-                this.appRepository.isText = true;
+                //this.appRepository.isText = true;
             }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
                 () => {
                     console.log('before do re-get userid is: ', this.userId);

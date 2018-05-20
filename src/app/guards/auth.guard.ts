@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('user token is: ', this.appsvc.userToken);
+    //console.log('user token is: ', this.appsvc.userToken);
    if (!!this.appsvc.userToken) {
       return true;
    }

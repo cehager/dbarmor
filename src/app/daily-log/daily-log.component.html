@@ -24,8 +24,12 @@
       <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
       <!-- <div [froalaView]="editorContent"></div> -->
       <p-footer>
-        <button type="button" class="btn btn-success" (click)="doEncrypt()">Encrypt</button>
-        <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt</button>
+        <p-splitButton styleClass="ui-button-success" label="Encrypt" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
+        <p-splitButton styleClass="ui-button-danger" label="Decrypt" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton>
+
+     
+        <!-- <button type="button" class="btn btn-success" (click)="doEncrypt()">Encrypt</button>
+        <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt</button> -->
         <!-- <button type="button" class="btn btn-success" [disabled]="!appRepository.isText" (click)="doEncrypt()">Encrypt</button>
         <button type="button" class="btn btn-danger" [disabled]="appRepository.isText" (click)="doDecrypt()">Decrypt</button> -->
         <!-- <button pButton type="button" class="ui-button-success" (click)="doEncrypt()">Encrypt</button>

@@ -177,7 +177,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
       // this.ed.clear();
       this.ed.on('froalaEditor.commands.after', (e, editor, cmd, param1, param2) => {
-          console.log('command is: ', cmd);
+          //console.log('command is: ', cmd);
           if (cmd === 'save') {
               this.doEncrypt();
               //this.alertify.success('Message has been saved!');
@@ -246,7 +246,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
                 this.messages = this.appRepository.messages;
                 this.isMsgText = true;
 
-                console.log('ngAfterViewInit fired : ', this.messages);
+                //console.log('ngAfterViewInit fired : ', this.messages);
             });
 
 
@@ -269,8 +269,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
     doEditCompleted(editInfo) {
       const fieldChanged = editInfo.column.field;
       const newRowValues = editInfo.data;
-      console.log('field changed is: ', fieldChanged);
-      console.log('row values are: ', newRowValues);
+      //console.log('field changed is: ', fieldChanged);
+      //console.log('row values are: ', newRowValues);
     }
 
     doCreateNewMsg() {
@@ -289,7 +289,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
             isformvalid = false;
         }
         let rmsg = this.ed.froalaEditor(this.edContentGet);
-        console.log('editor content is: ', rmsg);
+       // console.log('editor content is: ', rmsg);
         rmsg = rmsg.replace(/&nbsp;/gi, '');
         rmsg = rmsg.trim();
         if (rmsg.length === 0) {
@@ -298,7 +298,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         }
 
 
-        console.log('editor content is: ', rmsg);
+        //console.log('editor content is: ', rmsg);
         // if (this.ed.froalaEditor('charCounter.count') < 1) {
         //     this.editorContent = this.editorContent
         //         + '<br><br>Message must be at least 20 characters in length. This will go away with automatic padding.';
@@ -312,7 +312,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         // this.appRepository.messageDto.deleteAfter = new Date().toDateString();
         this.appRepository.messageDto.userId = this.appRepository.activeUserId;
         this.appRepository.messageDto.fromUserId = this.appRepository.activeUserId;
-        console.log('email subject content is: ', this.emailSubject);
+       // console.log('email subject content is: ', this.emailSubject);
         this.appRepository.messageDto.subject = this.emailSubject;
 
         this.apiPath = this.appRepository.getApiBasePath() + 'hypertext/l1/do';
@@ -351,12 +351,12 @@ export class MessageComponent implements OnInit, AfterViewInit {
     doDecrypt() {
         this.apiPath = this.appRepository.getApiBasePath() + 'hypertext/l1/getbymsgid/undo/';
         //this.apiPath = 'http://localhost:5445/dex/hypertext/l1/getbymsgid/undo/';
-        console.log('row selected msgid is: ', this.emailMsgId);
+        //console.log('row selected msgid is: ', this.emailMsgId);
         // this.appRepository.doDecrypt(this.ed.froalaEditor(this.edContentGet), this.apiPath)
         this.appRepository.doDecrypt(this.emailMsgId, this.apiPath)
             .subscribe((data: MessageDto) => {
-                console.log('last row selected', this.lastRowSelected);
-                console.log('MessageDto back from server is: ', data);
+                //console.log('last row selected', this.lastRowSelected);
+               // console.log('MessageDto back from server is: ', data);
                 this.editorContent = data.message; // updates the secure editor
                 this.emailUser = data.userId;
                 this.emailMsgId = data.messageId;
@@ -371,20 +371,20 @@ export class MessageComponent implements OnInit, AfterViewInit {
                 this.appRepository.isText = true;
             }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
                 () => {
-                    console.log('before get touserid is: ', this.emailToUserId);
+                    //.log('before get touserid is: ', this.emailToUserId);
                     this.appRepository.doGet(this.appRepository.getApiBasePath() + 'hypertext/l1/getbytouserid/keep/'
                      + this.emailToUserId)  // updates the email inbox list
                         .subscribe((data: MessageDto[] ) => {
                             this.appRepository.messages = data;
                             this.messages = data; // this.appRepository.messages;
-                            console.log('content of messages is: ', this.messages);
-                            console.log('touserid is: ', this.emailToUserId);
+                            //console.log('content of messages is: ', this.messages);
+                            //console.log('touserid is: ', this.emailToUserId);
 
                         }, (error) => {
                             this.appRepository.messages = [];
                             this.messages = []; // this.appRepository.messages;
                             this.isMsgText = false;
-                            console.log('doGet failed', error);
+                           // console.log('doGet failed', error);
                         });
                 });
     }

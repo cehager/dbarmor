@@ -121,11 +121,11 @@ export class AppRepositoryService {
     while (cnum < 97) {
       cnum = cnum + 25;
     }
-    console.log('bnum: ' + bnum + '   anum: ' + anum + '  cnum: ' + cnum);
+    //console.log('bnum: ' + bnum + '   anum: ' + anum + '  cnum: ' + cnum);
 
     const ucode = '\uff47';
-    console.log('char: ' + 'this is a test'.charCodeAt(1));
-    console.log('char: ' + ucode.charAt(0));
+    //console.log('char: ' + 'this is a test'.charCodeAt(1));
+    //console.log('char: ' + ucode.charAt(0));
 
     // console.log('anum: ' + anum );
     // console.log('cnum: ' + cnum );
@@ -153,14 +153,14 @@ export class AppRepositoryService {
     this.getPath = this.getApiBasePath() + 'hypertext/l1/getbymsgid/keep/' +
       msg.substring(0, 20);
 
-    console.log('repos doIOF url: ', this.getPath);
+    //console.log('repos doIOF url: ', this.getPath);
     // console.log('message is: ', msg);
     this.http.get(this.getPath, options).subscribe((response: Response) => {
-      console.log('response is: ', response);
+      //console.log('response is: ', response);
       const r = response.json();
       if (r === 1) {
         this.isText = false;
-        console.log('istext value is: ', this.isText);
+        //console.log('istext value is: ', this.isText);
       } else {
         this.isText = true;
       }
@@ -192,10 +192,10 @@ export class AppRepositoryService {
     // this.getPath = this.apiRoot + '/getbyuserid/keep/' + this.activeUserId;
     // this.messageDto.userId; // + msg.substring(0, 10);
     // apiPath = apiPath + this.activeUserId;
-    console.log('api url: ', apiPath);
-    console.log('user token via doGet() : ', this.userToken);
+    //console.log('api url: ', apiPath);
+    //console.log('user token via doGet() : ', this.userToken);
     return this.http.get(apiPath, options).map((response: Response) => {
-      console.log('response is: ', response.json());
+      //console.log('response is: ', response.json());
       return response.json();
     });
   }
@@ -218,7 +218,7 @@ export class AppRepositoryService {
     this.getPath = apiPath + msg; // .substring(0, 20);
     // this.getPath = this.apiRoot + '/getbymsgid/undo/' + msg.substring(0, 10);
 
-    console.log('api url: ', this.getPath);
+    //console.log('api url: ', this.getPath);
     return this.http.get(this.getPath, options).map((response: Response) => {
       // const data = response.json();
       this.messageDto = response.json();
@@ -255,7 +255,7 @@ export class AppRepositoryService {
     // this.messageDto.createdOn = new Date().toDateString();
     // const dhold = new Date();
     // this.messageDto.deleteAfter = dhold.setDate(dhold.getDate() + 15).toString();
-    console.log('messageDTO is: ', this.messageDto);
+    //console.log('messageDTO is: ', this.messageDto);
 
     // ****************************************************************************************
     // this.getPath = 'http://localhost:5445/dex/hypertext/l1/do';
@@ -287,7 +287,7 @@ export class AppRepositoryService {
       .post(this.apiRoot + '/auth/login', model, options)
       .map((response: Response) => {
         const r = response.json();
-        console.log('login response: ' + r.tokenString);
+        console.log('login response: ', r.tokenString);
         // if (r.pwd !== '') {
         if (r) {
           // localStorage.setItem('token', r.pwd);
@@ -380,14 +380,14 @@ export class AppRepositoryService {
     const header = new Headers();
     header.append('Access-Control-Allow-Origin', '*');
     header.append('Authorization', 'Bearer ' + this.userToken);
-    console.log('user token: ' + this.userToken);
+    //console.log('user token: ' + this.userToken);
 
     const options = new RequestOptions({
       headers: header,
       withCredentials: false
     });
 
-    console.log('in postcontacts: ', model);
+    //console.log('in postcontacts: ', model);
     return this.http
       .post(this.getApiBasePath() + 'admin/l1/contact/do', model, options)
       .catch(this.handleError);
@@ -397,7 +397,7 @@ export class AppRepositoryService {
     const header = new Headers();
     header.append('Access-Control-Allow-Origin', '*');
     header.append('Authorization', 'Bearer ' + this.userToken);
-    console.log('user token: ' + this.userToken);
+    //console.log('user token: ' + this.userToken);
 
     const options = new RequestOptions({
       headers: header,
@@ -424,7 +424,7 @@ export class AppRepositoryService {
       .get(this.getApiBasePath() + 'docs/l1/getdocbyuserid/keep/' + this.activeUserId, this.jwt())
       .map((response: Response) => {
         const r = <Doc[]>response.json();
-        console.log('document respone', r);
+        //console.log('document respone', r);
         return r;
       })
       .catch(this.handleError);
@@ -465,7 +465,7 @@ export class AppRepositoryService {
   for (let i = 0; i < array.length; i++) {
     j = array[i] % 82;
     this.tid[i] = this.letters[j];
-    console.log(this.tid[i]);
+    //console.log(this.tid[i]);
   }
 
   return this.tid.join('');
@@ -491,8 +491,8 @@ export class AppRepositoryService {
       withCredentials: false
     });
 
-    console.log('Daily log is: ', dl);
-    console.log('log header is: ', options.headers);
+    //console.log('Daily log is: ', dl);
+    //console.log('log header is: ', options.headers);
     return this.http
       .post(apiPath, dl, options)
       .map((response: Response) => {
@@ -512,7 +512,7 @@ export class AppRepositoryService {
       withCredentials: false
     });
 
-    console.log('Daily log is: ', dl);
+   // console.log('Daily log is: ', dl);
 
     return this.http
       .get(apiPath, options)
@@ -532,7 +532,7 @@ export class AppRepositoryService {
       withCredentials: false
     });
 
-    console.log('Daily log is: ', dl);
+    //console.log('Daily log is: ', dl);
 
     return this.http
       .post(apiPath, dl, options)
@@ -553,7 +553,7 @@ export class AppRepositoryService {
       withCredentials: false
     });
 
-    console.log('Daily log is: ', dl);
+    //console.log('Daily log is: ', dl);
 
     return this.http
       .get(apiPath, options)

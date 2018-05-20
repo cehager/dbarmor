@@ -42,6 +42,7 @@ export class NavComponent implements OnInit {
 
     this.appService.onLogin(this.model).subscribe(data => {
       // console.log('logged in successful');
+      this.appService.activeUserLoginName = this.model.userLoginName;
       this.alertify.success('Login successful, welcome to dbArmor, enjoy!');
       // this.isUserLoggedIn = true;
     }, error => {

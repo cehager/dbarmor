@@ -26,10 +26,10 @@ export class AppMenuComponent implements OnInit {
             {label: 'Armored A-mail', icon: 'email', routerLink: ['/messages']},
             {label: 'Armored Chat', icon: 'chat', routerLink: ['/chats']},
             {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
-            {label: 'Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
-            {label: 'Shorts, Docs', icon: 'content_copy', routerLink: ['/documents']},
-            {label: 'Albums', icon: 'speaker_notes', routerLink: ['/ablums']},
-            {label: 'FaFrOn', icon: 'chat', routerLink: ['/fafron']},
+            {label: 'Captain\'s Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
+            {label: 'Short Stories & Docs', icon: 'content_copy', routerLink: ['/documents']},
+            {label: 'Photo Library', icon: 'photo_library', routerLink: ['/ablums']},
+            {label: 'FF Connect', icon: 'cast_connected', routerLink: ['/fafron']},
             {
                 label: 'Themes', icon: 'palette',
                 items: [
