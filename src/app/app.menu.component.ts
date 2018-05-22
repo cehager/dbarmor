@@ -26,10 +26,11 @@ export class AppMenuComponent implements OnInit {
             {label: 'Armored A-mail', icon: 'email', routerLink: ['/messages']},
             {label: 'Armored Chat', icon: 'chat', routerLink: ['/chats']},
             {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
-            {label: 'Captain\'s Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
+            {label: 'My Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
             {label: 'Short Stories & Docs', icon: 'content_copy', routerLink: ['/documents']},
             {label: 'Photo Library', icon: 'photo_library', routerLink: ['/ablums']},
             {label: 'FF Connect', icon: 'cast_connected', routerLink: ['/fafron']},
+            {label: 'Armored Financial Data', icon: 'attach_money', routerLink: ['/financials']},
             {
                 label: 'Themes', icon: 'palette',
                 items: [

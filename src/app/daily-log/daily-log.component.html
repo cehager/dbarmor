@@ -2,20 +2,21 @@
   <div class="ui-md-6 ui-sm-12 ui-fluid">
     <p-panel class="ui-md-12">
       <p-header>
-        <span>Secure Memories Editor</span>
+        <span>Secure Daily Log Editor</span>
       </p-header>
       <br>
-      <span class="ui-float-label ui-md-6">
-        <input id="float-input" type="text" pInputText required [(ngModel)]='logDate'>
+      <span class="ui-float-label ui-md-4">
+        <p-calendar [(ngModel)]="logDate" [showIcon]="true" [showTime]="false" [hourFormat]="12" [showButtonBar]="true" required></p-calendar>
         <label for="float-input">On this date:</label>
         <!-- <div [hidden]="to.valid || to.pristine" class="alert alert-danger">
-      Invalid email address
-  </div> -->
+            Invalid email address
+        </div> -->
       </span>
+      <!-- <span class="ui-md-3  ui-fluid"><p-calendar [(ngModel)]="logDate" [inline]="true"></p-calendar></span>  -->
       <br>
       <span class="ui-float-label">
         <input id="float-input2" type="text" pInputText required [(ngModel)]='summary'>
-        <label for="float-input2">Summary/Description:</label>
+        <label for="float-input2">Short note (optional):</label>
         <!-- <div [hidden]="subject.valid || subject.pristine" class="alert alert-danger">
       A subject is required.
   </div>  -->

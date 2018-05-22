@@ -27,6 +27,8 @@ constructor(private alertify: AlertifyService, private fb: FormBuilder,
     this.registerForm = this.fb.group({
       userLoginName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       pwd: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      cpwd: [''],
+      mobilephone: [''],
       userName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
       nickName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       amailAddr: ['', [Validators.minLength(3), Validators.maxLength(40)]],

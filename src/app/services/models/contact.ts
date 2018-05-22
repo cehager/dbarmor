@@ -2,8 +2,8 @@ export interface Contact {
     Id: number;
     userId: string;
     userName: string;
-    eMailAddr?: string;
-    aMailAddr: string;
+    emailAddr?: string;
+    amailAddr: string;
     age?: number;
     gender?: string;
     occupation?: string;

@@ -31,7 +31,7 @@ import {AppTopbarComponent} from './app.topbar.component';
 
 
 // import {AccordionModule} from 'primeng/primeng'; // in use
-import {AutoCompleteModule} from 'primeng/primeng';
+import {AutoCompleteModule, CalendarModule} from 'primeng/primeng';
 // import {BreadcrumbModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng'; // in use
 // import {CalendarModule} from 'primeng/primeng';
@@ -111,6 +111,7 @@ import { RegisternaComponent } from './registerna/registerna.component';
 import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.component';
 import { AblumsComponent } from './ablums/ablums.component';
 import { FafronComponent } from './fafron/fafron.component';
+import { FinancialsComponent } from './financials/financials.component';
 
 // import {TreeModule} from 'primeng/primeng';
 // import {TreeTableModule} from 'primeng/primeng';
@@ -144,17 +145,20 @@ import { FafronComponent } from './fafron/fafron.component';
     RegisternaComponent,
     EditorFroalaComponent,
     AblumsComponent,
-    FafronComponent
+    FafronComponent,
+    FinancialsComponent
 ],
   imports: [
     SharedModule,
     MenuModule,
     ScrollPanelModule,
+    AutoCompleteModule,
     ButtonModule,
     SplitButtonModule,
     BrowserModule,
     BrowserAnimationsModule,
     PasswordModule,
+    CalendarModule,
     CardModule,
     CheckboxModule,
     DataTableModule,

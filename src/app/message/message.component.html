@@ -2,24 +2,30 @@
   <div class="ui-md-6 ui-sm-12 ui-fluid">
     <p-panel class="ui-md-12">
       <p-header>
-            <span>ARMORED Secure Editor:</span>
+            <span>ARMORED A-Mail Editor:</span>
       </p-header>
-      <br>
-      <span class="ui-float-label">
+        <!-- <label>Send Armored Mail To:</label> -->
+        <br>
+          <p-autoComplete [(ngModel)]="emailTo" [suggestions]="autoCompleteContacts" (completeMethod)="getFilteredContacts($event)" [size]="30"
+          [dropdown]="true" [minLength]="1" placeholder="Send Armored Mail To:"></p-autoComplete>
+
+      <!-- <span class="ui-float-label">
         <input id="float-input" type="text" pInputText size=53 required [(ngModel)]="emailTo">
         <label for="float-input">Send Encrypted Message To:</label>
-        <!-- <div [hidden]="to.valid || to.pristine" class="alert alert-danger">
-      Invalid email address
-  </div> -->
-      </span>
+      </span> -->
       <br>
-      <span class="ui-float-label">
+      <br>
+      <!-- <label>Subject:</label> -->
+      <input type="text" pInputText [size]="53" placeholder="Subject" [(ngModel)]="emailSubject" >
+
+      <!-- <span class="ui-float-label">
         <input id="float-input2" type="text" pInputText size=53 required [(ngModel)]="emailSubject" >
-        <label for="float-input2">Subject:</label>
+        <label for="float-input2">Subject:</label> -->
         <!-- <div [hidden]="subject.valid || subject.pristine" class="alert alert-danger">
       A subject is required.
   </div>  -->
-      </span>
+      <!-- </span> -->
+      <br>
       <br>
       <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
       <!-- <div [froalaView]="editorContent"></div> -->

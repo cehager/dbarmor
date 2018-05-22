@@ -40,23 +40,34 @@
     <div class="ui-g ui-fluid ui-md-9 ui-sm-12">
       <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
         <input type="text" pInputText formControlName="userLoginName">
-        <label>Create your ARMORED login ID</label>
+        <label>Create your dbARMOR login **</label>
       </div>
       <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
         <input type="password" pPassword formControlName="pwd">
         <label>Password</label>
       </div>
       <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+        <input type="password" pPassword formControlName="cpwd">
+        <label>Please confirm password</label>
+      </div>
+      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
         <input type="text" pInputText formControlName="userName">
-        <label>Your Legal name</label>
+        <label>Your name</label>
       </div>
       <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
         <input type="text" pInputText formControlName="amailAddr">
-        <label>Create your ARMORED A-MAIL ID</label>
+        <label>Create your dbARMOR A-MAIL ID ***</label>
       </div>
       <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
         <input type="text" pInputText formControlName="emailAddr">
-        <label>Your current (unsecure) Email</label>
+        <label>Your current Email (for sending confirmation code)</label>
+      </div>
+      <div class="md-inputfield ui-md-12 ui-sm-12 input-fld">
+        <span>Following is optional:</span>
+      </div>
+      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="mobilephone">
+        <label>Your mobile phone (for your notifications only)</label>
       </div>
       <div class="md-inputfield ui-md-1 ui-sm-12 input-fld">
         <input type="number" pInputText formControlName="age">
@@ -66,25 +77,34 @@
         <input type="text" pInputText formControlName="gender">
         <label>Gender</label>
       </div>
-      <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld">
-        <input type="text" pInputText formControlName="country">
-        <label>Country</label>
-      </div>
-      <div class="md-inputfield ui-md-5 ui-sm-12 input-fld">
+      <div class="md-inputfield ui-md-3 ui-sm-12 input-fld">
         <input type="text" pInputText formControlName="city">
         <label>City</label>
       </div>
-      <div class="md-inputfield  ui-md-5 ui-sm-12 input-fld">
+      <div class="md-inputfield  ui-md-3 ui-sm-12 input-fld">
+        <input type="text" pInputText formControlName="country">
+        <label>Country</label>
+      </div>
+      <div class="md-inputfield  ui-md-3 ui-sm-12 input-fld">
         <input type="text" pInputText formControlName="occupation">
         <label>Occupation</label>
       </div>
   </div>
-  <div class="header ui-md-5">
+  <br>
+  <div class="ui-md-5 ui-sm-12">
+    ** If you forget your dbARMOR login ID, we do<b>NOT</b> have any way to help you, <b>your data will be lost.</b>
+    <!-- There is an encrypted link from your login information to your data. Without your login ID and password we cannot decrypt the link. -->
+  </div>
+  <br>
+  <div class="ui-md-5 ui-sm-12">
+    *** A separate A-Mail address is available to prevent/eliminate spam and attacks from the outside/unsecure world!
+  </div>
+  <div class="ui-md-5">
       <button pButton type="submit" label="Register" style="margin-top:10px" class="blue-grey-btn"></button>
       <div class="early-version-notice">
         <h4>This is a pre-alpha version for testing purposes only! We are happy to have you as a tester.
           Do NOT add valuable data yet. Everything is subject to change and data could be lost due to potential anomalies.
-           If you <b>lose your login or password</b> there isn't anyway for us to help you. Your data will be lost.</h4>
+           If you <b>forget your login ID</b> there isn't anyway for us to help you. Your data will be lost.</h4>
       </div>
       <button pButton type="button" (click)="cancel()" label="Cancel" style="margin-top:10px" class="red-btn"></button>
     </div>

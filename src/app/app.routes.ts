@@ -15,6 +15,7 @@ import { TodosComponent } from './todos/todos.component';
 import { RegisternaComponent } from './registerna/registerna.component';
 import { AblumsComponent } from './ablums/ablums.component';
 import { FafronComponent } from './fafron/fafron.component';
+import { FinancialsComponent } from './financials/financials.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -27,6 +28,7 @@ export const routes: Routes = [
     {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
     {path: 'ablums', component: AblumsComponent, canActivate: [AuthGuard]},
     {path: 'fafron', component: FafronComponent, canActivate: [AuthGuard]},
+    {path: 'financials', component: FinancialsComponent, canActivate: [AuthGuard]},
     {path: 'register', component: RegisterComponent},
     {path: 'registerna', component: RegisternaComponent},
     {path: '', component: HomeComponent},

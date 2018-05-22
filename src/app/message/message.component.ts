@@ -23,6 +23,7 @@ import {Message, MenuItem} from 'primeng/primeng';
 import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
 import { AlertifyService } from '../services/alertify.service';
+import { Contact } from '../services/models/contact';
 
 declare var $: any;
 
@@ -35,7 +36,9 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
     // msgGrowls: Message[] = [];
     items: MenuItem[];
-
+    autoCompleteContacts: string[] = [];
+    autoCompleteContact: string;
+    activeUserContacts: Contact[];
   messages: MessageDto[];
     rowsSelected: Array<MessageDto>;
     editorContent: string;
@@ -225,7 +228,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
       // this.appRepository.doGet().subscribe( (data: MessageDto[]) => {
       //     this.appRepository.messages = data;
       //     this.messages = data; });
-
+     this.doGetContacts();
   }
 
 
@@ -279,6 +282,46 @@ export class MessageComponent implements OnInit, AfterViewInit {
         this.emailTo = '';
     }
 
+    doGetContacts() {
+        this.appRepository.getContacts().subscribe((contacts: Contact[]) => {
+            this.activeUserContacts = contacts;
+            //for (let i = 0; i < contacts.length; i++) {
+              //  this.autoCompleteContacts[i] = contacts[i].amailAddr;
+           // }
+            //console.log('active user contacts: ', this.activeUserContacts);
+          }, error => {
+            console.log(error);
+            //this.alertify.error(error);
+          });
+    }
+
+    getFilteredContacts(event) {
+        let query = event.query;
+        //if (this.autoCompleteContacts.length === this.activeUserContacts.length) {
+            for (let i = 0; i < this.activeUserContacts.length; i++) {
+                this.autoCompleteContacts[i] = this.activeUserContacts[i].amailAddr;
+            }
+        //}
+        //console.log('before autocomplete contacts are: ', this.autoCompleteContacts);
+        this.autoCompleteContacts = this.filterContacts(query, this.autoCompleteContacts);
+        //console.log('after autocomplete contacts are: ', this.autoCompleteContacts);
+    }
+
+    filterContacts(query, contacts: string[]): string[] {
+        let filtered: string[] = [];
+        for (let i = 0; i < contacts.length; i++) {
+            let contact = contacts[i];
+            if (contact.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                filtered.push(contact);
+                //console.log('query is: ', query);
+               //console.log('contact is: ', contact);
+               // console.log('amailaddr is: ', contact);
+                }
+        }
+        //console.log('filtered value is: ', filtered);
+        return filtered;
+    }
+
     doEncrypt() {
         let isformvalid: boolean;
         isformvalid = true;
@@ -305,6 +348,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
         //     return;
         // }
         if (isformvalid) {
+        //console.log('emailTo value is: ', this.emailTo);
+
         this.appRepository.messageDto.to = this.emailTo;
         this.appRepository.messageDto.from = this.appRepository.activeUserLoginName;  // this.emailFrom;
         this.appRepository.messageDto.messageId = 'mid';
@@ -315,6 +360,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
        // console.log('email subject content is: ', this.emailSubject);
         this.appRepository.messageDto.subject = this.emailSubject;
 
+        //console.log('form values are: ', this.appRepository.messageDto);
         this.apiPath = this.appRepository.getApiBasePath() + 'hypertext/l1/do';
         //this.apiPath = 'http://localhost:5445/dex/hypertext/l1/do';
         this.appRepository.doEncrypt(rmsg, this.apiPath)
