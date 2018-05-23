@@ -23,14 +23,20 @@ export class AppMenuComponent implements OnInit {
         this.model = [
             {label: 'Home', icon: 'desktop_mac', routerLink: ['']},
             {label: 'Free Armor', icon: 'input', routerLink: ['/editor']},
-            {label: 'Armored A-mail', icon: 'email', routerLink: ['/messages']},
-            {label: 'Armored Chat', icon: 'chat', routerLink: ['/chats']},
+            {label: 'Armored A-Mail', icon: 'email', routerLink: ['/messages']},
             {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
             {label: 'My Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
-            {label: 'Short Stories & Docs', icon: 'content_copy', routerLink: ['/documents']},
+            {label: 'Stories & Docs', icon: 'content_copy', routerLink: ['/documents']},
             {label: 'Photo Library', icon: 'photo_library', routerLink: ['/ablums']},
             {label: 'FF Connect', icon: 'cast_connected', routerLink: ['/fafron']},
-            {label: 'Armored Financial Data', icon: 'attach_money', routerLink: ['/financials']},
+            {label: 'Finances', icon: 'account_balance', routerLink: ['/financials']
+                // items: [
+                //   {label: 'Credit Cards', icon: 'cast_connected', routerLink: ['/financials']},
+                //   {label: 'Bank Accounts', icon: 'cast_connected', routerLink: ['/financials']},
+                //   {label: 'Investments', icon: 'cast_connected', routerLink: ['/financials']},
+                //   {label: 'Expenses', icon: 'cast_connected', routerLink: ['/financials']},
+                // ]
+            },
             {
                 label: 'Themes', icon: 'palette',
                 items: [
@@ -49,7 +55,7 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'Customization', icon: 'settings_application',
+                label: 'Custom', icon: 'settings_application',
                 items: [
                     {label: 'Compact Size', icon: 'fiber_manual_record', command: () => this.app.layoutCompact = true},
                     {label: 'Large Size', icon: 'fiber_smart_record',  command: () => this.app.layoutCompact = false},
