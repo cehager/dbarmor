@@ -8,6 +8,8 @@ import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
 import {DailyLog} from '../services/models/daily-log'; //interface definition
 import { AlertifyService } from '../services/alertify.service';
+import * as moment from 'moment';
+
 declare var $: any;
 
 @Component({
@@ -27,7 +29,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
     lid: number;
     logId: string;
     currentDailyLog: any;
-
+    rating: number;
     lastRowSelected: any;
     apiPath: string;
     ed: any;
@@ -71,18 +73,27 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
 
     onRowSelected(event) {
         this.currentDailyLog.logId = event.data.logId;
-        this.currentDailyLog.logDate = event.data.logDate;
+        //this.currentDailyLog.logDate = event.data.logDate;
+        this.currentDailyLog.logDate = moment(event.data.logDate).format('MM/DD/YYYY');
         this.currentDailyLog.summary = event.data.summary;
         this.currentDailyLog.userId = event.data.userId;
         this.currentDailyLog.message = event.data.message;
+        this.currentDailyLog.rating = event.data.rating;
         this.logId = event.data.logId;
-        this.logDate = event.data.logDate;
+        console.log('event data logdate is: ', event.data.logDate);
+        this.logDate = moment(event.data.logDate).format('MM/DD/YYYY');
+        //let ld = moment(event.data.logDate);
+        //this.logDate = ld.format('MM/DD/YYYY');   //event.data.logDate;
+        //console.log('log date is: ', ld);
+        console.log('log date is: ', this.logDate);
         this.summary = event.data.summary;
         this.userId = event.data.userId;
         this.message = event.data.message;
+        this.rating = event.data.rating;
         this.editorContent = event.data.message;
         this.isMsgText = false;
-        console.log('on row selected is: ', this.currentDailyLog);
+        this.ed.froalaEditor('edit.off');
+        //console.log('on row selected is: ', this.currentDailyLog);
     }
 
     // onRowSelected(lastRow) {
@@ -102,12 +113,6 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
   ngOnInit() {
       this.lid = 0;
       this.currentDailyLog = new Object();
-      //this.currentDailyLog.recId = 0;
-    //   this.currentDailyLog.logDate = '';
-    //   this.currentDailyLog.logId = '';
-    //   this.currentDailyLog.message = '';
-    //   this.currentDailyLog.summary = '';
-    //   this.currentDailyLog.userId = '';
 
       $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
       $.FroalaEditor.RegisterCommand('alert', {
@@ -129,7 +134,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
           refreshAfterCallback: true,
           callback: function () {
               this.html.set('');
-              this.apprepository.isText = true;
+              //this.apprepository.isText = true;
               this.events.focus();
           }
       });
@@ -155,38 +160,19 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
           }
       });
 
-      // NOTE: needs to be moved to emailRespository.getFor("userid") & returns all encrypted emails.
-      // this.appRepository.doGet()
-      //     .subscribe((data: MessageDto[] ) => {
-      //       this.appRepository.messages = data;
-      //       this.messages = this.appRepository.messages;
-      //
-      //       // console.log('content of messages is: ', this.messages);
-      //     }, (error) => { console.log('doGet failed', error); });
-
       this.edContentGet = 'html.get';
       this.ed = $('div#fred');
-
-      this.appRepository.isText = true;
-      // this.messageSvc.add({severity: 'success', summary: 'In-Box Messages', detail: 'Click on message to view in editor.'});
-      // this.delay = 5000;
-      // this.msgGrowls.push({severity: 'success', summary: 'In-Box Messages', detail: 'Click on message to view in editor.'});
 
       this.ed.on('froalaEditor.save.before', (e, editor) => {
           alert('Text has been encrypted and saved.');
       });
 
-      // this.ed.clear();
-      this.ed.on('froalaEditor.commands.before', (e, editor, cmd, param1, param2) => {
+      this.ed.on('froalaEditor.commands.before', (e, editor, cmd) => {
           console.log('command is: ', cmd);
           if (cmd === 'archive') {
               this.doEncrypt();
           }
       });
-
-      // this.appRepository.doGet().subscribe( (data: MessageDto[]) => {
-      //     this.appRepository.messages = data;
-      //     this.messages = data; });
 
       this.items = [
         {label: 'Create New Log/Diary Entry', icon: 'fa-refresh', command: () => {
@@ -208,9 +194,25 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
         }}
         ];
 
+        this.ed.on('froalaEditor.commands.after', (e, editor, cmd, param1, param2) => {
+            //console.log('command is: ', cmd);
+            if (cmd === 'save') {
+                this.doEncrypt();
+                //this.alertify.success('Message has been saved!');
+            }
+        });
+
+        this.ed.on('froalaEditor.commands.after', (e, editor, cmd, param1, param2) => {
+            console.log('command is: ', cmd);
+            if (cmd === 'clear') {
+                this.isMsgText = true;
+            }
+        });
+
+        this.rating = 4;
+
         this.isMsgText = true;
-
-
+        this.ed.froalaEditor('edit.on');
   }
 
     ngAfterViewInit() {
@@ -222,6 +224,9 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
             .subscribe((data: DailyLog[] ) => {
                 //this.appRepository.messages = data;
                 this.dailyLogs = data; // this.appRepository.messages;
+                for (let i = 0; i < this.dailyLogs.length; i++) {
+                    this.dailyLogs[i].logDate = moment(this.dailyLogs[i].logDate).format('MM/DD/YYYY');
+                }
                 console.log('ngAfterViewInit fired : ', this.dailyLogs);
             });
 
@@ -232,28 +237,41 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
     }
 
 
-    doEditCompleted(editInfo) {
-      const fieldChanged = editInfo.column.field;
-      const newRowValues = editInfo.data;
-      console.log('field changed is: ', fieldChanged);
-      console.log('row values are: ', newRowValues);
-    }
+    // doEditCompleted(editInfo) {
+    //   const fieldChanged = editInfo.column.field;
+    //   const newRowValues = editInfo.data;
+    //   console.log('field changed is: ', fieldChanged);
+    //   console.log('row values are: ', newRowValues);
+    // }
 
     doCreateNewLogEntry() {
         this.editorContent = '';
-        this.logDate = '';
-        this.summary = '';
+        //this.logDate = new Date().toLocaleDateString();
+        this.summary = ''; // moment().dayOfYear().toString();
         this.isMsgText = true;
+        this.rating = 4;
+        this.ed.froalaEditor('edit.on');
     }
+
+
 
     doEncrypt() {
         let rmsg = this.ed.froalaEditor(this.edContentGet);
-        console.log('editor content is: ', rmsg);
+        //console.log('editor content is: ', rmsg);
         rmsg = rmsg.replace(/&nbsp;/gi, '');
         rmsg = rmsg.trim();
         if (rmsg.length === 0) {
+            //console.log('editor content is: ', rmsg);
+            this.alertify.dialog('Got It!', '<h3>There is nothing to encrypt!<h3>');
             return;
         }
+        console.log('log date on encrypting is: ', this.logDate);
+         let m = moment(this.logDate);
+         if (!m.isValid() || this.logDate === 'undefined' || this.logDate === null) {
+            this.alertify.dialog('Got It!', 'Please enter a valid date. (Today\'s date has been inserted for your convenience).');
+            this.logDate = moment().format('MM/DD/YYYY');
+            return;
+         }
 
         this.apiPath = this.appRepository.getApiBasePath() + 'dailylog/l1/do';
         // if (this.ed.froalaEditor('charCounter.count') < 1) {
@@ -271,6 +289,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
         this.currentDailyLog.userId = this.appRepository.activeUserId; //this.userId;
         this.currentDailyLog.logDate = this.logDate;
         this.currentDailyLog.message = rmsg;
+        this.currentDailyLog.rating = this.rating;
         this.currentDailyLog.summary = this.summary;
         this.currentDailyLog.logId = this.appRepository.makeId(32); //this.logId;
         console.log('current daily log is: ', this.currentDailyLog);
@@ -279,11 +298,12 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
             .subscribe((data: DailyLog) => {
                 this.editorContent = data.message; // updates secure editor
                 this.isMsgText = false;
+                this.ed.froalaEditor('edit.off');
                 //this.appRepository.isText = true;
 
                 //this.appRepository.messageDto.messageId = data.messageId;
                // this.ed.froalaEditor('edit.off');
-            }, () => { this.editorContent = 'Not authorized to encrypt text, please login first.';  this.appRepository.isText = true; },
+            }, () => { this.editorContent = 'Not authorized to encrypt text, please login first.';  this.isMsgText = true; },
             () => {
                 console.log('before do re-get userid is: ', this.userId);
                 this.appRepository.doGet(this.appRepository.getApiBasePath() + 'dailylog/l1/getbyuserid/keep/'
@@ -291,6 +311,9 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
                  + this.appRepository.activeUserId)  // updates the email inbox list
                     .subscribe((data: DailyLog[] ) => {
                         this.dailyLogs = data;
+                        for (let i = 0; i < this.dailyLogs.length; i++) {
+                            this.dailyLogs[i].logDate = moment(this.dailyLogs[i].logDate).format('MM/DD/YYYY');
+                        }
                         //this.messages = data; // this.appRepository.messages;
                         console.log('content of returned data is: ', data);
                         //console.log('touserid is: ', this.emailToUserId);
@@ -315,21 +338,28 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
                 console.log('DailyLog back from server is: ', data);
                 this.editorContent = data.message; // updates the secure editor
                 this.isMsgText = true;
+                this.ed.froalaEditor('edit.on');
                 this.userId = data.userId;
                 this.logId = data.logId;
                 this.message = data.message;
+                this.rating = data.rating;
                 this.summary = data.summary;
-                this.logDate = data.logDate;
+                //this.logDate = data.logDate;
+                // let ld = moment(data.logDate);
+                // this.logDate = ld.format('MM/DD/YYYY');   //event.data.logDate;
+                this.logDate = moment(data.logDate).format('MM/DD/YYYY');   //event.data.logDate;
                 this.lid = data.Id;
-
                 //this.appRepository.isText = true;
-            }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
+            }, () => { this.editorContent = 'No longer available, previously decrypted';  this.isMsgText = true; },
                 () => {
                     console.log('before do re-get userid is: ', this.userId);
                     this.appRepository.doGet(this.appRepository.getApiBasePath() + 'dailylog/l1/getbyuserid/keep/'
                      + this.userId)  // updates the email inbox list
                         .subscribe((data: DailyLog[] ) => {
                             this.dailyLogs = data;
+                            for (let i = 0; i < this.dailyLogs.length; i++) {
+                                this.dailyLogs[i].logDate = moment(this.dailyLogs[i].logDate).format('MM/DD/YYYY');
+                            }
                             //this.messages = data; // this.appRepository.messages;
                             console.log('content of returned data is: ', data);
                             //console.log('touserid is: ', this.emailToUserId);

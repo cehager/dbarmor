@@ -387,7 +387,7 @@ export class AppRepositoryService {
       withCredentials: false
     });
 
-    //console.log('in postcontacts: ', model);
+    console.log('in postcontacts: ', model);
     return this.http
       .post(this.getApiBasePath() + 'admin/l1/contact/do', model, options)
       .catch(this.handleError);
@@ -566,7 +566,7 @@ export class AppRepositoryService {
 
 
   getApiBasePath(): string {
-    return  'https://4226-25056.el-alt.com/dex/';
+    return 'https://4226-25056.el-alt.com/dex/';
     //return  'http://localhost:5445/dex/';
   }
 

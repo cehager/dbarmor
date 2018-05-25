@@ -1,12 +1,14 @@
 <div class="ui-g">
-  <div class="ui-md-6 ui-sm-12 ui-fluid">
-    <p-panel class="ui-md-12">
+  <div class="ui-container ui-md-6 ui-sm-12 ui-fluid">
+    <p-panel class="ui-md-12 ui-g-nopad">
       <p-header>
         <span>Secure Document Editor</span>
       </p-header>
       <br>
       <span class="ui-float-label ui-md-6">
-        <input id="float-input" type="text" pInputText required [(ngModel)]='contentType'>
+        <!-- <input id="float-input" type="text" pInputText required [(ngModel)]='contentType'> -->
+
+        <p-dropdown [options]="docType" [autofocus]="true" [disabled]=!isMsgText [(ngModel)]='contentType'></p-dropdown>
         <label for="float-input">Document Type:</label>
         <!-- <div [hidden]="to.valid || to.pristine" class="alert alert-danger">
       Invalid email address
@@ -14,8 +16,8 @@
       </span>
       <br>
       <span class="ui-float-label">
-        <input id="float-input2" type="text" pInputText required [(ngModel)]='desc'>
-        <label for="float-input2">Summary/Description:</label>
+        <input id="float-input2" type="text" pInputText [disabled]=!isMsgText [(ngModel)]='desc'>
+        <label for="float-input2">Description:</label>
         <!-- <div [hidden]="subject.valid || subject.pristine" class="alert alert-danger">
       A subject is required.
   </div>  -->
@@ -36,12 +38,12 @@
       </p-footer>
     </p-panel>
   </div>
-<div class="document-table ui-md-6 ui-sm-12 ui-g ui-fluid ui-g-nopad">
-  <p-dataTable [value]="docs" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
-    [responsive]="true" (onRowSelect)="onRowSelected($event)" [editable]="false" [rows]="20" [paginator]="true">
-    <p-column field="desc" [style]="{'width':'120px'}" header="Description" [editable]="true"></p-column>
-    <p-column field="contentType" header="Type" [style]="{'width':'120px'}" [editable]="true"></p-column>
-    <p-column field="content" [style]="{'width':'275px'}" header="Text" [editable]="true"></p-column>
+<div class="document-table ui-md-6 ui-sm-12 ui-g ui-fluid">
+  <p-dataTable [value]="docs" selectionMode="single" [(selection)]="rowsSelected" [resizableColumns]="true" [reorderableColumns]="true"
+     [responsive]="true" (onRowSelect)="onRowSelected($event)" [rows]="20" [paginator]="true">
+    <p-column field="contentType" header="Type" [style]="{'width':'140px'}" [sortable]="true" ></p-column>
+    <p-column field="desc" [style]="{'width':'380px'}" header="Description" [sortable]="true" ></p-column>
+    <!-- <p-column field="content" [style]="{'width':'200px'}" header="Text" [editable]="true"></p-column> -->
   </p-dataTable>
 </div>
 </div>

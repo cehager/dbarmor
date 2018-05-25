@@ -39,21 +39,21 @@ contactForm: FormGroup;
 
   createContactForm() {
     this.contactForm = this.fb.group({
-      userName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-      amailAddr: ['', Validators.maxLength(50)],
-      emailAddr: ['', Validators.email],
+      userName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      amailAddr: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      emailAddr: [''],
       mobile: ['', Validators.maxLength(15)],
       phone: ['', Validators.maxLength(15)],
       wPhone: ['', Validators.maxLength(20)],
-      age: ['', [Validators.maxLength(3)]],
-      gender: ['', [Validators.required]],
-      street: ['', [Validators.maxLength(50)]],
-      city: ['', [Validators.maxLength(50)]],
+      age: ['', Validators.maxLength(3)],
+      gender: ['', Validators.maxLength(15)],
+      street: ['', Validators.maxLength(50)],
+      city: ['', Validators.maxLength(6)],
       postalCode: ['', Validators.maxLength(15)],
-      country: ['', [Validators.maxLength(50)]],
-      occupation: ['', [Validators.maxLength(50)]],
-      notes: ['', [Validators.maxLength(500)]],
-      id: [0, [Validators.maxLength(50)]]
+      country: ['', Validators.maxLength(50)],
+      occupation: ['', Validators.maxLength(50)],
+      notes: ['', Validators.maxLength(500)],
+      id: [0, Validators.maxLength(50)]
     });
   }
 
@@ -81,6 +81,8 @@ contactForm: FormGroup;
 
   onRowSelected(event) {
     this.contactForm.patchValue(({
+      id: event.data.id,
+      userId: event.data.userId,
       userName: event.data.userName,
       amailAddr: event.data.amailAddr,
       emailAddr: event.data.emailAddr,
@@ -94,8 +96,7 @@ contactForm: FormGroup;
       postalCode: event.data.postalCode,
       country: event.data.country,
       occupation: event.data.occupation,
-      notes: event.data.notes,
-      id: event.data.id
+      notes: event.data.notes
     }));
 
       //console.log(this.contactForm.get('userName').value);
@@ -109,11 +110,25 @@ contactForm: FormGroup;
   post() {
     // let bnum = Math.random() * (Math.random() * Math.PI) * Math.random() * 10000000;
     // bnum = Math.floor(bnum);
+    if (this.contactForm.invalid) {
+    //console.log('contact form values are: ', this.contactForm);
+    if (this.contactForm.get('userName').invalid) {
+      this.alertify.dialog('Got It!', '<h4>Contact Name field is required.<h4>');
+    }
 
-    this.model = Object.assign({}, this.contactForm.value);
+    if (this.contactForm.get('amailAddr').invalid) {
+      this.alertify.dialog('Got It!', '<h4>ARMORED address field is required.<h4>');
+    }
+
+    this.alertify.error('Contact was not saved.');
+    return;
+  }
+
+  this.model = Object.assign({}, this.contactForm.value);
+  console.log('adding a new contact: ', this.model);
   if (this.contactForm.get('id').value === 0) {
-   //console.log('adding a contact: ', this.contactForm.value);
    this.model.userId = this.appService.activeUserId; //link this contact to current user.
+   this.model.age = 0;
    //console.log(this.model);
    this.appService.postContacts(this.model).subscribe(() => {
     this.contacts.push(this.contactForm.value);

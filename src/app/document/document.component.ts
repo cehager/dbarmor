@@ -5,6 +5,7 @@ import {MessageService} from 'primeng/components/common/messageservice';
 import {Message, MenuItem} from 'primeng/primeng';
 import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
+import {SelectItem} from 'primeng/api';
 import { Doc } from '../services/models/document';
 import { AlertifyService } from '../services/alertify.service';
 declare var $: any;
@@ -19,6 +20,7 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   docs: Doc[];
   items: MenuItem[];
   doc: Doc;
+  docType: SelectItem[];
   rowsSelected: Array<Doc>;
   editorContent: string;
   contentType: string;
@@ -58,7 +60,7 @@ export class DocumentComponent implements OnInit, AfterViewInit {
       quickInsertButtons: ['image', 'table'],
       height: 328,
       fontSizeDefaultSelection: '14',
-      placeholderText: 'PRIVATIZE your life, start typing here...',
+      placeholderText: 'PRIVATIZE your life\'s stories, start typing here...',
       saveInterval: 0,
       pastePlain: true,
       enter: $.FroalaEditor.ENTER_BR,
@@ -83,6 +85,7 @@ export class DocumentComponent implements OnInit, AfterViewInit {
     this.relatedId = event.data.relatedId;
     this.userId = event.data.userid;
     this.isMsgText = false;
+    this.ed.froalaEditor('edit.off');
     console.log('row selected values are: ', event.data);
   }
 
@@ -108,7 +111,7 @@ ngOnInit() {
         refreshAfterCallback: true,
         callback: function () {
             this.html.set('');
-            this.apprepository.isText = true;
+            //this.apprepository.isText = true;
             this.events.focus();
         }
     });
@@ -171,24 +174,45 @@ ngOnInit() {
         {label: 'Create New Document/Story', icon: 'fa-refresh', command: () => {
             this.doCreateNewDoc();
             this.isMsgText = true;
+            this.ed.froalaEditor('edit.on');
             //this.alertify.message('Create New Message');
         }},
         {label: 'Archive', icon: 'fa-close', command: () => {
             this.alertify.message('Archive');
+            this.ed.froalaEditor('edit.on');
             this.isMsgText = true;
         }},
         {label: 'Save Local', icon: 'fa-close', command: () => {
             this.alertify.message('Save Local');
             this.isMsgText = true;
+            this.ed.froalaEditor('edit.on');
         }},
         {label: 'Delete', icon: 'fa-close', command: () => {
             this.alertify.message('delete');
             this.isMsgText = true;
+            this.ed.froalaEditor('edit.on');
         }}
         ];
 
         this.isMsgText = true;
         this.currentDoc = new Object();
+        this.doLoadDocTypes();
+
+
+        this.ed.on('froalaEditor.commands.after', (e, editor, cmd, param1, param2) => {
+            //console.log('command is: ', cmd);
+            if (cmd === 'save') {
+                this.doEncrypt();
+                //this.alertify.success('Message has been saved!');
+              //   this.emailTo = '';
+              //   this.emailSubject = '';
+              //   this.editorContent = '';
+            }
+            if (cmd === 'clear') {
+                this.isMsgText = true;
+                this.ed.froalaEditor('edit.on');
+            }
+        });
 }
 
   ngAfterViewInit() {
@@ -213,10 +237,11 @@ ngOnInit() {
     this.editorContent = '';
     this.contentType = '';
     this.desc = '';
-    this.isMsgText = true;
     this.documentId = '';
     this.relatedId = '';
     this.Id = 0;
+    this.isMsgText = true;
+    this.ed.froalaEditor('edit.on');
 }
 
 
@@ -225,6 +250,19 @@ ngOnInit() {
     const newRowValues = editInfo.data;
     console.log('field changed is: ', fieldChanged);
     console.log('row values are: ', newRowValues);
+  }
+
+  doLoadDocTypes() {
+      this.docType = [];
+      this.docType.push({label: 'Short Story', value: 'Short Story'});
+      this.docType.push({label: 'Story', value: 'Story'});
+      this.docType.push({label: 'Autobiography', value: 'Autobiography'});
+      this.docType.push({label: 'Biography', value: 'Biography'});
+      this.docType.push({label: 'Novel', value: 'Novel'});
+      this.docType.push({label: 'Fiction', value: 'Fiction'});
+      this.docType.push({label: 'Legal Doc', value: 'Legal Doc'});
+      this.docType.push({label: 'Blog', value: 'Blog'});
+      this.docType.push({label: 'Other', value: 'Other'});
   }
 
   doEncrypt() {
@@ -276,6 +314,7 @@ ngOnInit() {
               this.Id = data.Id;
               //this.appRepository.isText = false;
                 this.isMsgText = false;
+                this.ed.froalaEditor('edit.off');
 
               //this.appRepository.messageDto.messageId = data.messageId;
              // this.ed.froalaEditor('edit.off');
@@ -295,6 +334,8 @@ ngOnInit() {
                       this.appRepository.messages = [];
                       this.docs = []; // this.appRepository.messages;
                       console.log('doGet failed', error);
+                      this.isMsgText = true;
+                      this.ed.froalaEditor('edit.on');
                   });
           });
   }
@@ -332,6 +373,7 @@ ngOnInit() {
               //this.logDate = data.logDate;
               this.lid = data.Id;
               this.isMsgText = true;
+              this.ed.froalaEditor('edit.on');
               //this.appRepository.isText = true;
           }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
               () => {
@@ -340,6 +382,8 @@ ngOnInit() {
                    + this.userId)  // updates the email inbox list
                       .subscribe((data: Doc[] ) => {
                           this.docs = data;
+                          this.isMsgText = true;
+                          this.ed.froalaEditor('edit.on');
                           //this.messages = data; // this.appRepository.messages;
                           console.log('content for list from server is: ', data);
                           //console.log('touserid is: ', this.emailToUserId);
@@ -348,6 +392,9 @@ ngOnInit() {
                           this.appRepository.messages = [];
                           this.docs = []; // this.appRepository.messages;
                           console.log('doGet failed', error);
+                          this.isMsgText = true;
+                          this.ed.froalaEditor('edit.on');
+
                       });
               });
   }

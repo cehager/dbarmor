@@ -1,13 +1,13 @@
 <div class="ui-g">
   <div class="ui-md-6 ui-sm-12 ui-fluid">
-    <p-panel class="ui-md-12">
+    <p-panel class="ui-md-12 ui-g-nopad">
       <p-header>
             <span>ARMORED A-Mail Editor:</span>
       </p-header>
         <!-- <label>Send Armored Mail To:</label> -->
         <br>
           <p-autoComplete [(ngModel)]="emailTo" [suggestions]="autoCompleteContacts" (completeMethod)="getFilteredContacts($event)" [size]="30"
-          [dropdown]="true" [minLength]="1" placeholder="Send Armored Mail To:"></p-autoComplete>
+          [dropdown]="true" [minLength]="1"  [disabled]=!isMsgText placeholder="Send Armored Mail To:"></p-autoComplete>
 
       <!-- <span class="ui-float-label">
         <input id="float-input" type="text" pInputText size=53 required [(ngModel)]="emailTo">
@@ -16,7 +16,7 @@
       <br>
       <br>
       <!-- <label>Subject:</label> -->
-      <input type="text" pInputText [size]="53" placeholder="Subject" [(ngModel)]="emailSubject" >
+      <input type="text" pInputText [size]="53" placeholder="Subject"  [disabled]=!isMsgText [(ngModel)]="emailSubject" >
 
       <!-- <span class="ui-float-label">
         <input id="float-input2" type="text" pInputText size=53 required [(ngModel)]="emailSubject" >
@@ -43,11 +43,11 @@
     </p-panel>
   </div>
   <div class="ui-md-6 ui-sm-12 ui-fluid">
-    <p-dataTable [value]="messages" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" (onEditComplete)="doEditCompleted($event)"
-      [responsive]="true" (onRowSelect)="onRowSelected($event)" [editable]="false" [rows]="20" [paginator]="true">
-      <p-column field="subject" [style]="{'width':'275px'}" header="Subject" [editable]="true"></p-column>
-      <p-column field="from" header="From"></p-column>
-      <p-column field="createdOn" [style]="{'width':'120px'}" header="Date" [editable]="true"></p-column>
+    <p-dataTable [value]="messages" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" [reorderableColumns]="true"
+      [responsive]="true" (onRowSelect)="onRowSelected($event)" [rows]="20" [paginator]="true">
+      <p-column field="createdOn" [style]="{'width':'150px'}" header="Date" [sortable]="true"></p-column>
+      <p-column field="from" header="From" [style]="{'width':'120px'}" [sortable]="true"></p-column>
+      <p-column field="subject" [style]="{'width':'265px'}" header="Subject" [sortable]="true" ></p-column>
     </p-dataTable>
   </div>
 </div>

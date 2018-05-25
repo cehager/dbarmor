@@ -26,10 +26,10 @@ export class AppMenuComponent implements OnInit {
             {label: 'Armored A-Mail', icon: 'email', routerLink: ['/messages']},
             {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
             {label: 'My Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
-            {label: 'Stories & Docs', icon: 'content_copy', routerLink: ['/documents']},
+            {label: 'My Stories & Docs', icon: 'content_copy', routerLink: ['/documents']},
             {label: 'Photo Library', icon: 'photo_library', routerLink: ['/ablums']},
-            {label: 'FF Connect', icon: 'cast_connected', routerLink: ['/fafron']},
-            {label: 'Finances', icon: 'account_balance', routerLink: ['/financials']
+           // {label: 'FF Connect', icon: 'cast_connected', routerLink: ['/fafron']},
+            {label: 'Finances', icon: 'account_balance', title: 'Finances', routerLink: ['/financials']
                 // items: [
                 //   {label: 'Credit Cards', icon: 'cast_connected', routerLink: ['/financials']},
                 //   {label: 'Bank Accounts', icon: 'cast_connected', routerLink: ['/financials']},

@@ -31,10 +31,10 @@ import {AppTopbarComponent} from './app.topbar.component';
 
 
 // import {AccordionModule} from 'primeng/primeng'; // in use
-import {AutoCompleteModule, CalendarModule} from 'primeng/primeng';
+import {AutoCompleteModule, Rating} from 'primeng/primeng';
 // import {BreadcrumbModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng'; // in use
-// import {CalendarModule} from 'primeng/primeng';
+ import {CalendarModule} from 'primeng/primeng';
 // import {CarouselModule} from 'primeng/primeng';
 // import {ColorPickerModule} from 'primeng/primeng';
 // import {ChartModule} from 'primeng/primeng';
@@ -79,7 +79,7 @@ import {PasswordModule} from 'primeng/primeng';
 import {PickListModule} from 'primeng/primeng';
 import {ProgressBarModule} from 'primeng/primeng';
 import {RadioButtonModule} from 'primeng/primeng';
-// import {RatingModule} from 'primeng/primeng';
+import {RatingModule} from 'primeng/primeng';
 // import {ScheduleModule} from 'primeng/primeng';
 import {ScrollPanelModule} from 'primeng/scrollpanel'; // in use
 import {SelectButtonModule} from 'primeng/primeng';
@@ -162,11 +162,12 @@ import { FinancialsComponent } from './financials/financials.component';
     CardModule,
     CheckboxModule,
     DataTableModule,
-    TableModule,
     DialogModule,
+    DropdownModule,
     PanelModule,
     PickListModule,
     OrderListModule,
+    RatingModule,
     InputTextModule,
     InputSwitchModule,
     InputMaskModule,

@@ -24,6 +24,7 @@ import {FormControl} from '@angular/forms';
 import {DataTable} from 'primeng/primeng';
 import { AlertifyService } from '../services/alertify.service';
 import { Contact } from '../services/models/contact';
+import * as moment from 'moment';
 
 declare var $: any;
 
@@ -105,6 +106,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         this.lastRowSelected = lastRow;
         this.emailId = this.rowsSelected[0].emailId;
         this.isMsgText = false;
+        this.ed.froalaEditor('edit.off');
 
         // this.toUserId = this.rowsSelected[0].toUserId;
         // this.ed.froalaEditor('edit.off');
@@ -192,6 +194,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
               this.isMsgText = true;
               this.emailTo = '';
               this.emailSubject = '';
+              this.ed.froalaEditor('edit.on');
           }
       });
 
@@ -200,23 +203,28 @@ export class MessageComponent implements OnInit, AfterViewInit {
         {label: 'Create New Message', icon: 'fa-refresh', command: () => {
             this.doCreateNewMsg();
             this.isMsgText = true;
+            this.ed.froalaEditor('edit.on');
             //this.alertify.message('Create New Message');
         }},
         {label: 'Archive', icon: 'fa-close', command: () => {
             this.alertify.message('Archive');
             this.isMsgText = true;
+            this.ed.froalaEditor('edit.on');
         }},
         {label: 'Save Local', icon: 'fa-close', command: () => {
             this.alertify.message('Save Local');
             this.isMsgText = true;
+            this.ed.froalaEditor('edit.on');
         }},
         {label: 'Delete', icon: 'fa-close', command: () => {
             this.alertify.message('delete');
             this.isMsgText = true;
+            this.ed.froalaEditor('edit.on');
         }}
         ];
 
         this.isMsgText = true;
+        this.ed.froalaEditor('edit.on');
         this.emailTo = '';
 
     //   this.ed.froalaEditor({
@@ -246,8 +254,12 @@ export class MessageComponent implements OnInit, AfterViewInit {
                 + this.appRepository.activeUserId) // updates the email inbox list
             .subscribe((data: MessageDto[] ) => {
                 this.appRepository.messages = data;
+                for (let i = 0; i < this.appRepository.messages.length; i++) {
+                    this.appRepository.messages[i].createdOn = moment(this.appRepository.messages[i].createdOn).format('MM/DD/YYYY');
+                }
                 this.messages = this.appRepository.messages;
                 this.isMsgText = true;
+                this.ed.froalaEditor('edit.on');
 
                 //console.log('ngAfterViewInit fired : ', this.messages);
             });
@@ -280,6 +292,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
         this.editorContent = '';
         this.emailSubject = '';
         this.emailTo = '';
+        this.ed.froalaEditor('edit.on');
+        this.isMsgText = true;
     }
 
     doGetContacts() {
@@ -336,10 +350,34 @@ export class MessageComponent implements OnInit, AfterViewInit {
         rmsg = rmsg.replace(/&nbsp;/gi, '');
         rmsg = rmsg.trim();
         if (rmsg.length === 0) {
-            this.alertify.error('Message must contain at least one character.');
+            //this.alertify.error('Message must contain at least one character.');
+            this.alertify.dialog('Got It!', '<h4>There is nothing to send or encrypt!<h4>');
             isformvalid = false;
         }
 
+        if ( this.emailTo === 'undefined' || this.emailTo === null || this.emailTo.length === 0) {
+            this.alertify.dialog('Got It!', '<h4>The mail-To field is empty. You must have a Mail-To address.<h4>');
+        }
+
+        let isFound = false;
+        for (let i = 0; i < this.activeUserContacts.length; i++) {
+            //let contact = this.activeUserContacts[i].amailAddr;
+            if (this.activeUserContacts[i].amailAddr === this.emailTo) {
+                isFound = true;
+                //console.log('query is: ', query);
+                }
+        }
+        //NOTE: if mailto id is not in the contacts list, check the server
+        // if (!isFound) {
+        //         this.appRepository.getContacts().subscribe((contacts: Contact[]) => {
+        //           //console.log(contacts);
+        //         }, error => {
+        //           console.log(error);
+        //           this.alertify.error('The EmailTo Address does NOT exist! Double check spelling.');
+        //           isformvalid = false;
+        //           //this.alertify.error(error);
+        //         });
+        // }
 
         //console.log('editor content is: ', rmsg);
         // if (this.ed.froalaEditor('charCounter.count') < 1) {
@@ -371,6 +409,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
                 this.emailTo = '';
                 this.emailSubject = '';
                 this.isMsgText = true;
+                this.ed.froalaEditor('edit.on');
                 this.alertify.success('ARMORED A-Mail Sent Successfully!');
                 //this.ed.froalaEditor('events.focus');
                 //this.ed.focus();
@@ -415,6 +454,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
                 this.isMsgText = true;
 
                 this.appRepository.isText = true;
+                this.ed.froalaEditor('edit.on');
             }, () => { this.editorContent = 'No longer available, previously decrypted';  this.appRepository.isText = false; },
                 () => {
                     //.log('before get touserid is: ', this.emailToUserId);
@@ -423,6 +463,9 @@ export class MessageComponent implements OnInit, AfterViewInit {
                         .subscribe((data: MessageDto[] ) => {
                             this.appRepository.messages = data;
                             this.messages = data; // this.appRepository.messages;
+                            for (let i = 0; i < this.messages.length; i++) {
+                                this.messages[i].createdOn = moment(this.messages[i].createdOn).format('MM/DD/YYYY');
+                            }
                             //console.log('content of messages is: ', this.messages);
                             //console.log('touserid is: ', this.emailToUserId);
 
@@ -430,6 +473,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
                             this.appRepository.messages = [];
                             this.messages = []; // this.appRepository.messages;
                             this.isMsgText = false;
+                            this.ed.froalaEditor('edit.off');
                            // console.log('doGet failed', error);
                         });
                 });

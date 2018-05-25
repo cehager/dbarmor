@@ -16,6 +16,16 @@ export class AlertifyService {
     });
   }
 
+  dialog(label: string, message: string) {
+    //let closable = alertify.alert().setting('closable');
+    alertify.alert().setHeader('<span style="color:red"><h4><em>dbARMOR Alert!</em></h4></span>');
+    alertify.alert().setting({
+      'label': label,
+      'message': message,
+      'closable': true
+    }).show();
+  }
+
   success(message: string) {
     alertify.success(message);
   }

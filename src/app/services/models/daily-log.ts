@@ -4,5 +4,6 @@ export interface DailyLog {
         logDate: string;
         summary: string;
         message: string;
+        rating: number;
         logId: string;
 }
