@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AlertifyService } from '../services/alertify.service';
 
 @Component({
-  selector: 'app-financials',
-  templateUrl: './financials.component.html',
-  styleUrls: ['./financials.component.scss']
+  selector: 'app-media-mgr',
+  templateUrl: './media-mgr.component.html',
+  styleUrls: ['./media-mgr.component.scss']
 })
-export class FinancialsComponent implements OnInit {
+export class MediaMgrComponent implements OnInit {
 
   constructor(private alertify: AlertifyService) { }
 
@@ -14,7 +14,7 @@ export class FinancialsComponent implements OnInit {
   }
 
   onTabChange(event) {
-    this.alertify.message('Changed to tab: ' + event.index);
+   // this.alertify.message('Changed to tab: ' + event.index);
 }
 
 }

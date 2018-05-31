@@ -1,0 +1,26 @@
+html, body { height: 100%; }
+
+
+.thumbnail {
+    width: 200px;
+    height: 250px;
+}
+
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+
+input[type=file] {
+    color: transparent;
+}
+
+.photo-details {
+    width: 400;
+}
+
+.photo-detail {
+    width: 200;
+}
+
+.photo-frame {
+    max-width: 80%;
+    max-height: 80%;
+}

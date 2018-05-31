@@ -68,7 +68,8 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Inline Profile', icon: 'contacts',  command: () => this.app.profileMode = 'inline'},
                     {label: 'Top Profile', icon: 'person_pin',  command: () => this.app.profileMode = 'top'},
                 ]
-            }
+            },
+            {label: 'Bulliten Board', icon: 'photo_library', routerLink: ['/bulletinboard']},
         ];
     }
 

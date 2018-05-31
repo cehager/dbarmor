@@ -1,3 +1,16 @@
-<p>
-  Your ARMORED financial data will be available here.
-</p>
+
+<h5 class="dba-heading"><b><em>You are ARMORED:</em></b><span class="dba-logo">Smart Money Management begins here:</span></h5>
+<p-tabView  (onChange)="onTabChange($event)">
+  <p-tabPanel header="Money Management">
+    <app-financial-mgmt></app-financial-mgmt>
+</p-tabPanel>
+<p-tabPanel header="Monthly Cash Flows">
+  <app-financial-cashflows></app-financial-cashflows>
+    </p-tabPanel>
+    <p-tabPanel header="Credit" [selected]="false">
+      <app-financial-credit-mgmt></app-financial-credit-mgmt>
+    </p-tabPanel>
+    <p-tabPanel header="Savings & Investments">
+      <app-financial-savings></app-financial-savings>
+    </p-tabPanel>
+</p-tabView>

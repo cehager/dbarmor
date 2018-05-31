@@ -1,3 +1,99 @@
-<p>
-  Your clear pictures to view here, dbARMOR privatized pictures when stored. Coming soon.
-</p>
+
+<p-dataView #dv [value]="photos" [paginator]="true" [rows]="20" paginatorPosition="both">
+<p-header>
+    <div class="ui-helper-clearfix">
+        <div class="ui-g">
+            <!-- <div class="ui-g-12 ui-md-4">
+                <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+            </div> -->
+            <div class="ui-g-6 ui-md-4 filter-container">
+                <div style="position:relative">
+                    <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
+                </div>
+            </div>
+            <div class="ui-g-6 ui-md-4" style="text-align:right">
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
+        </div>
+    </div>
+</p-header>
+<ng-template let-photo pTemplate="listItem">
+    <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+        <div class="ui-g-12 ui-sm-12" style="text-align:center">
+            <img src="{{photo.url}}" width="640">
+        </div>
+        <div class="ui-g-12 ui-md-8 photo-details">
+            <div class="ui-g">
+                <div class="ui-g-2 ui-sm-6">Id: </div>
+                <div class="ui-g-10 ui-sm-6"><b>{{photo.vin}}</b></div>
+
+                <div class="ui-g-2 ui-sm-6">Desc: </div>
+                <div class="ui-g-10 ui-sm-6"><b>{{photo.year}}</b></div>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-1 search-icon">
+            <button pButton type="button" icon="fa-search" (click)="selectCar($event, photo)"></button>
+        </div>
+    </div>
+</ng-template>
+<ng-template let-photo pTemplate="gridItem">
+    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+        <p-panel [header]="photo.id" [style]="{'text-align':'center'}">
+            <img src="{{photo.url}}" width="60">
+            <div class="photo-detail">{{photo.id}} - {{photo.desc}}</div>
+            <hr class="ui-widget-content" style="border-top:0">
+            <button pButton type="button" icon="fa-search" (click)="selectCar($event, photo)" style="margin-top:0"></button>
+        </p-panel>
+    </div>
+</ng-template>
+</p-dataView>
+
+<p-dialog header="Photo Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" (onAfterHide)="onDialogHide()">
+<div class="ui-g" *ngIf="selectedPhoto">
+    <div class="ui-g-12" style="text-align:center">
+        <img src="{{selectedPhoto.url}}">
+    </div>
+    <div class="ui-g-4">Id: </div>
+    <div class="ui-g-8">{{selectedPhoto?.description}}</div>
+
+    <div class="ui-g-4">UserId: </div>
+    <div class="ui-g-8">{{selectedPhoto?.userId}}</div>
+
+    <!-- <div class="ui-g-4">Year: </div>
+    <div class="ui-g-8">{{selectedCar.year}}</div>
+
+    <div class="ui-g-4">Color: </div>
+    <div class="ui-g-8">{{selectedCar.color}}</div> -->
+</div>
+</p-dialog>
+
+
+<!-- 
+<div class="ui-g ui-md-12 ui-fluid">
+        <div class="ui-md-3" *ngFor="let photo of photos">
+          <img class="thumbnail" src="{{photo.url}}" alt=''>
+            <div class="text-center">
+              <p-checkbox name="groupname" value="{{photo.id}}" [(ngModel)]="selectedValues"></p-checkbox>
+              <button type="button" class="btn btn-sm">View</button>
+              <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></button>
+            </div>
+        </div>
+        <span>Selected Values: {{selectedValues}}</span>
+</div> -->
+
+        <!-- <div>
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+        </div> -->
+
+      <p-lightbox type="content">
+        <a class="group" href="#">
+            Watch Video
+        </a>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen></iframe>
+    </p-lightbox>    
+
+    //https://www.youtube.com/watch?v=kJQP7kiw5Fk latin
+   //https://www.youtube.com/watch?v=KQ6zr6kCPj8 party rock
+   //https://www.youtube.com/watch?v=09R8_2nJtjg wedding song
+   //https://www.youtube.com/watch?v=OPf0YbXqDm0 funk
+   

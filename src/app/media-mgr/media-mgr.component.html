@@ -1,0 +1,22 @@
+
+
+<!-- <h5 class="dba-heading"><b><em>You are ARMORED:</em></b><span class="dba-logo">Organize Your Photos:</span></h5> -->
+<p-tabView  (onChange)="onTabChange($event)">
+  <p-tabPanel header="Photo Organizer">
+    <app-photo-editor></app-photo-editor>
+  </p-tabPanel>
+<p-tabPanel header="Ablums">
+  <app-ablums></app-ablums>
+</p-tabPanel>
+    <p-tabPanel header="Galleria">
+      <app-gallery-photos></app-gallery-photos>
+    </p-tabPanel>
+    <p-tabPanel header="Videos">
+      <p-lightbox type="content">
+        <a class="group" href="#">
+            Japanese Rock & Roll Music Video with 3.5 Billion views on YouTube: (PG13)
+        </a>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen></iframe>
+    </p-lightbox>   
+    </p-tabPanel>
+</p-tabView>

@@ -1,7 +1,13 @@
 export interface Photo {
     id: number;
-    pix: any;
+    userId: string;
+    //ablumId: string;
+    //ablumDesc: string;
+    url: string;
+    //photoFile: any;
     description: string;
-    dateAdded: Date;
-    isSelf: boolean;
+    createdOn: Date;
+    //isMain: boolean;
+    publicId: string;
+    //relatedId: string;
 }

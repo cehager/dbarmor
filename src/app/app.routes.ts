@@ -16,6 +16,8 @@ import { RegisternaComponent } from './registerna/registerna.component';
 import { AblumsComponent } from './ablums/ablums.component';
 import { FafronComponent } from './fafron/fafron.component';
 import { FinancialsComponent } from './financials/financials.component';
+import { MediaMgrComponent } from './media-mgr/media-mgr.component';
+import { BulletinBoardComponent } from './bulletin-board/bulletin-board.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -26,9 +28,10 @@ export const routes: Routes = [
     {path: 'documents', component: DocumentComponent, canActivate: [AuthGuard]},
     {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
     {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
-    {path: 'ablums', component: AblumsComponent, canActivate: [AuthGuard]},
+    {path: 'ablums', component: MediaMgrComponent, canActivate: [AuthGuard]},
     {path: 'fafron', component: FafronComponent, canActivate: [AuthGuard]},
     {path: 'financials', component: FinancialsComponent, canActivate: [AuthGuard]},
+    {path: 'bulletinboard', component: BulletinBoardComponent, canActivate: [AuthGuard]},
     {path: 'register', component: RegisterComponent},
     {path: 'registerna', component: RegisternaComponent},
     {path: '', component: HomeComponent},

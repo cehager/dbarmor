@@ -10,6 +10,7 @@ import { User } from './models/User';
 import { Contact } from './models/contact';
 import { DailyLog } from './models/daily-log';
 import { Doc } from './models/document';
+import { Photo } from './models/Photo';
 // import {ContentType} from '@angular/http/src/enums';
 
 export interface MessageDto {
@@ -429,6 +430,15 @@ export class AppRepositoryService {
       })
       .catch(this.handleError);
   }
+
+
+  getPhotos(): Observable<any> {
+    return this.http
+      .get(this.getApiBasePath() + 'photos/l1/getphotosbyuserid/keep/' + this.activeUserId, this.jwt())
+      .map(response => <Photo[]>response.json())
+      .catch(this.handleError);
+  }
+
 
   private jwt() {
     let token = this.userToken;

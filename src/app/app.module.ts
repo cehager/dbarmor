@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Routes, RouterModule} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 import {AlertifyService} from './services/alertify.service';
+import { NgxGalleryModule } from 'ngx-gallery';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AppRepositoryService } from './services/apprepository.service';
@@ -31,7 +32,7 @@ import {AppTopbarComponent} from './app.topbar.component';
 
 
 // import {AccordionModule} from 'primeng/primeng'; // in use
-import {AutoCompleteModule, Rating} from 'primeng/primeng';
+import {AutoCompleteModule, Rating, FileUpload} from 'primeng/primeng';
 // import {BreadcrumbModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng'; // in use
  import {CalendarModule} from 'primeng/primeng';
@@ -47,14 +48,16 @@ import {SharedModule} from 'primeng/primeng'; // in use
 import {ContextMenuModule} from 'primeng/primeng';
 import {DataGridModule} from 'primeng/primeng';
 import {DataListModule} from 'primeng/primeng';
+import {DataViewModule} from 'primeng/dataview';
+import {DataViewLayoutOptions} from 'primeng/dataview';
 import {DataScrollerModule} from 'primeng/primeng';
 import {DataTableModule} from 'primeng/primeng'; // in use
 import {DialogModule} from 'primeng/primeng';
 import {DragDropModule} from 'primeng/primeng';
 import {DropdownModule} from 'primeng/primeng';
 import {FieldsetModule} from 'primeng/primeng';
-import {FileUploadModule} from 'primeng/primeng';
-// import {GalleriaModule} from 'primeng/primeng';
+//import {FileUploadModule} from 'primeng/primeng';
+//import {GalleriaModule} from 'primeng/primeng';
 // import {GMapModule} from 'primeng/primeng';
 // import {GrowlModule} from 'primeng/primeng';
 import {InputMaskModule} from 'primeng/primeng'; // in use
@@ -62,7 +65,7 @@ import {InputSwitchModule} from 'primeng/primeng'; // in use
 import {InputTextModule} from 'primeng/primeng'; // in use
 import {InputTextareaModule} from 'primeng/primeng'; // in use
 import {KeyFilterModule} from 'primeng/primeng';
-// import {LightboxModule} from 'primeng/primeng';
+import {LightboxModule} from 'primeng/primeng';
 import {ListboxModule} from 'primeng/primeng';
 // import {MegaMenuModule} from 'primeng/primeng';
 import {MenuModule} from 'primeng/primeng'; // in use
@@ -89,7 +92,7 @@ import {SpinnerModule} from 'primeng/primeng';
 import {SplitButtonModule} from 'primeng/primeng';
 import {StepsModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
-// import {TabMenuModule} from 'primeng/primeng';
+//import {TabMenuModule} from 'primeng/primeng';
 import {TabViewModule} from 'primeng/primeng';
 // import {TerminalModule} from 'primeng/primeng';
 // import {TieredMenuModule} from 'primeng/primeng';
@@ -112,6 +115,15 @@ import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.comp
 import { AblumsComponent } from './ablums/ablums.component';
 import { FafronComponent } from './fafron/fafron.component';
 import { FinancialsComponent } from './financials/financials.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { FinancialMgmtComponent } from './financial-mgmt/financial-mgmt.component';
+import { FinancialCashflowsComponent } from './financial-cashflows/financial-cashflows.component';
+import { FinancialCreditMgmtComponent } from './financial-credit-mgmt/financial-credit-mgmt.component';
+import { FinancialSavingsComponent } from './financial-savings/financial-savings.component';
+import { MediaMgrComponent } from './media-mgr/media-mgr.component';
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
+import { GalleryPhotosComponent } from './gallery-photos/gallery-photos.component';
+import { BulletinBoardComponent } from './bulletin-board/bulletin-board.component';
 
 // import {TreeModule} from 'primeng/primeng';
 // import {TreeTableModule} from 'primeng/primeng';
@@ -146,7 +158,15 @@ import { FinancialsComponent } from './financials/financials.component';
     EditorFroalaComponent,
     AblumsComponent,
     FafronComponent,
-    FinancialsComponent
+    FinancialsComponent,
+    FinancialMgmtComponent,
+    FinancialCashflowsComponent,
+    FinancialCreditMgmtComponent,
+    FinancialSavingsComponent,
+    MediaMgrComponent,
+    PhotoEditorComponent,
+    GalleryPhotosComponent,
+    BulletinBoardComponent
 ],
   imports: [
     SharedModule,
@@ -162,12 +182,18 @@ import { FinancialsComponent } from './financials/financials.component';
     CardModule,
     CheckboxModule,
     DataTableModule,
+    DataViewModule,
     DialogModule,
     DropdownModule,
+    FileUploadModule,
+    NgxGalleryModule,
+    LightboxModule,
+    ListboxModule,
     PanelModule,
     PickListModule,
     OrderListModule,
     RatingModule,
+    TabViewModule,
     InputTextModule,
     InputSwitchModule,
     InputMaskModule,
