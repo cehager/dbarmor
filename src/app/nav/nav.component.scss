@@ -7,15 +7,32 @@
     //grid-column-gap: 10px;
     //min-width: 260px;
     justify-items: center;
-    background-color: rgb(248, 245, 245);
+    background-color: transparent;
     max-width: 360px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     //margin-top: 10px;
     padding-top: 20px;
     //border-radius: 3%;
+}
 
+.md-inputfield {
+    color: white;
+    background-color: transparent;
+}
 
+.ui-inputtext {
+    color: white;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+    opacity: 1;
 }
 
 // form {

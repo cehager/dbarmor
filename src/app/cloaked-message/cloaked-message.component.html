@@ -1,0 +1,53 @@
+<div class="ui-g">
+  <div class="ui-md-6 ui-sm-12 ui-fluid">
+    <p-panel class="ui-md-12 ui-g-nopad">
+      <p-header>
+            <span>ARMORED A-Mail Editor:</span>
+      </p-header>
+        <!-- <label>Send Armored Mail To:</label> -->
+        <br>
+          <p-autoComplete [(ngModel)]="emailTo" [suggestions]="autoCompleteContacts" (completeMethod)="getFilteredContacts($event)" [size]="30"
+          [dropdown]="true" [minLength]="1"  [disabled]=!isMsgText placeholder="Send Armored Mail To:"></p-autoComplete>
+
+      <!-- <span class="ui-float-label">
+        <input id="float-input" type="text" pInputText size=53 required [(ngModel)]="emailTo">
+        <label for="float-input">Send Encrypted Message To:</label>
+      </span> -->
+      <br>
+      <br>
+      <!-- <label>Subject:</label> -->
+      <input type="text" pInputText [size]="53" placeholder="Subject"  [disabled]=!isMsgText [(ngModel)]="emailSubject" >
+
+      <!-- <span class="ui-float-label">
+        <input id="float-input2" type="text" pInputText size=53 required [(ngModel)]="emailSubject" >
+        <label for="float-input2">Subject:</label> -->
+        <!-- <div [hidden]="subject.valid || subject.pristine" class="alert alert-danger">
+      A subject is required.
+  </div>  -->
+      <!-- </span> -->
+      <br>
+      <br>
+      <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+      <!-- <div [froalaView]="editorContent"></div> -->
+      <p-footer>
+        <!-- <button type="button" class="btn btn-success" (click)="doEncrypt()">Send Encrypted Message</button> -->
+        <!-- <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt Message</button> -->
+        <p-splitButton styleClass="ui-button-success" label="Send Cloaked Message" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
+        <p-splitButton styleClass="ui-button-danger" label="Decloak Message" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton>
+
+        <!-- <button type="button" class="btn btn-success" [disabled]="!appRepository.isText" (click)="doEncrypt()">Encrypt</button>
+        <button type="button" class="btn btn-danger" [disabled]="appRepository.isText" (click)="doDecrypt()">Decrypt</button> -->
+        <!-- <button pButton type="button" class="ui-button-success" (click)="doEncrypt()">Encrypt</button>
+          <button pButton type="button" class="ui-button-danger" (click)="doDecrypt()">Decrypt</button> -->
+      </p-footer>
+    </p-panel>
+  </div>
+  <div class="ui-md-6 ui-sm-12 ui-fluid">
+    <p-dataTable [value]="messages" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" [reorderableColumns]="true"
+      [responsive]="true" (onRowSelect)="onRowSelected($event)" [rows]="20" [paginator]="true">
+      <p-column field="createdOn" [style]="{'width':'150px'}" header="Date" [sortable]="true"></p-column>
+      <p-column field="from" header="From" [style]="{'width':'120px'}" [sortable]="true"></p-column>
+      <p-column field="subject" [style]="{'width':'265px'}" header="Subject" [sortable]="true" ></p-column>
+    </p-dataTable>
+  </div>
+</div>

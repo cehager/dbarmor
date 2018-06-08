@@ -124,6 +124,7 @@ import { MediaMgrComponent } from './media-mgr/media-mgr.component';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { GalleryPhotosComponent } from './gallery-photos/gallery-photos.component';
 import { BulletinBoardComponent } from './bulletin-board/bulletin-board.component';
+import { CloakedMessageComponent } from './cloaked-message/cloaked-message.component';
 
 // import {TreeModule} from 'primeng/primeng';
 // import {TreeTableModule} from 'primeng/primeng';
@@ -166,7 +167,8 @@ import { BulletinBoardComponent } from './bulletin-board/bulletin-board.componen
     MediaMgrComponent,
     PhotoEditorComponent,
     GalleryPhotosComponent,
-    BulletinBoardComponent
+    BulletinBoardComponent,
+    CloakedMessageComponent
 ],
   imports: [
     SharedModule,

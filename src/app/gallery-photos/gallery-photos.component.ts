@@ -13,6 +13,7 @@ export class GalleryPhotosComponent implements OnInit {
   galleryImages: NgxGalleryImage[];
   photos: Photo[];
   baseUrl: string;
+  imageUrls = [];
 
   constructor(private appService: AppRepositoryService) {
    }
@@ -52,25 +53,44 @@ export class GalleryPhotosComponent implements OnInit {
     this.getPhotosByActiveUserId();
   }
 
-  getImages() {
-    const imageUrls = [];
-    for (let i = 0; i < this.photos.length; i++) {
-      imageUrls.push({
-        small: this.photos[i].url,
-        medium: this.photos[i].url,
-        big: this.photos[i].url,
-        description: this.photos[i].description
-      });
-    }
-    return imageUrls;
-  }
+  // getImages() {
+  //   //const imageUrls = [];
+  //   for (let i = 0; i < this.photos.length; i++) {
+  //     this.imageUrls.push({
+  //       small: this.photos[i].url,
+  //       medium: this.photos[i].url,
+  //       big: this.photos[i].url,
+  //       description: this.photos[i].description
+  //     });
+  //   }
+  //   return this.imageUrls;
+  // }
 
    getPhotosByActiveUserId() {
     this.appService.getPhotos().subscribe((photos: Photo[]) => {
-      this.photos = photos;
+      //this.photos = photos;
       //this.pix = photos;
-      this.galleryImages = this.getImages();
+      //console.log('in getPhotos and photos is: ', photos);
+      for (let photo of photos) {
+        //console.log(photo);
+        this.imageUrls.push({
+          small: photo.url,
+          medium: photo.url,
+          big: photo.url,
+          description: photo.description
+        });
+    }
+      // for (let i = 0; i < photos.length; i++) {
+      //   this.imageUrls.push({
+      //     small: photos[i].url,
+      //     medium: photos[i].url,
+      //     big: photos[i].url,
+      //     description: photos[i].description
+      //   });
+      // }
+      this.galleryImages = this.imageUrls; //this.getImages();
       console.log('gallery images: ', this.galleryImages);
+
       // this.pix = new Array(this.photos.length);
       // for (let i = 0; i < this.photos.length; i++) {
       //     this.pix[i] = this.photos[i];
