@@ -18,6 +18,9 @@ import { FafronComponent } from './fafron/fafron.component';
 import { FinancialsComponent } from './financials/financials.component';
 import { MediaMgrComponent } from './media-mgr/media-mgr.component';
 import { BulletinBoardComponent } from './bulletin-board/bulletin-board.component';
+import { CloakedMessageComponent } from './cloaked-message/cloaked-message.component';
+import { CloakedLibraryComponent } from './cloaked-library/cloaked-library.component';
+import { CloakedArchiveComponent } from './cloaked-archive/cloaked-archive.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -31,7 +34,10 @@ export const routes: Routes = [
     {path: 'ablums', component: MediaMgrComponent, canActivate: [AuthGuard]},
     {path: 'fafron', component: FafronComponent, canActivate: [AuthGuard]},
     {path: 'financials', component: FinancialsComponent, canActivate: [AuthGuard]},
-    {path: 'bulletinboard', component: BulletinBoardComponent, canActivate: [AuthGuard]},
+    {path: 'bulletinboard', component: BulletinBoardComponent},
+    {path: 'cloaked', component: CloakedMessageComponent, canActivate: [AuthGuard]},
+    {path: 'cloakedlibrary', component: CloakedLibraryComponent, canActivate: [AuthGuard]},
+    {path: 'cloakedarchive', component: CloakedArchiveComponent, canActivate: [AuthGuard]},
     {path: 'register', component: RegisterComponent},
     {path: 'registerna', component: RegisternaComponent},
     {path: '', component: HomeComponent},

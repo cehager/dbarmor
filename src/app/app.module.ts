@@ -125,6 +125,8 @@ import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { GalleryPhotosComponent } from './gallery-photos/gallery-photos.component';
 import { BulletinBoardComponent } from './bulletin-board/bulletin-board.component';
 import { CloakedMessageComponent } from './cloaked-message/cloaked-message.component';
+import { CloakedLibraryComponent } from './cloaked-library/cloaked-library.component';
+import { CloakedArchiveComponent } from './cloaked-archive/cloaked-archive.component';
 
 // import {TreeModule} from 'primeng/primeng';
 // import {TreeTableModule} from 'primeng/primeng';
@@ -168,7 +170,9 @@ import { CloakedMessageComponent } from './cloaked-message/cloaked-message.compo
     PhotoEditorComponent,
     GalleryPhotosComponent,
     BulletinBoardComponent,
-    CloakedMessageComponent
+    CloakedMessageComponent,
+    CloakedLibraryComponent,
+    CloakedArchiveComponent
 ],
   imports: [
     SharedModule,

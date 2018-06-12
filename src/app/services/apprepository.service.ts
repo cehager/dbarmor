@@ -11,6 +11,7 @@ import { Contact } from './models/contact';
 import { DailyLog } from './models/daily-log';
 import { Doc } from './models/document';
 import { Photo } from './models/Photo';
+import { CMessageDto } from './models/cmessage';
 // import {ContentType} from '@angular/http/src/enums';
 
 export interface MessageDto {
@@ -58,6 +59,7 @@ export class AppRepositoryService {
 
   public message: string;
   messageDto: MessageDto;
+  cmessageDto: CMessageDto;
 
   messages: Array<MessageDto> = new Array();
 
@@ -71,6 +73,12 @@ export class AppRepositoryService {
                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2',
                 '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5',
                  '6', '7', '8', '9'];
+
+  lettersOnly = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
 
 
   constructor(private http: Http, private router: Router) {
@@ -330,6 +338,64 @@ export class AppRepositoryService {
     this.router.navigate(['/home']);
   }
 
+  doCEncrypt(cmsg: CMessageDto, apiPath: string): Observable<any> {
+    const header = new Headers({ 'Content-type': 'application/json' });
+    header.append('Authorization', 'Bearer ' + this.userToken);
+    header.append('Access-Control-Allow-Origin', '*');
+
+    const options = new RequestOptions({
+      headers: header,
+      withCredentials: false
+    });
+
+    cmsg.rid = this.makeRID(20);
+    console.log('in doCencrypt: ', cmsg);
+
+    this.getPath = apiPath;
+    return this.http
+      .post(this.getPath, cmsg, options)
+      .map((response: Response) => {
+        // const data = response.json();
+        this.cmessageDto = response.json();
+        return this.cmessageDto;
+      });
+  }
+
+  doCDecrypt(cmsgId: string, apiPath: string): Observable<any> {
+    const header = new Headers();
+    header.append('Access-Control-Allow-Origin', '*');
+    header.append('Authorization', 'Bearer ' + this.userToken);
+    const options = new RequestOptions({
+      headers: header,
+      withCredentials: false
+    });
+
+    // http://mifawghorn20170405015815.azurewebsites.net/
+    // ****************************************************************************************
+    this.getPath = apiPath + cmsgId;
+    return this.http.get(this.getPath, options).map((response: Response) => {
+      // const data = response.json();
+      this.cmessageDto = response.json();
+      this.isText = true;
+      return this.cmessageDto;
+    });
+  }
+
+  doCGet(apiPath: string): Observable<any> {
+    const header = new Headers();
+    header.append('Access-Control-Allow-Origin', '*');
+    header.append('Authorization', 'Bearer ' + this.userToken);
+
+    const options = new RequestOptions({
+      headers: header,
+      withCredentials: false
+    });
+    return this.http.get(apiPath, options).map((response: Response) => {
+      return response.json();
+    });
+  }
+
+
   private requestOptions() {
     const headers = new Headers({ 'Content-type': 'application/json' });
     // headers.append('Access-Control-Allow-Origin', '*');
@@ -481,6 +547,22 @@ export class AppRepositoryService {
   return this.tid.join('');
 
   }
+
+  makeRID(len: number): string {
+    let j = 0;
+    this.aShuffle(this.lettersOnly);
+    this.aShuffle(this.lettersOnly);
+
+    const array = new Uint32Array(len);
+    window.crypto.getRandomValues(array);
+    for (let i = 0; i < array.length; i++) {
+      j = array[i] % 82;
+      this.tid[i] = this.lettersOnly[j];
+      //console.log(this.tid[i]);
+    }
+
+    return this.tid.join('');
+    }
 
   setHttpHeaders(): Headers {
     const header = new Headers({ 'Content-type': 'application/json' });

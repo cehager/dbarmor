@@ -24,19 +24,19 @@ export class AppMenuComponent implements OnInit {
             {label: 'Home', icon: 'desktop_mac', routerLink: ['']},
             {label: 'Free Armor', icon: 'input', routerLink: ['/editor']},
             {label: 'Armored A-Mail', icon: 'email', routerLink: ['/messages']},
+            {label: 'Cloaking', icon: 'email', title: 'Cloaking',
+                items: [
+                  {label: 'Cloaked C-Mail', icon: 'cast_connected', routerLink: ['/cloaked']},
+                  {label: 'Manage Cloaking Library', icon: 'cast_connected', routerLink: ['/cloakedlibrary']},
+                  {label: 'Cloaked Mail Archive', icon: 'cast_connected', routerLink: ['/cloakedarchive']},
+                ]
+            },
             {label: 'Contacts', icon: 'contacts', routerLink: ['/contacts']},
             {label: 'My Daily Log', icon: 'local_library', routerLink: ['/dailylog']},
             {label: 'My Stories & Docs', icon: 'content_copy', routerLink: ['/documents']},
             {label: 'Photo Library', icon: 'photo_library', routerLink: ['/ablums']},
            // {label: 'FF Connect', icon: 'cast_connected', routerLink: ['/fafron']},
-            {label: 'Finances', icon: 'account_balance', title: 'Finances', routerLink: ['/financials']
-                // items: [
-                //   {label: 'Credit Cards', icon: 'cast_connected', routerLink: ['/financials']},
-                //   {label: 'Bank Accounts', icon: 'cast_connected', routerLink: ['/financials']},
-                //   {label: 'Investments', icon: 'cast_connected', routerLink: ['/financials']},
-                //   {label: 'Expenses', icon: 'cast_connected', routerLink: ['/financials']},
-                // ]
-            },
+            {label: 'Finances', icon: 'account_balance', title: 'Finances', routerLink: ['/financials']},
             {
                 label: 'Themes', icon: 'palette',
                 items: [
@@ -69,7 +69,15 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Top Profile', icon: 'person_pin',  command: () => this.app.profileMode = 'top'},
                 ]
             },
-            {label: 'Bulliten Board', icon: 'photo_library', routerLink: ['/bulletinboard']},
+            // {label: 'Quick Start Videos', icon: 'email', title: 'Cloaking',
+            //     items: [
+            //       {label: 'C-Mail - Learn About Cloaking', icon: 'cast_connected', routerLink: ['/cloaked']},
+            //       {label: 'Using dbARMOR - Quick Start', icon: 'cast_connected', routerLink: ['/home']},
+            //       {label: 'My Daily Log - Overview', icon: 'cast_connected', routerLink: ['/home']},
+            //     ]
+            // },
+            {label: 'About', icon: 'info', routerLink: ['/bulletinboard']}
+           // {label: 'Bulliten Board', icon: 'photo_library', routerLink: ['/bulletinboard']},
         ];
     }
 
