@@ -1,5 +1,28 @@
-<p>
-  The cloaking library will hold a database of predefined text that can be used as cloaking text.
-  The library can contain any text you create or text from any non-copyrighted source. Many websites
-  contain text you can email to friends. Online books (out of copyright) is also another good source.
-</p>
+<div class="ui-g">
+  <div class="ui-md-6 ui-sm-12 ui-fluid">
+    <p-panel class="ui-md-12 ui-g-nopad">
+      <p-header>
+        <span>Cloaking Text Library</span>
+      </p-header>
+      <br>
+      <span class="ui-float-label ui-md-9">
+        <input id="float-input2" type="text" pInputText [(ngModel)]='csubject'>
+        <label for="float-input2">Description:</label>
+      </span>
+      <br>
+      <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+      <p-footer>
+        <p-button styleClass="ui-button-success" label="Save to Library" (onClick)="doPost()"></p-button>
+        <p-button styleClass="ui-button-danger" label="Cancel"  (onClick)="doCancel()"></p-button>
+      </p-footer>
+    </p-panel>
+  </div>
+   <div class="ui-md-6 ui-sm-12 ui-fluid">
+    <p-dataTable [value]="libItems" selectionMode="single" [resizableColumns]="true" [reorderableColumns]="true" 
+      [responsive]="true" (onRowSelect)="onRowSelected($event)" [rows]="20" [paginator]="true">
+      <p-column field="cSubject" [style]="{'width':'200px'}" header="Description" [sortable]="true" ></p-column>
+      <p-column field="cText" header="Cloaking Text" [sortable]="true"></p-column>
+    </p-dataTable>
+  </div>
+</div>
+

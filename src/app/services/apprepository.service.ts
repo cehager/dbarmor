@@ -12,6 +12,7 @@ import { DailyLog } from './models/daily-log';
 import { Doc } from './models/document';
 import { Photo } from './models/Photo';
 import { CMessageDto } from './models/cmessage';
+import { CText } from './models/ctxt';
 // import {ContentType} from '@angular/http/src/enums';
 
 export interface MessageDto {
@@ -655,7 +656,37 @@ export class AppRepositoryService {
       }).catch(this.handleError);
   }
 
+  doPostCtxt(txt: CText, apiPath: string): Observable<any> {
+    // const header = new Headers({ 'Content-type': 'application/json' });
+    // header.append('Authorization', 'Bearer ' + this.userToken);
+    // header.append('Access-Control-Allow-Origin', '*');
 
+    const options = new RequestOptions({
+      headers: this.setHttpHeaders(),
+      withCredentials: false
+    });
+
+    return this.http
+      .post(apiPath, txt, options)
+      .map((response: Response) => {
+        txt = <CText>response.json();
+        return txt;
+      }).catch(this.handleError);
+  }
+
+  doGetCText(txtId: string, thePath: string): Observable<any> {
+    return this.http
+      .get(this.getApiBasePath() + thePath + txtId, this.jwt())
+      .map(response => <CText>response.json())
+      .catch(this.handleError);
+  }
+
+  doGetCtxtByUserId(): Observable<any> {
+    return this.http
+      .get(this.getApiBasePath() + 'ctxt/l1/getbyuserid/keep/' + this.activeUserId, this.jwt())
+      .map(response => <CText[]>response.json())
+      .catch(this.handleError);
+  }
 
   getApiBasePath(): string {
     return 'https://4226-25056.el-alt.com/dex/';

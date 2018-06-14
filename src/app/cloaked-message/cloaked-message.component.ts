@@ -10,6 +10,7 @@ import { AlertifyService } from '../services/alertify.service';
 import { Contact } from '../services/models/contact';
 import * as moment from 'moment';
 import { CMessageDto } from '../services/models/cmessage';
+import { CText } from '../services/models/ctxt';
 
 declare var $: any;
 
@@ -28,6 +29,7 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
   cmessages: CMessageDto[];
   rowsSelected: Array<CMessageDto>;
   editorContent: string;
+  dialogeditorContent: string;
   emailTo: string;
   emailSubject: string;
   emailUser: string;
@@ -43,7 +45,12 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
   ed: any;
   edContentGet: string;
   delay: number;
-
+  libItems: CText[];
+  selectedlibItem: CText;
+  DialogVisible: boolean;
+  dialogrowSelected: CText;
+  messagehold: string;
+  isMsgEd: boolean;
   // rowSelected: any;
   constructor(
     public appRepository: AppRepositoryService,
@@ -272,7 +279,7 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
     this.isMsgText = true;
     this.ed.froalaEditor('edit.on');
     this.emailTo = '';
-
+    this.isMsgEd = true;
     //   this.ed.froalaEditor({
     //     width: '490',
     //     height: '350'
@@ -297,20 +304,28 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
         rid: ''
       };
 
-
+    this.DialogVisible = false;
+    //this.appRepository.doGetCtxtByUserId();
     this.doGetContacts();
   }
 
   doGetCloakedTxt() {
-    console.log('in doGetCloakedTxt, cmessage is: ', this.cmessageDto.cMessage);
-    this.cmessageDto.message = this.ed.froalaEditor(this.edContentGet);
+    //console.log('in doGetCloakedTxt, cmessage is: ', this.cmessageDto.cMessage);
+    if (this.isMsgEd) {
+      this.cmessageDto.message = this.ed.froalaEditor(this.edContentGet);
+      this.messagehold = this.cmessageDto.message;
+    }
+    this.isMsgEd = false;
     this.editorContent = '';
     this.editorContent = this.cmessageDto.cMessage;
-    console.log('in doGetCloakedTxt after assignment, cmessage is: ', this.cmessageDto.cMessage);
+    //console.log('in doGetCloakedTxt after assignment, cmessage is: ', this.cmessageDto.cMessage);
   }
 
   doGetMsgTxt() {
-    this.cmessageDto.cMessage = this.ed.froalaEditor(this.edContentGet);
+    if (!this.isMsgEd) {
+      this.cmessageDto.cMessage = this.ed.froalaEditor(this.edContentGet);
+    }
+    this.isMsgEd = true;
     this.editorContent = '';
     this.editorContent = this.cmessageDto.message;
   }
@@ -331,6 +346,15 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
         }
         this.isMsgText = true;
         this.ed.froalaEditor('edit.on');
+      });
+
+      this.appRepository.doGetCtxtByUserId() // updates the list
+      .subscribe((data: CText[] ) => {
+          //console.log('get libitems is: ', data);
+          this.libItems = data;
+         // for (let i = 0; i < data.length; i++) {
+           // this.libItems[i] = data[i].cSubject;
+         // }
       });
   }
 
@@ -381,12 +405,33 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
     return filtered;
   }
 
+
   doSelectCText() {
    //this.alertify.error('Not available yet, coming soon!');
-   this.alertify.dialog(
-    'Got It!',
-    '<h5>This feature is coming soon!<h5>'
-  );
+   this.DialogVisible = true;
+  }
+
+  ondialoghide() {
+    //this.alertify.error('ondialog Hide!');
+    this.cmessageDto.message = this.messagehold;
+  }
+
+   dialogCancel(event) {
+    this.DialogVisible = false;
+    this.cmessageDto.cMessage = '';
+    this.cmessageDto.message = this.messagehold;
+    this.editorContent = '';
+  }
+
+  dialogOk(event) {
+    this.DialogVisible = false;
+  }
+
+  onDialogRowSelected(event) {
+    this.doGetCloakedTxt();
+    this.cmessageDto.cMessage = event.data.cText;
+    this.editorContent = this.cmessageDto.cMessage;
+    this.cmessageDto.message = this.messagehold;
   }
 
   doCEncrypt() {

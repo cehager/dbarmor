@@ -1,3 +1,34 @@
-<p>
-  Save cloaked messages will be available here.
-</p>
+<div class="ui-g">
+  <div class="ui-md-6 ui-sm-12 ui-fluid">
+    <p-panel class="ui-md-12 ui-g-nopad">
+      <p-header>
+            <span>ARMORED C-Mail Archive Viewer:</span>
+      </p-header>
+        <br>
+          <p-autoComplete [(ngModel)]="emailTo" [suggestions]="autoCompleteContacts" (completeMethod)="getFilteredContacts($event)" [size]="30"
+          [dropdown]="true" [minLength]="1"  [disabled]=!isMsgText placeholder="Send Armored Mail To:"></p-autoComplete>
+      <br>
+      <br>
+      <input type="text" pInputText [size]="53" placeholder="Subject" [(ngModel)]="emailSubject" >
+      <br>
+      <br>
+      <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+      <p-footer class="ui-g ui-fluid">
+        <div class="ui-md-12 ui-sm-12 ui-fluid">
+          <p-splitButton styleClass="ui-button-primary"  label="Decrypt Archived Message" (onClick)="doCDecrypt()" [model]="items"></p-splitButton>
+          <!-- <p-splitButton  styleClass="ui-button-primary" label="Save Cloaked Message" (onClick)="doGetMsgTxt()" [model]="items"></p-splitButton> -->
+          <p-splitButton  styleClass="ui-button-danger" label="Delete Archived Message" (onClick)="doDeleteArchMsg()" [model]="items"></p-splitButton>
+        </div>
+    </p-footer>
+    </p-panel>
+  </div>
+  <div class="ui-md-6 ui-sm-12 ui-fluid">
+    <p-dataTable [value]="cmessages" selectionMode="multiple" [(selection)]="rowsSelected" [resizableColumns]="true" [reorderableColumns]="true"
+      [responsive]="true" (onRowSelect)="onRowSelected($event)" [rows]="20" [paginator]="true">
+      <p-column field="createdOn" [style]="{'width':'150px'}" header="Date" [sortable]="true"></p-column>
+      <p-column field="from" header="From" [style]="{'width':'120px'}" [sortable]="true"></p-column>
+      <p-column field="subject" [style]="{'width':'265px'}" header="Subject" [sortable]="true" ></p-column>
+    </p-dataTable>
+  </div>
+</div>
+
