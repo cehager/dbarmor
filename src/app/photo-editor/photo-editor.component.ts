@@ -65,6 +65,7 @@ export class PhotoEditorComponent implements OnInit {
          const res: Photo = JSON.parse(response);
          const photo = {
            id: res.id,
+           seqNbr: res.seqNbr,
            userId: res.userId,
            url: res.url,
            createdOn: res.createdOn,
@@ -84,13 +85,15 @@ export class PhotoEditorComponent implements OnInit {
 
    getImages() {
      const imageUrls = [];
-     for (let i = 0; i < this.photos.length; i++) {
+     for (let i = 0; i < this.sourcePhotos.length; i++) {
+       //if (this.sourcePhotos[i].seqNbr > -1) {
        imageUrls.push({
-         small: this.photos[i].url,
-         medium: this.photos[i].url,
-         big: this.photos[i].url,
-         description: this.photos[i].description
+         small: this.sourcePhotos[i].url,
+         medium: this.sourcePhotos[i].url,
+         big: this.sourcePhotos[i].url,
+         description: this.sourcePhotos[i].description
        });
+      //}
      }
      return imageUrls;
    }
@@ -98,24 +101,23 @@ export class PhotoEditorComponent implements OnInit {
     getPhotosByActiveUserId() {
      this.appService.getPhotos().subscribe((photos: Photo[]) => {
        this.photos = photos;
-       //this.pix = photos;
+       this.sourcePhotos = [];
+       for (let i = 0; i < this.photos.length; i++) {
+        if (this.photos[i].seqNbr > -1) {
+          this.sourcePhotos.push({
+            url: this.photos[i].url,
+            seqNbr: this.photos[i].seqNbr,
+            description: this.photos[i].description,
+            id: this.photos[i].id,
+            userId: this.photos[i].userId,
+            createdOn: this.photos[i].createdOn,
+            publicId: this.photos[i].publicId
+          });
+       }
+      }
        this.galleryImages = this.getImages();
-       this.sourcePhotos = photos;
-       // this.pix = new Array(this.photos.length);
-       // for (let i = 0; i < this.photos.length; i++) {
-       //     this.pix[i] = this.photos[i];
-       // }
-
-
-       //console.log('pix array loaded? : ', this.pix);
-       //this.loadSlideShowArray();
-      //console.log('slide show: ', this.slideShowPix);
-       //console.log(contacts);
      }, error => {
        console.log(error);
-       //this.alertify.error(error);
      });
    }
-
-
 }

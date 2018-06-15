@@ -1,5 +1,6 @@
 export interface Photo {
     id: number;
+    seqNbr: number;
     userId: string;
     //ablumId: string;
     //ablumDesc: string;

@@ -68,10 +68,8 @@ export class GalleryPhotosComponent implements OnInit {
 
    getPhotosByActiveUserId() {
     this.appService.getPhotos().subscribe((photos: Photo[]) => {
-      //this.photos = photos;
-      //this.pix = photos;
-      //console.log('in getPhotos and photos is: ', photos);
       for (let photo of photos) {
+        if (photo.seqNbr > -1) {
         //console.log(photo);
         this.imageUrls.push({
           small: photo.url,
@@ -79,28 +77,11 @@ export class GalleryPhotosComponent implements OnInit {
           big: photo.url,
           description: photo.description
         });
+      }
     }
-      // for (let i = 0; i < photos.length; i++) {
-      //   this.imageUrls.push({
-      //     small: photos[i].url,
-      //     medium: photos[i].url,
-      //     big: photos[i].url,
-      //     description: photos[i].description
-      //   });
-      // }
+
       this.galleryImages = this.imageUrls; //this.getImages();
       console.log('gallery images: ', this.galleryImages);
-
-      // this.pix = new Array(this.photos.length);
-      // for (let i = 0; i < this.photos.length; i++) {
-      //     this.pix[i] = this.photos[i];
-      // }
-
-
-      //console.log('pix array loaded? : ', this.pix);
-      //this.loadSlideShowArray();
-     //console.log('slide show: ', this.slideShowPix);
-      //console.log(contacts);
     }, error => {
       console.log(error);
       //this.alertify.error(error);
