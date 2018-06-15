@@ -1,3 +1,41 @@
-<div>   
-Links to popular blogs, books and financial advice goes here.
-</div>
+<form [formGroup]="fsEduForm" (ngSubmit)="post()" class="ui-g ui-md-10 ui-g ui-fluid ui-g-nopad contact-form">
+    <p-panel header="Add Favorite Financial Sites" class="ui-md-6">
+      <div class="ui-g ui-g-nopad">
+          <div class="ui-md-12 ui-sm-12">
+          <span class="md-inputfield">
+            <input type="text" pInputText formControlName="urlPath" required minlength="2" maxlength="150" />
+            <label>Link to website or blog</label>
+          </span>
+        </div>
+        <div class="ui-md-12 ui-sm-12">
+          <span class="md-inputfield">
+            <input type="text" pInputText formControlName="description" required minlength="2" maxlength="250" />
+            <label>Description </label>
+          </span>
+        </div>
+        <div class="ui-md-12 ui-sm-12">
+          <span class="md-inputfield">
+            <input type="text" pInputText formControlName="Notes" />
+            <label>Notes</label>
+          </span>
+        </div>
+        </div>
+      <button class="save-btn" type="submit" style="margin-top:20px" label="Submit" pButton></button>
+    </p-panel>
+    <div>
+    </div>
+    <div class="contact-table ui-md-6 ui-sm-12 ui-g ui-fluid ui-g-nopad">
+      <p-dataTable [value]="fsEdus" selectionMode="single"  [(selection)]="rowsSelected" [resizableColumns]="true" [reorderableColumns]="true"
+        [responsive]="true" (onRowSelect)="onRowSelected($event)" [rows]="20" [paginator]="true">
+        <p-column field="urlPath" [style]="{'width':'200px'}" header="Address" [sortable]="true"></p-column>
+        <p-column field="description" header="Description" [style]="{'width':'255px'}" [sortable]="true"></p-column>
+        <!-- <p-column field="notes" [style]="{'width':'150px'}" header="Mobile"  [sortable]="true"></p-column> -->
+        <!-- <p-column field="wPhone" [style]="{'width':'150px'}" header="Work" [editable]="true"></p-column> -->
+      </p-dataTable>
+    </div>
+    All the links will show up here
+
+</form>
+  
+  
+  

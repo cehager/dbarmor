@@ -13,6 +13,7 @@ import { Doc } from './models/document';
 import { Photo } from './models/Photo';
 import { CMessageDto } from './models/cmessage';
 import { CText } from './models/ctxt';
+import { FsEdu } from './models/fsEdu';
 // import {ContentType} from '@angular/http/src/enums';
 
 export interface MessageDto {
@@ -685,6 +686,13 @@ export class AppRepositoryService {
     return this.http
       .get(this.getApiBasePath() + 'ctxt/l1/getbyuserid/keep/' + this.activeUserId, this.jwt())
       .map(response => <CText[]>response.json())
+      .catch(this.handleError);
+  }
+
+  getFsEdus(): Observable<any> {
+    return this.http
+      .get(this.getApiBasePath() + 'fsedu/l1/getbyuserid/keep/' + this.activeUserId, this.jwt())
+      .map(response => <FsEdu[]>response.json())
       .catch(this.handleError);
   }
 

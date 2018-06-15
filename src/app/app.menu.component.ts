@@ -36,7 +36,7 @@ export class AppMenuComponent implements OnInit {
             {label: 'My Stories & Docs', icon: 'content_copy', routerLink: ['/documents']},
             {label: 'Photo Library', icon: 'photo_library', routerLink: ['/ablums']},
            // {label: 'FF Connect', icon: 'cast_connected', routerLink: ['/fafron']},
-            {label: 'Finances', icon: 'account_balance', title: 'Finances', routerLink: ['/financials']},
+            // {label: 'Finances', icon: 'account_balance', title: 'Finances', routerLink: ['/financials']},
             {
                 label: 'Themes', icon: 'palette',
                 items: [
@@ -68,7 +68,7 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Inline Profile', icon: 'contacts',  command: () => this.app.profileMode = 'inline'},
                     {label: 'Top Profile', icon: 'person_pin',  command: () => this.app.profileMode = 'top'},
                 ]
-            },
+            }
             // {label: 'Quick Start Videos', icon: 'email', title: 'Cloaking',
             //     items: [
             //       {label: 'C-Mail - Learn About Cloaking', icon: 'cast_connected', routerLink: ['/cloaked']},
@@ -76,7 +76,7 @@ export class AppMenuComponent implements OnInit {
             //       {label: 'My Daily Log - Overview', icon: 'cast_connected', routerLink: ['/home']},
             //     ]
             // },
-            {label: 'About', icon: 'info', routerLink: ['/bulletinboard']}
+            // {label: 'About', icon: 'info', routerLink: ['/bulletinboard']}
            // {label: 'Bulliten Board', icon: 'photo_library', routerLink: ['/bulletinboard']},
         ];
     }
