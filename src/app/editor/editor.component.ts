@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import { AppRepositoryService, MessageDto } from '../services/apprepository.service';
+import { AppRepositoryService } from '../services/apprepository.service';
+import { MessageDto } from '../services/models/messageDto';
 declare var $: any;
 
 @Component({
@@ -130,12 +131,12 @@ export class EditorComponent implements OnInit {
 //       });
 //   }
 
-  doAfterPaste() {
-      this.ed.on('froalaEditor.paste.afterCleanup', (e, editor, clipboard_html) => {
-         this.appRepository.isText = !this.appRepository.doIOF(clipboard_html);
-         this.appRepository.reloadEditorContent();
-      });
-  }
+//   doAfterPaste() {
+//       this.ed.on('froalaEditor.paste.afterCleanup', (e, editor, clipboard_html) => {
+//          this.appRepository.isText = !this.appRepository.doIOF(clipboard_html);
+//          this.appRepository.reloadEditorContent();
+//       });
+//   }
 
   doEncrypt() {
       this.makeTempId(8);

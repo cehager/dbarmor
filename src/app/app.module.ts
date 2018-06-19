@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {HttpModule} from '@angular/http';
+//import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Routes, RouterModule} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
@@ -204,7 +205,7 @@ import { CloakedArchiveComponent } from './cloaked-archive/cloaked-archive.compo
     InputSwitchModule,
     InputMaskModule,
     AppRoutes,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,

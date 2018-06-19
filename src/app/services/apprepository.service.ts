@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+//import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
-import { User } from './models/User';
+import { User, TokenString } from './models/User';
 import { Contact } from './models/contact';
 import { DailyLog } from './models/daily-log';
 import { Doc } from './models/document';
@@ -14,35 +15,31 @@ import { Photo } from './models/Photo';
 import { CMessageDto } from './models/cmessage';
 import { CText } from './models/ctxt';
 import { FsEdu } from './models/fsEdu';
+import { MessageDto } from './models/messageDto';
 // import {ContentType} from '@angular/http/src/enums';
 
-export interface MessageDto {
-  messageId: string;
-  message: string;
-  createdOn: string;
-  deleteAfter: string;
-  to: string;
-  subject: string;
-  from: string;
-  userId: string;
-  userName: string;
-  userLoginName: string;
-  toUserId: string;
-  fromUserId: string;
-  emailId: string;
-}
+// export interface MessageDto {
+//   messageId: string;
+//   message: string;
+//   createdOn: string;
+//   deleteAfter: string;
+//   to: string;
+//   subject: string;
+//   from: string;
+//   userId: string;
+//   userName: string;
+//   userLoginName: string;
+//   toUserId: string;
+//   fromUserId: string;
+//   emailId: string;
+// }
 
 @Injectable()
 export class AppRepositoryService {
   hold: any;
   baseUrl = environment.apiUrl;
   baseApiUrl = environment;
- //isApiLocal: boolean;
-  // http://mifawghorn20170405015815.azurewebsites.net/
-
-  // apiRoot = 'http://localhost:52233/mail/mi/msgfawg';
-  //apiRoot = 'https://4226-25056.el-alt.com/dex/hypertext/l1';
-    apiRoot = ''; // this.getApiBasePath + 'hypertext/l1';
+  apiRoot = ''; // this.getApiBasePath + 'hypertext/l1';
   userToken: any;
   activeUserId = '';
   activeUserLoginName: string;
@@ -62,7 +59,7 @@ export class AppRepositoryService {
   public message: string;
   messageDto: MessageDto;
   cmessageDto: CMessageDto;
-
+  httpheader: HttpHeaders;
   messages: Array<MessageDto> = new Array();
 
   tempMsgId: string;
@@ -83,11 +80,12 @@ export class AppRepositoryService {
 
 
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private router: Router, private httpclient: HttpClient) {
     //this.isApiLocal = false;
     this.apiRoot = this.getApiBasePath() + 'hypertext/l1';
     this.messageDto = {
       messageId: '',
+      groupId: '',
       message: '',
       createdOn: '',
       deleteAfter: '',
@@ -99,211 +97,82 @@ export class AppRepositoryService {
       userLoginName: '',
       toUserId: '',
       fromUserId: '',
-      emailId: ''
+      emailId: '',
+      sCode: '',
+      rid: ''
     };
   }
 
-  onSave() {
-    // var num = 0.12345678891E+180 + 0.18765453214E+258;
-    // num = Date.now();
-    // var a = [50000000];
-    // var x = 0;
-    // var y = 0;
-    // var i = 0;
-    // while (x++ < 50000000)
-    // {
-    //
-    //   a[i++] = Math.random() * 10;
-    // }
-    // y = Date.now();
-    //
-    // console.log('a begin test: ' + num / 1000);
-    // console.log('end test: ' + y / 1000);
-    // console.log('diff: ' + (y - num));
+  // onSave() {
+  //   let bnum =
+  //     Math.random() * (Math.random() * Math.PI) * Math.random() * 10000;
+  //   bnum = Math.floor(bnum);
+  //   let anum = Math.random() * bnum;
+  //   anum = Math.floor(anum);
+  //   let cnum = Math.floor(anum) % 123;
+  //   while (cnum < 97) {
+  //     cnum = cnum + 25;
+  //   }
+  //   const ucode = '\uff47';
+  // }
 
-    // var bnum = Math.random() * 10000000;
-    // var bnum = Math.random() * 31207482;
-    let bnum =
-      Math.random() * (Math.random() * Math.PI) * Math.random() * 10000;
-    bnum = Math.floor(bnum);
-    let anum = Math.random() * bnum;
-    anum = Math.floor(anum);
-    let cnum = Math.floor(anum) % 123;
-    while (cnum < 97) {
-      cnum = cnum + 25;
-    }
-    //console.log('bnum: ' + bnum + '   anum: ' + anum + '  cnum: ' + cnum);
+  // doIOF(msg: string): any {
+  //   const header = new HttpHeaders().set('Content-type', 'application/json')
+  //   .append('Access-Control-Allow-Origin', '*');
 
-    const ucode = '\uff47';
-    //console.log('char: ' + 'this is a test'.charCodeAt(1));
-    //console.log('char: ' + ucode.charAt(0));
+  //   this.getPath = this.getApiBasePath() + 'hypertext/l1/gettrialbymsgid/keep/' +
+  //     msg;
 
-    // console.log('anum: ' + anum );
-    // console.log('cnum: ' + cnum );
-  }
+  //   this.httpclient.get(this.getPath, {headers: header} ).subscribe((data: MessageDto) => {
+  //     console.log('doIOF response is: ', data);
+  //     if (data != null && data.userId != null) {
+  //       this.isText = false;
+  //       console.log('doIOF userId is not null');
+  //     } else {
+  //       this.isText = true;
+  //       console.log('doIOF userId is null');
+  //     }
+  //   }, () => false);
 
-  doIOF(msg: string): any {
-    // console.log('GET decrypted text: ')
-    // const headers = new Headers({'Access-Control-Allow-Origin': '*'});
-    // const options = new RequestOptions({headers: headers});
-    const header = new Headers();
-    header.append('Access-Control-Allow-Origin', '*');
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
-
-    // http://mifawghorn20170405015815.azurewebsites.net/
-
-    // const path = 'http://localhost:52233/mail/mi/msgfawg:' + this.message;
-    // console.log('value of msg in repository: ', msg);
-    // const path = 'http://localhost:52233/mail/mi/msgfawg:' + this.message;
-    //  console.log('in repository onDecrypt', this.message);
-
-    // this.getPath = 'http://localhost:52233/mione/matrix/' + msg.substring(0, 10);
-    this.getPath = this.getApiBasePath() + 'hypertext/l1/getbymsgid/keep/' +
-      msg.substring(0, 20);
-
-    //console.log('repos doIOF url: ', this.getPath);
-    // console.log('message is: ', msg);
-    this.http.get(this.getPath, options).subscribe((response: Response) => {
-      //console.log('response is: ', response);
-      const r = response.json();
-      if (r === 1) {
-        this.isText = false;
-        //console.log('istext value is: ', this.isText);
-      } else {
-        this.isText = true;
-      }
-    }, () => false);
-
-    return this.isText;
-    // return false;
-  }
+  //   return this.isText;
+  // }
 
   doGet(apiPath: string): Observable<any> {
-    const header = new Headers();
-    header.append('Access-Control-Allow-Origin', '*');
-    header.append('Authorization', 'Bearer ' + this.userToken);
-
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
-
-    // http://mifawghorn20170405015815.azurewebsites.net/
-
-    // const path = 'http://localhost:52233/mail/mi/msgfawg:' + this.message;
-    // console.log('value of msg in repository: ', msg);
-    // const path = 'http://localhost:52233/mail/mi/msgfawg:' + this.message;
-    //  console.log('in repository onDecrypt', this.message);
-
-    // this.getPath = this.apiPath + msg.substring(0, 20);
-    // this.apiRoot = 'http://localhost:5445/dex/hypertext/l1';
-    // this.getPath = this.apiRoot + '/getbyuserid/keep/' + this.activeUserId;
-    // this.messageDto.userId; // + msg.substring(0, 10);
-    // apiPath = apiPath + this.activeUserId;
-    //console.log('api url: ', apiPath);
-    //console.log('user token via doGet() : ', this.userToken);
-    return this.http.get(apiPath, options).map((response: Response) => {
-      //console.log('response is: ', response.json());
-      return response.json();
-    });
+    //this.gethttpHeader();
+    return this.httpclient.get(apiPath, {headers: this.httpheader});
   }
 
   doDecrypt(msg: string, apiPath: string): Observable<any> {
-    // console.log('GET decrypted text: ')
-    // const headers = new Headers({'Access-Control-Allow-Origin': '*'});
-    // const options = new RequestOptions({headers: headers});
-    const header = new Headers();
-    header.append('Access-Control-Allow-Origin', '*');
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
-
-    // http://mifawghorn20170405015815.azurewebsites.net/
-    // ****************************************************************************************
-    // this.getPath = 'http://localhost:5445/dex/hypertext/l1/do';
     this.getPath = apiPath + msg; // .substring(0, 20);
-    // this.getPath = this.apiRoot + '/getbymsgid/undo/' + msg.substring(0, 10);
-
-    //console.log('api url: ', this.getPath);
-    return this.http.get(this.getPath, options).map((response: Response) => {
-      // const data = response.json();
-      this.messageDto = response.json();
-      this.isText = true;
-      return this.messageDto;
-    });
+    return this.httpclient.get(this.getPath, {headers: this.httpheader});
   }
 
   doEncrypt(msg: string, apiPath: string): Observable<any> {
-    // console.log('get encrypted text: ');
-    // const headers = new Headers({'Access-Control-Allow-Origin': ''});
-    // const headers = new Headers({'Access-Control-Allow-Origin': '*'});
-    // headers: this.noPreFlightHeaders,
-    const header = new Headers({ 'Content-type': 'application/json' });
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    header.append('Access-Control-Allow-Origin', '*');
-
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
-
-    // this.headers = new Headers();
-    // this.headers.append('Access-Control-Allow-Origin', '*');
-
-    // this.apiRoot = 'http://localhost:52233/mail/mi/fawgwarts/fawgedcontacts';
-    // this.getPath =  this.apiRoot + '/fawgedcontacts';
-    // this.getPath = 'http://localhost:52233/mail/mi/fawgedup/all/all';
-    // this.numChars = this.message.length;
-    // this.messageDto.userId = this.user;
-
     this.messageDto.message = msg; // this.message;
     this.messageDto.messageId = this.tempFreeId;
-    // this.messageDto.createdOn = new Date().toDateString();
-    // const dhold = new Date();
-    // this.messageDto.deleteAfter = dhold.setDate(dhold.getDate() + 15).toString();
-    //console.log('messageDTO is: ', this.messageDto);
-
-    // ****************************************************************************************
-    // this.getPath = 'http://localhost:5445/dex/hypertext/l1/do';
     this.getPath = apiPath;
+    return this.httpclient.post<MessageDto>(this.getPath, this.messageDto, {headers: this.httpheader});
 
-    // this.getPath = 'http://b2n.gotdns.com:52233/mail/mi/msgfawg/fawgdin';
-    // this.getPath = 'http://mifawghorn20170405015815.azurewebsites.net/mail/mi/msgfawg/fawgdin';
-    // console.log('rx: ', this.messageDto);
+  }
 
-    return this.http
-      .post(this.getPath, this.messageDto, options)
-      .map((response: Response) => {
-        // const data = response.json();
-        this.messageDto = response.json();
-        return this.messageDto;
-      });
+  gethttpHeader() {
+    this.httpheader = new HttpHeaders().set('Content-type', 'application/json')
+    .append('Authorization', 'Bearer ' + this.userToken)
+    .append('Access-Control-Allow-Origin', '*');
   }
 
   onLogin(model: any) {
     this.activeUserId = '';
-    console.log('apiroot is: ', this.apiRoot);
-    const headers = new Headers({ 'Content-type': 'application/json' });
-    // headers.append('Access-Control-Allow-Origin', '*');
-    const options = new RequestOptions({
-      headers: headers,
-      withCredentials: false
-    });
-    return this.http
-      .post(this.apiRoot + '/auth/login', model, options)
-      .map((response: Response) => {
-        const r = response.json();
-        console.log('login response: ', r.tokenString);
-        // if (r.pwd !== '') {
-        if (r) {
-          // localStorage.setItem('token', r.pwd);
-          this.userToken = r.tokenString; // r.pwd;
-          this.decodedToken = this.jwtHelper.decodeToken(r.tokenString);
+     const httpheader = new HttpHeaders().set('Content-type', 'application/json')
+    .append('Access-Control-Allow-Origin', '*');
+
+    //the TokenString interface is in the User.ts
+    return this.httpclient
+      .post(this.apiRoot + '/auth/login', model, {headers: httpheader})
+      .map((data: TokenString) => {
+        if (data.tokenString) {
+          this.userToken = data.tokenString;
+          this.decodedToken = this.jwtHelper.decodeToken(data.tokenString);
           //  console.log('decodedToken is : ', this.decodedToken);
           //  console.log('decodedToken nameid is : ' + this.decodedToken.nameid);
           //  console.log('decodedToken name is : ' + this.decodedToken.unique_name);
@@ -313,17 +182,8 @@ export class AppRepositoryService {
           this.activeUserLoginName = this.decodedToken.unique_name;
           this.activeUserName = this.decodedToken.family_name;
 
-          // this.doGet() // updates the email inbox list
-          //     .subscribe((data: MessageDto[] ) => {
-          //         this.messages = data;
-          //         // this.messages = this.messages;
-          //         // console.log('content of messages is: ', this.messages);
-          //         this.router.navigate(['/inbox']);
-          //     });
-
-          // ***************************** add this back **************************************************
+          this.gethttpHeader();
           this.router.navigate(['/messages']);
-          // console.log('successful login name: ' + r.tokenString);
         } else {
         }
       })
@@ -331,8 +191,8 @@ export class AppRepositoryService {
   }
 
   register(model: any) {
-    return this.http
-      .post(this.apiRoot + '/auth/register', model, this.requestOptions())
+    return this.httpclient
+      .post(this.apiRoot + '/auth/register', model, {headers: this.httpheader})
       .catch(this.handleError);
   }
 
@@ -340,69 +200,27 @@ export class AppRepositoryService {
     this.router.navigate(['/home']);
   }
 
-  doCEncrypt(cmsg: CMessageDto, apiPath: string): Observable<any> {
-    const header = new Headers({ 'Content-type': 'application/json' });
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    header.append('Access-Control-Allow-Origin', '*');
-
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
-
+  doCEncrypt(cmsg: CMessageDto, apiPath: string): Observable<CMessageDto> {
     cmsg.rid = this.makeRID(20);
-    console.log('in doCencrypt: ', cmsg);
-
     this.getPath = apiPath;
-    return this.http
-      .post(this.getPath, cmsg, options)
-      .map((response: Response) => {
-        // const data = response.json();
-        this.cmessageDto = response.json();
-        return this.cmessageDto;
-      });
+    return this.httpclient
+      .post<CMessageDto>(this.getPath, cmsg, {headers: this.httpheader});
   }
 
-  doCDecrypt(cmsgId: string, apiPath: string): Observable<any> {
-    const header = new Headers();
-    header.append('Access-Control-Allow-Origin', '*');
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
-
-    // http://mifawghorn20170405015815.azurewebsites.net/
-    // ****************************************************************************************
+  doCDecrypt(cmsgId: string, apiPath: string): Observable<CMessageDto> {
     this.getPath = apiPath + cmsgId;
-    return this.http.get(this.getPath, options).map((response: Response) => {
-      // const data = response.json();
-      this.cmessageDto = response.json();
-      this.isText = true;
-      return this.cmessageDto;
-    });
+    return this.httpclient.get<CMessageDto>(this.getPath, {headers: this.httpheader});
   }
 
-  doCGet(apiPath: string): Observable<any> {
-    const header = new Headers();
-    header.append('Access-Control-Allow-Origin', '*');
-    header.append('Authorization', 'Bearer ' + this.userToken);
-
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
-    return this.http.get(apiPath, options).map((response: Response) => {
-      return response.json();
-    });
+  doCGet(apiPath: string): Observable<CMessageDto[]> {
+    return this.httpclient.get<CMessageDto[]>(apiPath, {headers: this.httpheader});
   }
 
 
-  private requestOptions() {
-    const headers = new Headers({ 'Content-type': 'application/json' });
-    // headers.append('Access-Control-Allow-Origin', '*');
-    return new RequestOptions({ headers: headers, withCredentials: false });
-  }
+  // private requestOptions() {
+  //   const headers = new Headers({ 'Content-type': 'application/json' });
+  //   return new RequestOptions({ headers: headers, withCredentials: false });
+  // }
 
   isEdBufferEmpty(): boolean {
     if (this.messageDto.message) {
@@ -421,7 +239,6 @@ export class AppRepositoryService {
   private handleError(error: any) {
     const applicationError = error.headers.get('Application-Error');
     if (applicationError) {
-      //console.log(applicationError);
       return Observable.throw(applicationError);
     }
     const serverError = error.json();
@@ -433,91 +250,85 @@ export class AppRepositoryService {
         }
       }
     }
-    //console.log('this is the application error: ' + applicationError + ' se:  ' + serverError);
     return Observable.throw(modelStateErrors || 'Server error - no feedback');
   }
 
   //activeUserId is set when the user logs in
-  getUsers(): Observable<User[]> {
-    return this.http
-      .get(this.baseUrl + this.activeUserId, this.jwt())
-      .map(response => <User[]>response.json())
-      .catch(this.handleError);
-  }
+  // getUsers(): Observable<User[]> {
+  //   return this.http
+  //     .get(this.baseUrl + this.activeUserId, this.jwt())
+  //     .map(response => <User[]>response.json())
+  //     .catch(this.handleError);
+  // }
 
   postContacts(model: any) {
-    const header = new Headers();
-    header.append('Access-Control-Allow-Origin', '*');
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    //console.log('user token: ' + this.userToken);
+    // const header = new Headers();
+    // header.append('Access-Control-Allow-Origin', '*');
+    // header.append('Authorization', 'Bearer ' + this.userToken);
+    // //console.log('user token: ' + this.userToken);
 
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
+    // const options = new RequestOptions({
+    //   headers: header,
+    //   withCredentials: false
+    // });
 
-    console.log('in postcontacts: ', model);
-    return this.http
-      .post(this.getApiBasePath() + 'admin/l1/contact/do', model, options)
+    //console.log('in postcontacts: ', model);
+    return this.httpclient
+      .post(this.getApiBasePath() + 'admin/l1/contact/do', model, {headers: this.httpheader})
       .catch(this.handleError);
   }
 
   putContacts(model: any) {
-    const header = new Headers();
-    header.append('Access-Control-Allow-Origin', '*');
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    //console.log('user token: ' + this.userToken);
+    // const header = new Headers();
+    // header.append('Access-Control-Allow-Origin', '*');
+    // header.append('Authorization', 'Bearer ' + this.userToken);
+    // //console.log('user token: ' + this.userToken);
 
-    const options = new RequestOptions({
-      headers: header,
-      withCredentials: false
-    });
+    // const options = new RequestOptions({
+    //   headers: header,
+    //   withCredentials: false
+    // });
 
-    return this.http
-      .put(this.getApiBasePath() + 'admin/l1/contact', model, options)
+    return this.httpclient
+      .put(this.getApiBasePath() + 'admin/l1/contact', model, {headers: this.httpheader})
       .catch(this.handleError);
   }
 
 
   //'http://localhost:5445/dex/admin/l1/user/getbyrelatedid/undo/'
   //'https://4226-25056.el-alt.com/dex/admin/l1/user/getbyrelatedid/undo/'
-  getContacts(): Observable<any> {
-    return this.http
-      .get(this.getApiBasePath() + 'admin/l1/contact/getbyuserid/undo/' + this.activeUserId, this.jwt())
-      .map(response => <Contact[]>response.json())
-      .catch(this.handleError);
+  getContacts(): Observable<Contact[]> {
+    return this.httpclient
+      .get<Contact[]>(this.getApiBasePath() + 'admin/l1/contact/getbyuserid/undo/' + this.activeUserId, {headers: this.httpheader});
+      // .map(response => <Contact[]>response.json())
+      // .catch(this.handleError);
   }
 
   getDocuments(): Observable<Doc[]> {
-    return this.http
-      .get(this.getApiBasePath() + 'docs/l1/getdocbyuserid/keep/' + this.activeUserId, this.jwt())
-      .map((response: Response) => {
-        const r = <Doc[]>response.json();
-        //console.log('document respone', r);
-        return r;
-      })
+    return this.httpclient
+      .get(this.getApiBasePath() + 'docs/l1/getdocbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
       .catch(this.handleError);
   }
 
 
   getPhotos(): Observable<any> {
-    return this.http
-      .get(this.getApiBasePath() + 'photos/l1/getphotosbyuserid/keep/' + this.activeUserId, this.jwt())
-      .map(response => <Photo[]>response.json())
+    return this.httpclient
+      .get(this.getApiBasePath() + 'photos/l1/getphotosbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
+      //.map(response => <Photo[]>response.json())
       .catch(this.handleError);
   }
 
 
-  private jwt() {
-    let token = this.userToken;
-    //console.log('active user id is:' + this.activeUserId);
-    //console.log('this is the user token: ' + token);
-    if (token) {
-      let headers = new Headers({ Authorization: 'Bearer ' + token });
-      headers.append('Content-type', 'application/json');
-      return new RequestOptions({ headers: headers });
-    }
-  }
+  // private jwt() {
+  //   let token = this.userToken;
+  //   //console.log('active user id is:' + this.activeUserId);
+  //   //console.log('this is the user token: ' + token);
+  //   if (token) {
+  //     let headers = new Headers({ Authorization: 'Bearer ' + token });
+  //     headers.append('Content-type', 'application/json');
+  //     return new RequestOptions({ headers: headers });
+  //   }
+  // }
 
   aShuffle (array) {
     let i = 0
@@ -574,125 +385,48 @@ export class AppRepositoryService {
   }
 
 
-  doEncryptDailyLog(dl: DailyLog, apiPath: string): Observable<any> {
-    // const header = new Headers({ 'Content-type': 'application/json' });
-    // header.append('Authorization', 'Bearer ' + this.userToken);
-    // header.append('Access-Control-Allow-Origin', '*');
-
-    //const header = this.setHttpHeaders();
-    const options = new RequestOptions({
-      headers: this.setHttpHeaders(),
-      withCredentials: false
-    });
-
-    //console.log('Daily log is: ', dl);
-    //console.log('log header is: ', options.headers);
-    return this.http
-      .post(apiPath, dl, options)
-      .map((response: Response) => {
-        dl = <DailyLog>response.json();
-        return dl;
-      }).catch(this.handleError);
+  doEncryptDailyLog(dl: DailyLog, apiPath: string): Observable<DailyLog> {
+    return this.httpclient
+      .post<DailyLog>(apiPath, dl, {headers: this.httpheader}).catch(this.handleError);
   }
 
 
-  doDecryptDailyLog(dl: DailyLog, apiPath: string): Observable<any> {
-    // const header = new Headers({ 'Content-type': 'application/json' });
-    // header.append('Authorization', 'Bearer ' + this.userToken);
-    // header.append('Access-Control-Allow-Origin', '*');
+  doDecryptDailyLog(dl: DailyLog, apiPath: string): Observable<DailyLog> {
 
-    const options = new RequestOptions({
-      headers: this.setHttpHeaders(),
-      withCredentials: false
-    });
-
-   // console.log('Daily log is: ', dl);
-
-    return this.http
-      .get(apiPath, options)
-      .map((response: Response) => {
-        dl = <DailyLog>response.json();
-        return dl;
-      }).catch(this.handleError);
+    return this.httpclient
+      .get<DailyLog>(apiPath, {headers: this.httpheader}).catch(this.handleError);
   }
 
-  doEncryptDocument(dl: Doc, apiPath: string): Observable<any> {
-    // const header = new Headers({ 'Content-type': 'application/json' });
-    // header.append('Authorization', 'Bearer ' + this.userToken);
-    // header.append('Access-Control-Allow-Origin', '*');
-
-    const options = new RequestOptions({
-      headers: this.setHttpHeaders(),
-      withCredentials: false
-    });
-
-    //console.log('Daily log is: ', dl);
-
-    return this.http
-      .post(apiPath, dl, options)
-      .map((response: Response) => {
-        dl = <Doc>response.json();
-        return dl;
-      }).catch(this.handleError);
+  doEncryptDocument(dl: Doc, apiPath: string): Observable<Doc> {
+    return this.httpclient
+      .post<Doc>(apiPath, dl, {headers: this.httpheader}).catch(this.handleError);
   }
 
 
-  doDecryptDocument(dl: Doc, apiPath: string): Observable<any> {
-    // const header = new Headers({ 'Content-type': 'application/json' });
-    // header.append('Authorization', 'Bearer ' + this.userToken);
-    // header.append('Access-Control-Allow-Origin', '*');
-
-    const options = new RequestOptions({
-      headers: this.setHttpHeaders(),
-      withCredentials: false
-    });
-
-    //console.log('Daily log is: ', dl);
-
-    return this.http
-      .get(apiPath, options)
-      .map((response: Response) => {
-        dl = <Doc>response.json();
-        return dl;
-      }).catch(this.handleError);
+  doDecryptDocument(dl: Doc, apiPath: string): Observable<Doc> {
+    return this.httpclient
+      .get<Doc>(apiPath, {headers: this.httpheader}).catch(this.handleError);
   }
 
-  doPostCtxt(txt: CText, apiPath: string): Observable<any> {
-    // const header = new Headers({ 'Content-type': 'application/json' });
-    // header.append('Authorization', 'Bearer ' + this.userToken);
-    // header.append('Access-Control-Allow-Origin', '*');
-
-    const options = new RequestOptions({
-      headers: this.setHttpHeaders(),
-      withCredentials: false
-    });
-
-    return this.http
-      .post(apiPath, txt, options)
-      .map((response: Response) => {
-        txt = <CText>response.json();
-        return txt;
-      }).catch(this.handleError);
+  doPostCtxt(txt: CText, apiPath: string): Observable<CText> {
+    return this.httpclient
+      .post<CText>(apiPath, txt, {headers: this.httpheader}).catch(this.handleError);
   }
 
-  doGetCText(txtId: string, thePath: string): Observable<any> {
-    return this.http
-      .get(this.getApiBasePath() + thePath + txtId, this.jwt())
-      .map(response => <CText>response.json())
+  doGetCText(txtId: string, thePath: string): Observable<CText> {
+    return this.httpclient
+      .get<CText>(this.getApiBasePath() + thePath + txtId, {headers: this.httpheader}).catch(this.handleError);
+  }
+
+  doGetCtxtByUserId(): Observable<CText[]> {
+    return this.httpclient
+      .get<CText[]>(this.getApiBasePath() + 'ctxt/l1/getbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
       .catch(this.handleError);
   }
 
-  doGetCtxtByUserId(): Observable<any> {
-    return this.http
-      .get(this.getApiBasePath() + 'ctxt/l1/getbyuserid/keep/' + this.activeUserId, this.jwt())
-      .map(response => <CText[]>response.json())
-      .catch(this.handleError);
-  }
-
-  getFsEdus(): Observable<any> {
-    return this.http
-      .get(this.getApiBasePath() + 'fsedu/l1/getbyuserid/keep/' + this.activeUserId, this.jwt())
-      .map(response => <FsEdu[]>response.json())
+  getFsEdus(): Observable<FsEdu[]> {
+    return this.httpclient
+      .get<FsEdu[]>(this.getApiBasePath() + 'fsedu/l1/getbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
       .catch(this.handleError);
   }
 

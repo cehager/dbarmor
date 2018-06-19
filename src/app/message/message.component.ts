@@ -15,7 +15,8 @@
 // }
 
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import { AppRepositoryService, MessageDto } from '../services/apprepository.service';
+import { AppRepositoryService } from '../services/apprepository.service';
+import { MessageDto } from '../services/models/messageDto';
 // import {AppRepositoryService, MessageDto} from './services/app-repository.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {MessageService} from 'primeng/components/common/messageservice';
@@ -40,7 +41,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     autoCompleteContacts: string[] = [];
     autoCompleteContact: string;
     activeUserContacts: Contact[];
-  messages: MessageDto[];
+    messages: MessageDto[];
     rowsSelected: Array<MessageDto>;
     editorContent: string;
     emailTo: string;
@@ -253,6 +254,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
          this.appRepository.doGet(this.appRepository.getApiBasePath() + 'hypertext/l1/getbytouserid/keep/'
                 + this.appRepository.activeUserId) // updates the email inbox list
             .subscribe((data: MessageDto[] ) => {
+               console.log('ngAfterViewInit: ', data);
+
                 this.appRepository.messages = data;
                 for (let i = 0; i < this.appRepository.messages.length; i++) {
                     this.appRepository.messages[i].createdOn = moment(this.appRepository.messages[i].createdOn).format('MM/DD/YYYY');
@@ -263,7 +266,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
                 //console.log('ngAfterViewInit fired : ', this.messages);
             });
-
 
             // this.ed.on('froalaEditor.commands.after', function (e, editor, cmd, param1, param2) {
             //     console.log('editor command is: ', cmd);

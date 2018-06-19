@@ -337,7 +337,7 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
           'cloak/l1/getbytouserid/keep/' +
           this.appRepository.activeUserId
       ) // updates the email inbox list
-      .subscribe((data: CMessageDto[]) => {
+      .subscribe((data) => {
         this.cmessages = data;
         for (let i = 0; i < this.cmessages.length; i++) {
           this.cmessages[i].createdOn = moment(

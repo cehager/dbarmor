@@ -107,11 +107,12 @@ contactForm: FormGroup;
     //return true;
   }
 
+  //TODO: this is showing invalid when it is not
   post() {
     // let bnum = Math.random() * (Math.random() * Math.PI) * Math.random() * 10000000;
     // bnum = Math.floor(bnum);
     if (this.contactForm.invalid) {
-    //console.log('contact form values are: ', this.contactForm);
+    console.log('contact form values are: ', this.contactForm);
     if (this.contactForm.get('userName').invalid) {
       this.alertify.dialog('Got It!', '<h4>Contact Name field is required.<h4>');
     }
@@ -120,8 +121,9 @@ contactForm: FormGroup;
       this.alertify.dialog('Got It!', '<h4>ARMORED address field is required.<h4>');
     }
 
-    this.alertify.error('Contact was not saved.');
-    return;
+    //falls into this when it is still valid.
+    //this.alertify.error('Contact was not saved.');
+    //return;
   }
 
   this.model = Object.assign({}, this.contactForm.value);

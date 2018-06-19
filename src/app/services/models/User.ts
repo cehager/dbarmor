@@ -14,3 +14,7 @@ export interface User {
     country?: string;
     occupation?: string;
 }
+
+export interface TokenString {
+    tokenString: string;
+}
