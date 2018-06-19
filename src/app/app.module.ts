@@ -24,7 +24,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 // import { AppRoutingModule } from './app-routing.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
+//import { FlexLayoutModule } from '@angular/flex-layout';
 import { SignupComponent } from './signup/signup.component';
 import { NavHeaderComponent } from './nav/nav-header/nav-header.component';
 import { SidenavListComponent } from './nav/sidenav-list/sidenav-list.component';
@@ -208,7 +208,7 @@ import { CloakedArchiveComponent } from './cloaked-archive/cloaked-archive.compo
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
+    //FlexLayoutModule,
     JwtModule,
     [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()],
     ReactiveFormsModule
