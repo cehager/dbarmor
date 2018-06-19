@@ -30,7 +30,7 @@ import { NavHeaderComponent } from './nav/nav-header/nav-header.component';
 import { SidenavListComponent } from './nav/sidenav-list/sidenav-list.component';
 // import { EditorFroalaComponent } from './editor/editor-froala/editor-froala.component';
 import {AppTopbarComponent} from './app.topbar.component';
-
+import { JwtModule } from '@auth0/angular-jwt';
 
 // import {AccordionModule} from 'primeng/primeng'; // in use
 import {AutoCompleteModule, Rating, FileUpload} from 'primeng/primeng';
@@ -209,6 +209,7 @@ import { CloakedArchiveComponent } from './cloaked-archive/cloaked-archive.compo
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    JwtModule,
     [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()],
     ReactiveFormsModule
   ],

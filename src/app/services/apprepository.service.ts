@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
+//import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../environments/environment';
 import { User, TokenString } from './models/User';
 import { Contact } from './models/contact';
@@ -45,7 +46,7 @@ export class AppRepositoryService {
   activeUserLoginName: string;
   activeUserName: string;
   decodedToken: any;
-  jwtHelper: JwtHelper = new JwtHelper();
+  jwtHelper: JwtHelperService = new JwtHelperService();
   tempFreeId: string;
   // apiRoot: string = 'http://b2n.gotdns.com:52233/mail/mi/msgfawg';
   // apiRoot = 'http://mifawghorn20170405015815.azurewebsites.net/mail/mi/msgfawg';
@@ -304,7 +305,7 @@ export class AppRepositoryService {
       // .catch(this.handleError);
   }
 
-  getDocuments(): Observable<Doc[]> {
+  getDocuments(): Observable<any> {
     return this.httpclient
       .get(this.getApiBasePath() + 'docs/l1/getdocbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
       .catch(this.handleError);
