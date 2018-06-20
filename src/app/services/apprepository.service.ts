@@ -19,22 +19,6 @@ import { FsEdu } from './models/fsEdu';
 import { MessageDto } from './models/messageDto';
 // import {ContentType} from '@angular/http/src/enums';
 
-// export interface MessageDto {
-//   messageId: string;
-//   message: string;
-//   createdOn: string;
-//   deleteAfter: string;
-//   to: string;
-//   subject: string;
-//   from: string;
-//   userId: string;
-//   userName: string;
-//   userLoginName: string;
-//   toUserId: string;
-//   fromUserId: string;
-//   emailId: string;
-// }
-
 @Injectable()
 export class AppRepositoryService {
   hold: any;
@@ -48,9 +32,7 @@ export class AppRepositoryService {
   decodedToken: any;
   jwtHelper: JwtHelperService = new JwtHelperService();
   tempFreeId: string;
-  // apiRoot: string = 'http://b2n.gotdns.com:52233/mail/mi/msgfawg';
   // apiRoot = 'http://mifawghorn20170405015815.azurewebsites.net/mail/mi/msgfawg';
-  // apiRoot = 'http://localhost:52233/mail/mi/msgfawg';
   getPath = 'all';
   numChars: number;
   isText: boolean;
@@ -152,11 +134,13 @@ export class AppRepositoryService {
     this.messageDto.message = msg; // this.message;
     this.messageDto.messageId = this.tempFreeId;
     this.getPath = apiPath;
-    return this.httpclient.post<MessageDto>(this.getPath, this.messageDto, {headers: this.httpheader});
+    return this.httpclient.post<MessageDto>(this.getPath, this.messageDto, {headers: this.httpheader})
+      .catch(this.handleError);
 
   }
 
   gethttpHeader() {
+    console.log('user token is: ', this.userToken);
     this.httpheader = new HttpHeaders().set('Content-type', 'application/json')
     .append('Authorization', 'Bearer ' + this.userToken)
     .append('Access-Control-Allow-Origin', '*');
@@ -167,11 +151,15 @@ export class AppRepositoryService {
      const httpheader = new HttpHeaders().set('Content-type', 'application/json')
     .append('Access-Control-Allow-Origin', '*');
 
+    console.log('user token before is: ', this.userToken);
     //the TokenString interface is in the User.ts
     return this.httpclient
       .post(this.apiRoot + '/auth/login', model, {headers: httpheader})
       .map((data: TokenString) => {
+        console.log('user token is: ', data);
+
         if (data.tokenString) {
+          console.log('user token after is: ', this.userToken);
           this.userToken = data.tokenString;
           this.decodedToken = this.jwtHelper.decodeToken(data.tokenString);
           //  console.log('decodedToken is : ', this.decodedToken);
@@ -217,12 +205,6 @@ export class AppRepositoryService {
     return this.httpclient.get<CMessageDto[]>(apiPath, {headers: this.httpheader});
   }
 
-
-  // private requestOptions() {
-  //   const headers = new Headers({ 'Content-type': 'application/json' });
-  //   return new RequestOptions({ headers: headers, withCredentials: false });
-  // }
-
   isEdBufferEmpty(): boolean {
     if (this.messageDto.message) {
       return false;
@@ -239,6 +221,7 @@ export class AppRepositoryService {
 
   private handleError(error: any) {
     const applicationError = error.headers.get('Application-Error');
+    console.log('in handle error.');
     if (applicationError) {
       return Observable.throw(applicationError);
     }
@@ -263,46 +246,21 @@ export class AppRepositoryService {
   // }
 
   postContacts(model: any) {
-    // const header = new Headers();
-    // header.append('Access-Control-Allow-Origin', '*');
-    // header.append('Authorization', 'Bearer ' + this.userToken);
-    // //console.log('user token: ' + this.userToken);
-
-    // const options = new RequestOptions({
-    //   headers: header,
-    //   withCredentials: false
-    // });
-
-    //console.log('in postcontacts: ', model);
     return this.httpclient
       .post(this.getApiBasePath() + 'admin/l1/contact/do', model, {headers: this.httpheader})
       .catch(this.handleError);
   }
 
   putContacts(model: any) {
-    // const header = new Headers();
-    // header.append('Access-Control-Allow-Origin', '*');
-    // header.append('Authorization', 'Bearer ' + this.userToken);
-    // //console.log('user token: ' + this.userToken);
-
-    // const options = new RequestOptions({
-    //   headers: header,
-    //   withCredentials: false
-    // });
-
     return this.httpclient
       .put(this.getApiBasePath() + 'admin/l1/contact', model, {headers: this.httpheader})
       .catch(this.handleError);
   }
 
 
-  //'http://localhost:5445/dex/admin/l1/user/getbyrelatedid/undo/'
-  //'https://4226-25056.el-alt.com/dex/admin/l1/user/getbyrelatedid/undo/'
   getContacts(): Observable<Contact[]> {
     return this.httpclient
       .get<Contact[]>(this.getApiBasePath() + 'admin/l1/contact/getbyuserid/undo/' + this.activeUserId, {headers: this.httpheader});
-      // .map(response => <Contact[]>response.json())
-      // .catch(this.handleError);
   }
 
   getDocuments(): Observable<any> {
@@ -355,7 +313,6 @@ export class AppRepositoryService {
   for (let i = 0; i < array.length; i++) {
     j = array[i] % 82;
     this.tid[i] = this.letters[j];
-    //console.log(this.tid[i]);
   }
 
   return this.tid.join('');
@@ -372,7 +329,6 @@ export class AppRepositoryService {
     for (let i = 0; i < array.length; i++) {
       j = array[i] % 82;
       this.tid[i] = this.lettersOnly[j];
-      //console.log(this.tid[i]);
     }
 
     return this.tid.join('');

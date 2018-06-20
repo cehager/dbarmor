@@ -1,19 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-message',
-//   templateUrl: './message.component.html',
-//   styleUrls: ['./message.component.scss']
-// })
-// export class MessageComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
-
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { AppRepositoryService } from '../services/apprepository.service';
 import { MessageDto } from '../services/models/messageDto';

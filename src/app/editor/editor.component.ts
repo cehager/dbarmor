@@ -92,7 +92,7 @@ export class EditorComponent implements OnInit {
 
       this.edContentGet = 'html.get';
       this.ed = $('div#fred');
-      this.editorContent = this.appRepository.reloadEditorContent();
+      //this.editorContent = this.appRepository.reloadEditorContent();
 
       if (this.appRepository.isEdBufferEmpty()) {
           this.appRepository.isText = true;
@@ -159,8 +159,9 @@ export class EditorComponent implements OnInit {
           return;
       }
 
-      //this.apiPath = 'http://localhost:5445/dex/hypertext/l1/trialdo';
-      this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/trialdo';
+      //this.apiPath = 'http://localhost:5445/dex/hypertextfree/l1/trialdo';
+      //this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertextfree/l1/trialdo';
+      this.apiPath =  this.appRepository.getApiBasePath() + 'hypertextfree/l1/trialdo';
       this.appRepository.doEncrypt(rmsg, this.apiPath)
           .subscribe((data: MessageDto) => {
               this.editorContent = data.message;
@@ -174,8 +175,9 @@ export class EditorComponent implements OnInit {
       // this.msgId = '';
 
       // this.decrypt = true;  // this opens the decrypt id dialog
-      //this.apiPath = 'http://localhost:5445/dex/hypertext/l1/gettrialbymsgid/undo/';
-      this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/gettrialbymsgid/undo/';
+      //this.apiPath = 'http://localhost:5445/dex/hypertextfree/l1/gettrialbymsgid/undo/';
+      //this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertextfree/l1/gettrialbymsgid/undo/';
+      this.apiPath =  this.appRepository.getApiBasePath() + 'hypertextfree/l1/gettrialbymsgid/undo/';
       console.log('messageDto is ', this.appRepository.messageDto);
       this.appRepository.messageDto.message = this.ed.froalaEditor(this.edContentGet);
       this.appRepository.messageDto.messageId = this.msgId.trim();   // this.appRepository.messageDto.message.substring(0, 20);
