@@ -25,7 +25,7 @@
       <div class="ui-md-11 ui-sm-12">
         <span class="md-inputfield">
           <input type="text" pInputText formControlName="amailAddr" required minlength="2" maxlength="50" />
-          <label>ARMORED - Email Address </label>
+          <label>ARMORED - A-Mail Address </label>
         </span>
       </div>
       <div class="ui-md-11 ui-sm-12">
@@ -103,7 +103,15 @@
         </div>
   
     </div>
-    <button class="save-btn" type="submit" style="margin-top:20px" label="Submit" pButton></button>
+    <div class='ui-md-12 ui-sm-12 ui-g ui-fluid ui-g-nopad'>
+    <button class="save-btn" type="submit" style="margin-top:20px" label="Submit (Save and Encrypt)" pButton></button>
+    <div class='ui-md-6 ui-g ui-fluid ui-g-nopad'>
+      <button type="button" label="Add New" pButton (click)="addNew()"></button>
+    </div>
+      <div class='ui-md-6 ui-g ui-fluid ui-g-nopad'>
+        <button type="button" class="ui-button-danger" label="Delete" pButton (click)="deleteContact()"></button>
+    </div>
+    </div>
   </p-panel>
   <div class="contact-table ui-md-7 ui-sm-12 ui-g ui-fluid ui-g-nopad">
     <p-dataTable [value]="contacts" selectionMode="single"  [(selection)]="rowsSelected" [resizableColumns]="true" [reorderableColumns]="true"
@@ -115,7 +123,19 @@
     </p-dataTable>
   </div>
 </form>
-
+<p-dialog header="NOTICE: MESSAGE ID REQUIRED" [(visible)]="dialogVisible" onClose="diaClose()" [closable]=false modal="modal"
+showEffect="fade" width="400">
+<div class="ui-g-12">
+<p>Are your sure you want to delete this contact?.</p>
+</div>
+<p-footer>
+  <div class="ui-dialog-buttonpane ui-helper-clearfix">
+    <!-- <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button> -->
+    <button type="button" pButton icon="fa-check" (click)="btnDelete()" label="Yes - Delete Contact"></button>
+    <button type="button" pButton icon="fa-check" (click)="btnCancel()" label="No - Cancel"></button>
+  </div>
+</p-footer>
+</p-dialog>
 <!-- 
 <div class="ui-g-12 ui-md-4 contacts">
   <p-panel header="Contacts">

@@ -41,6 +41,7 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   edContentGet: string;
   delay: number;
   isMsgText: boolean;
+  dialogVisible: boolean;
   // rowSelected: any;
   constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService, private alertify: AlertifyService) {  }
 
@@ -213,7 +214,9 @@ ngOnInit() {
                 this.ed.froalaEditor('edit.on');
             }
         });
-}
+
+        this.doCreateNewDoc();
+    }
 
   ngAfterViewInit() {
       // this.apiPath = 'https://4226-25056.el-alt.com/dex/hypertext/l1/do';
@@ -235,7 +238,7 @@ ngOnInit() {
 
   doCreateNewDoc() {
     this.editorContent = '';
-    this.contentType = '';
+    this.contentType = 'Short Story';
     this.desc = '';
     this.documentId = '';
     this.relatedId = '';
@@ -265,15 +268,38 @@ ngOnInit() {
       this.docType.push({label: 'Other', value: 'Other'});
   }
 
+  addNew() {
+    this.doCreateNewDoc();
+  }
+
+  deleteDocument() {
+    this.dialogVisible = true;
+  }
+
+  btnDelete() {
+    this.dialogVisible = false;
+    this.appRepository.deleteDocument(this.documentId).subscribe((data) => {
+        this.ngAfterViewInit();
+    });
+    this.doCreateNewDoc();
+  }
+
+  btnCancel() {
+    this.dialogVisible = false;
+    //this.doCreateNewLogEntry();
+  }
+
+
+
   doEncrypt() {
       let rmsg = this.ed.froalaEditor(this.edContentGet);
       console.log('editor content is: ', rmsg);
       rmsg = rmsg.replace(/&nbsp;/gi, '');
       rmsg = rmsg.trim();
       if (rmsg.length === 0) {
-          return;
-      }
-
+        this.alertify.dialog('Got It!', '<h4>Ooops! There is nothing to encrypt!<h4>');
+        return;
+    }
       this.apiPath = this.appRepository.getApiBasePath() + 'docs/l1/do';
       // if (this.ed.froalaEditor('charCounter.count') < 1) {
       //     this.editorContent = this.editorContent

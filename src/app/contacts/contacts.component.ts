@@ -15,7 +15,7 @@ contacts: Contact[];
 model: any = {};
 //model: Contact;
 contactForm: FormGroup;
-
+dialogVisible: boolean;
 
   constructor(private appService: AppRepositoryService, private fb: FormBuilder, private alertify: AlertifyService ) {
 
@@ -33,14 +33,16 @@ contactForm: FormGroup;
     // this.model.city = '';
     // this.model.country = '';
     // this.model.occupation = '';
+    this.dialogVisible = false;
     this.createContactForm();
+
   }
 
 
   createContactForm() {
     this.contactForm = this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      amailAddr: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      amailAddr: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       emailAddr: [''],
       mobile: ['', Validators.maxLength(15)],
       phone: ['', Validators.maxLength(15)],
@@ -107,6 +109,27 @@ contactForm: FormGroup;
     //return true;
   }
 
+  addNew() {
+    this.contactForm.reset();
+  }
+
+  deleteContact() {
+    //do a confirmation first
+    this.dialogVisible = true;
+  }
+
+  btnDelete() {
+    //delete
+    this.dialogVisible = false;
+    this.appService.deleteContact(this.contactForm.value.id).subscribe((data) => {
+      this.getContactsByActiveUserId();
+    });
+  }
+
+  btnCancel() {
+    this.dialogVisible = false;
+  }
+
   //TODO: this is showing invalid when it is not
   post() {
     // let bnum = Math.random() * (Math.random() * Math.PI) * Math.random() * 10000000;
@@ -118,7 +141,7 @@ contactForm: FormGroup;
     }
 
     if (this.contactForm.get('amailAddr').invalid) {
-      this.alertify.dialog('Got It!', '<h4>ARMORED address field is required.<h4>');
+      this.alertify.dialog('Got It!', '<h4>The A-Mail address field is required and must have at least 5 letters.<h4>');
     }
 
     //falls into this when it is still valid.

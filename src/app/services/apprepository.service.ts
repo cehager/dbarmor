@@ -64,7 +64,6 @@ export class AppRepositoryService {
 
 
   constructor(private router: Router, private httpclient: HttpClient) {
-    //this.isApiLocal = false;
     this.apiRoot = this.getApiBasePath() + 'hypertext/l1';
     this.messageDto = {
       messageId: '',
@@ -85,40 +84,6 @@ export class AppRepositoryService {
       rid: ''
     };
   }
-
-  // onSave() {
-  //   let bnum =
-  //     Math.random() * (Math.random() * Math.PI) * Math.random() * 10000;
-  //   bnum = Math.floor(bnum);
-  //   let anum = Math.random() * bnum;
-  //   anum = Math.floor(anum);
-  //   let cnum = Math.floor(anum) % 123;
-  //   while (cnum < 97) {
-  //     cnum = cnum + 25;
-  //   }
-  //   const ucode = '\uff47';
-  // }
-
-  // doIOF(msg: string): any {
-  //   const header = new HttpHeaders().set('Content-type', 'application/json')
-  //   .append('Access-Control-Allow-Origin', '*');
-
-  //   this.getPath = this.getApiBasePath() + 'hypertext/l1/gettrialbymsgid/keep/' +
-  //     msg;
-
-  //   this.httpclient.get(this.getPath, {headers: header} ).subscribe((data: MessageDto) => {
-  //     console.log('doIOF response is: ', data);
-  //     if (data != null && data.userId != null) {
-  //       this.isText = false;
-  //       console.log('doIOF userId is not null');
-  //     } else {
-  //       this.isText = true;
-  //       console.log('doIOF userId is null');
-  //     }
-  //   }, () => false);
-
-  //   return this.isText;
-  // }
 
   doGet(apiPath: string): Observable<any> {
     //this.gethttpHeader();
@@ -237,14 +202,6 @@ export class AppRepositoryService {
     return Observable.throw(modelStateErrors || 'Server error - no feedback');
   }
 
-  //activeUserId is set when the user logs in
-  // getUsers(): Observable<User[]> {
-  //   return this.http
-  //     .get(this.baseUrl + this.activeUserId, this.jwt())
-  //     .map(response => <User[]>response.json())
-  //     .catch(this.handleError);
-  // }
-
   postContacts(model: any) {
     return this.httpclient
       .post(this.getApiBasePath() + 'admin/l1/contact/do', model, {headers: this.httpheader})
@@ -261,6 +218,11 @@ export class AppRepositoryService {
   getContacts(): Observable<Contact[]> {
     return this.httpclient
       .get<Contact[]>(this.getApiBasePath() + 'admin/l1/contact/getbyuserid/undo/' + this.activeUserId, {headers: this.httpheader});
+  }
+
+  deleteContact(id): Observable<any> {
+    return this.httpclient
+      .get<any>(this.getApiBasePath() + 'admin/l1/contact/deletebyid/' + id, {headers: this.httpheader});
   }
 
   getDocuments(): Observable<any> {
@@ -354,6 +316,11 @@ export class AppRepositoryService {
       .get<DailyLog>(apiPath, {headers: this.httpheader}).catch(this.handleError);
   }
 
+  deleteDailyLog(id): Observable<any> {
+    return this.httpclient
+      .get<any>(this.getApiBasePath() + 'dailylog/l1/deletebydailyid/' + id, {headers: this.httpheader});
+  }
+
   doEncryptDocument(dl: Doc, apiPath: string): Observable<Doc> {
     return this.httpclient
       .post<Doc>(apiPath, dl, {headers: this.httpheader}).catch(this.handleError);
@@ -364,6 +331,12 @@ export class AppRepositoryService {
     return this.httpclient
       .get<Doc>(apiPath, {headers: this.httpheader}).catch(this.handleError);
   }
+
+  deleteDocument(docid): Observable<any> {
+    return this.httpclient
+      .get<any>(this.getApiBasePath() + 'docs/l1/deletebydocumentid/' + docid, {headers: this.httpheader});
+  }
+
 
   doPostCtxt(txt: CText, apiPath: string): Observable<CText> {
     return this.httpclient
@@ -387,9 +360,22 @@ export class AppRepositoryService {
       .catch(this.handleError);
   }
 
+  // getUserByAmailAddr(aPath): Observable<Number> {
+  //   return this.httpclient
+  //   .get<Number>(aPath, {headers: this.httpheader})
+  //   .catch(this.handleError);
+  // }
+
+  getUserByAmailAddr(apath: string): Observable<string> {
+    return this.httpclient.get<string>(this.getApiBasePath() + 'admin/l1/user/isuseramailvalid/'
+    + apath, {headers: this.httpheader}).catch(this.handleError);
+  }
+
+
+
   getApiBasePath(): string {
-    return 'https://4226-25056.el-alt.com/dex/';
-    //return  'http://localhost:5445/dex/';
+    //return 'https://4226-25056.el-alt.com/dex/';
+    return  'http://localhost:5445/dex/';
   }
 
 }

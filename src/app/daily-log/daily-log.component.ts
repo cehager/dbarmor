@@ -36,6 +36,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
     edContentGet: string;
     delay: number;
     isMsgText: boolean;
+    dialogVisible: boolean;
     // rowSelected: any;
     constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService, private alertify: AlertifyService) {  }
 
@@ -79,8 +80,9 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
         this.currentDailyLog.userId = event.data.userId;
         this.currentDailyLog.message = event.data.message;
         this.currentDailyLog.rating = event.data.rating;
+        this.currentDailyLog.id = event.data.id;
         this.logId = event.data.logId;
-        console.log('event data logdate is: ', event.data.logDate);
+        //console.log('event data logdate is: ', event.data.logDate);
         this.logDate = moment(event.data.logDate).format('MM/DD/YYYY');
         //let ld = moment(event.data.logDate);
         //this.logDate = ld.format('MM/DD/YYYY');   //event.data.logDate;
@@ -211,8 +213,10 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
 
         this.rating = 4;
 
+        this.dialogVisible = false;
         this.isMsgText = true;
         this.ed.froalaEditor('edit.on');
+        this.doCreateNewLogEntry();
   }
 
     ngAfterViewInit() {
@@ -246,14 +250,33 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
 
     doCreateNewLogEntry() {
         this.editorContent = '';
-        //this.logDate = new Date().toLocaleDateString();
+        this.logDate = moment().format('MM/DD/YYYY');
         this.summary = ''; // moment().dayOfYear().toString();
         this.isMsgText = true;
         this.rating = 4;
         this.ed.froalaEditor('edit.on');
     }
 
+    addNew() {
+        this.doCreateNewLogEntry();
+      }
 
+      deleteDailyLog() {
+        this.dialogVisible = true;
+      }
+
+      btnDelete() {
+        this.dialogVisible = false;
+        this.appRepository.deleteDailyLog(this.currentDailyLog.id).subscribe((data) => {
+            this.ngAfterViewInit();
+        });
+        this.doCreateNewLogEntry();
+      }
+
+      btnCancel() {
+        this.dialogVisible = false;
+        //this.doCreateNewLogEntry();
+      }
 
     doEncrypt() {
         let rmsg = this.ed.froalaEditor(this.edContentGet);
@@ -262,10 +285,10 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
         rmsg = rmsg.trim();
         if (rmsg.length === 0) {
             //console.log('editor content is: ', rmsg);
-            this.alertify.dialog('Got It!', '<h3>There is nothing to encrypt!<h3>');
+            this.alertify.dialog('Got It!', '<h4>Ooops! There is nothing to encrypt!<h4>');
             return;
         }
-        console.log('log date on encrypting is: ', this.logDate);
+        //console.log('log date on encrypting is: ', this.logDate);
          let m = moment(this.logDate);
          if (!m.isValid() || this.logDate === 'undefined' || this.logDate === null) {
             this.alertify.dialog('Got It!', 'Please enter a valid date. (Today\'s date has been inserted for your convenience).');
@@ -286,6 +309,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
         console.log('apiPath is: ' + this.apiPath);
         console.log('rmsg is: ', rmsg);
         console.log('active user id is: ', this.appRepository.activeUserId);
+        this.currentDailyLog.id = 0; //encryption is always on a new record. (decryption automatically deletes)
         this.currentDailyLog.userId = this.appRepository.activeUserId; //this.userId;
         this.currentDailyLog.logDate = this.logDate;
         this.currentDailyLog.message = rmsg;

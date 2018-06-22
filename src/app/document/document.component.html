@@ -26,15 +26,19 @@
       <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
       <!-- <div [froalaView]="editorContent"></div> -->
       <p-footer>
-        <p-splitButton styleClass="ui-button-success" label="Encrypt" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
-        <p-splitButton styleClass="ui-button-danger" label="Decrypt" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton>
-
-        <!-- <button type="button" class="btn btn-success" (click)="doEncrypt()">Encrypt</button>
-        <button type="button" class="btn btn-danger" (click)="doDecrypt()">Decrypt</button> -->
-        <!-- <button type="button" class="btn btn-success" [disabled]="!appRepository.isText" (click)="doEncrypt()">Encrypt</button>
-        <button type="button" class="btn btn-danger" [disabled]="appRepository.isText" (click)="doDecrypt()">Decrypt</button> -->
-        <!-- <button pButton type="button" class="ui-button-success" (click)="doEncrypt()">Encrypt</button>
-          <button pButton type="button" class="ui-button-danger" (click)="doDecrypt()">Decrypt</button> -->
+          <p-splitButton styleClass="ui-button-success" label="Encrypt" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
+          <p-splitButton styleClass="ui-button-primary" label="Decrypt" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton>
+          <div  class="ui-md-12 ui-sm-12 ui-g ui-fluid ui-g-nopad">
+              <div class='ui-md-6 ui-g-nopad'>
+              <p-splitButton styleClass="ui-button-primary" label="Add New" (onClick)="addNew()" [model]="items"></p-splitButton>
+              </div>
+              <div class='ui-md-6 ui-g-nopad'>
+              <p-splitButton styleClass="ui-button-danger" label="Delete"  (onClick)="deleteDocument()" [model]="items"></p-splitButton>
+              </div>
+          </div>
+  
+        <!-- <p-splitButton styleClass="ui-button-success" label="Encrypt" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
+        <p-splitButton styleClass="ui-button-danger" label="Decrypt" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton> -->
       </p-footer>
     </p-panel>
   </div>
@@ -47,3 +51,15 @@
   </p-dataTable>
 </div>
 </div>
+<p-dialog header="NOTICE: MESSAGE ID REQUIRED" [(visible)]="dialogVisible" onClose="diaClose()" [closable]=false modal="modal"
+    showEffect="fade" width="400">
+<div class="ui-g-12">
+<p>Are your sure you want to delete this document?.</p>
+</div>
+<p-footer>
+  <div class="ui-dialog-buttonpane ui-helper-clearfix">
+    <button type="button" pButton icon="fa-check" (click)="btnDelete()" label="Yes - Delete Contact"></button>
+    <button type="button" pButton icon="fa-check" (click)="btnCancel()" label="No - Cancel"></button>
+  </div>
+</p-footer>
+</p-dialog>
