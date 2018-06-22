@@ -24,7 +24,6 @@
       </span>
       <br>
       <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
-      <!-- <div [froalaView]="editorContent"></div> -->
       <p-footer>
           <p-splitButton styleClass="ui-button-success" label="Encrypt" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
           <p-splitButton styleClass="ui-button-primary" label="Decrypt" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton>
@@ -36,9 +35,6 @@
               <p-splitButton styleClass="ui-button-danger" label="Delete"  (onClick)="deleteDocument()" [model]="items"></p-splitButton>
               </div>
           </div>
-  
-        <!-- <p-splitButton styleClass="ui-button-success" label="Encrypt" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
-        <p-splitButton styleClass="ui-button-danger" label="Decrypt" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton> -->
       </p-footer>
     </p-panel>
   </div>
