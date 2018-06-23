@@ -41,6 +41,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     edContentGet: string;
     delay: number;
     isFound: boolean;
+    dialogVisible: boolean;
 
     constructor(public appRepository: AppRepositoryService, private messageSvc: MessageService, private alertify: AlertifyService) {  }
 
@@ -51,8 +52,9 @@ export class MessageComponent implements OnInit, AfterViewInit {
             'superscript', 'align', 'outdent', 'indent', 'paragraphFormat',
            'insertHR', 'clearFormatting', 'undo', 'redo',  'emoticons', 'spellChecker',
             '|', 'clear'],
-        toolbarButtonsXS: ['bold', 'italic', 'underline', 'strikeThrough',
-            'fontSize', 'alert', 'paragraphFormat'],
+        toolbarButtonsXS: [],
+        // toolbarButtonsXS: ['bold', 'italic', 'underline', 'strikeThrough',
+        //     'fontSize', 'alert', 'paragraphFormat'],
         toolbarButtonsSM: ['bold', 'italic', 'underline', 'strikeThrough',
             'fontSize', 'alert', 'paragraphFormat'],
         toolbarButtonsMD: ['bold', 'italic', 'underline', 'strikeThrough',
@@ -147,20 +149,21 @@ export class MessageComponent implements OnInit, AfterViewInit {
             this.isMsgText = true;
             this.ed.froalaEditor('edit.on');
         }},
-        {label: 'Archive', icon: 'fa-close', command: () => {
-            this.alertify.message('Archive');
-            this.isMsgText = true;
-            this.ed.froalaEditor('edit.on');
-        }},
-        {label: 'Save Local', icon: 'fa-close', command: () => {
-            this.alertify.message('Save Local');
-            this.isMsgText = true;
-            this.ed.froalaEditor('edit.on');
-        }},
+        // {label: 'Sent', icon: 'fa-close', command: () => {
+        //     //this.alertify.message('Sent');
+        //     this.isMsgText = true;
+        //     this.ed.froalaEditor('edit.on');
+        // }},
+        // {label: 'Save Local', icon: 'fa-close', command: () => {
+        //     this.alertify.message('Save Local');
+        //     this.isMsgText = true;
+        //     this.ed.froalaEditor('edit.on');
+        // }},
         {label: 'Delete', icon: 'fa-close', command: () => {
-            this.alertify.message('delete');
+            //this.alertify.message('delete');
             this.isMsgText = true;
             this.ed.froalaEditor('edit.on');
+            this.deleteMsg();
         }}
         ];
 
@@ -192,6 +195,27 @@ export class MessageComponent implements OnInit, AfterViewInit {
       const fieldChanged = editInfo.column.field;
       const newRowValues = editInfo.data;
     }
+
+    addNew() {
+        this.doCreateNewMsg();
+      }
+
+      deleteMsg() {
+        this.dialogVisible = true;
+      }
+
+      btnDelete() {
+        this.dialogVisible = false;
+        this.appRepository.deleteMsg(this.emailMsgId).subscribe((data) => {
+           this.ngAfterViewInit();
+        });
+        this.doCreateNewMsg();
+      }
+
+      btnCancel() {
+        this.dialogVisible = false;
+        //this.doCreateNewLogEntry();
+      }
 
     doCreateNewMsg() {
         this.editorContent = '';

@@ -14,8 +14,18 @@
       <br>
       <div id="fred" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
       <p-footer>
-        <p-splitButton styleClass="ui-button-success" label="Send Encrypted Message" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
-        <p-splitButton styleClass="ui-button-danger" label="Decrypt Message" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton>
+          <p-splitButton styleClass="ui-button-success" label="Encrypt" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
+          <p-splitButton styleClass="ui-button-primary" label="Decrypt" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton>
+          <div  class="ui-md-12 ui-sm-12 ui-g ui-fluid ui-g-nopad">
+              <div class='ui-md-6 ui-g-nopad'>
+              <p-splitButton styleClass="ui-button-primary" label="Add New" (onClick)="addNew()" [model]="items"></p-splitButton>
+              </div>
+              <div class='ui-md-6 ui-g-nopad'>
+              <p-splitButton styleClass="ui-button-danger" label="Delete"  (onClick)="deleteMsg()" [model]="items"></p-splitButton>
+              </div>
+          </div>
+        <!-- <p-splitButton styleClass="ui-button-success" label="Send Encrypted Message" [hidden]="!isMsgText" (onClick)="doEncrypt()" [model]="items"></p-splitButton>
+        <p-splitButton styleClass="ui-button-danger" label="Decrypt Message" [hidden]="isMsgText" (onClick)="doDecrypt()" [model]="items"></p-splitButton> -->
       </p-footer>
     </p-panel>
   </div>
@@ -28,3 +38,16 @@
     </p-dataTable>
   </div>
 </div>
+<p-dialog header="Please Confirm" [(visible)]="dialogVisible" onClose="diaClose()" [closable]=false modal="modal"
+showEffect="fade" width="400">
+<div class="ui-g-12">
+<p>Are your sure you want to delete this message?.</p>
+</div>
+<p-footer>
+  <div class="ui-dialog-buttonpane ui-helper-clearfix">
+    <!-- <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button> -->
+    <button type="button" pButton icon="fa-check" (click)="btnDelete()" label="Yes - Delete Contact"></button>
+    <button type="button" pButton icon="fa-check" (click)="btnCancel()" label="No - Cancel"></button>
+  </div>
+</p-footer>
+</p-dialog>

@@ -85,15 +85,16 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
       '|',
       'clear'
     ],
-    toolbarButtonsXS: [
-      'bold',
-      'italic',
-      'underline',
-      'strikeThrough',
-      'fontSize',
-      'alert',
-      'paragraphFormat'
-    ],
+    toolbarButtonsXS: [],
+    // toolbarButtonsXS: [
+    //   'bold',
+    //   'italic',
+    //   'underline',
+    //   'strikeThrough',
+    //   'fontSize',
+    //   'alert',
+    //   'paragraphFormat'
+    // ],
     toolbarButtonsSM: [
       'bold',
       'italic',
@@ -133,7 +134,7 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
   };
 
   onRowSelected(lastRow) {
-    // console.log('all rows selected are: ', this.rowsSelected);
+    console.log('all rows selected are: ', this.rowsSelected);
     // this.messages = this.rowsSelected;
     this.editorContent = this.rowsSelected[0].message;
     //this.editorCloakedContent = this.rowsSelected[0].cmessage;
@@ -372,6 +373,28 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
     this.isMsgText = true;
   }
 
+  doResetCMsgDto() {
+    this.cmessageDto = {
+      messageId: '',
+      message: '',
+      cMessage: '',
+      createdOn: '',
+      deleteAfter: '',
+      to: '',
+      subject: '',
+      from: '',
+      userId: '',
+      userName: '',
+      userLoginName: '',
+      toUserId: '',
+      fromUserId: '',
+      emailId: '',
+      groupId: '',
+      sCode: '',
+      rid: ''
+    };
+  }
+
   doGetContacts() {
     this.appRepository.getContacts().subscribe(
       (contacts: Contact[]) => {
@@ -437,6 +460,11 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
   doCEncrypt() {
     let isformvalid: boolean;
     isformvalid = true;
+    //this.doGetCloakedTxt();
+    if (this.isMsgEd) {
+      this.cmessageDto.message = this.ed.froalaEditor(this.edContentGet);
+      this.messagehold = this.cmessageDto.message;
+    }
     //TODO: need validation that emailto exists
     //console.log('emailto value is: ', this.emailTo);
     if (this.emailTo === 'undefined' || this.emailTo === '') {
@@ -485,6 +513,7 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
       }
     }
     if (isformvalid) {
+      //console.log('message is: ', this.cmessageDto);
       this.cmessageDto.to = this.emailTo;
       this.cmessageDto.from = this.appRepository.activeUserLoginName; // this.emailFrom;
       this.cmessageDto.messageId = 'mid';
@@ -498,6 +527,8 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
           this.emailTo = '';
           this.emailSubject = '';
           this.isMsgText = true;
+          this.messagehold = '';
+          //this.doResetCMsgDto();
           this.ed.froalaEditor('edit.on');
           this.alertify.success('ARMORED C-Mail Sent Successfully!');
         },
@@ -517,7 +548,7 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
       this.appRepository.getApiBasePath() + 'cloak/l1/getbymsgid/undo/';
     this.appRepository.doCDecrypt(this.emailMsgId, this.apiPath).subscribe(
       (data: CMessageDto) => {
-        console.log('in doCDecrypt response is: ', data);
+        //console.log('in doCDecrypt response is: ', data);
         this.editorContent = data.message; // updates the secure editor
         this.emailUser = data.userId;
         this.emailMsgId = data.messageId;
@@ -532,40 +563,15 @@ export class CloakedMessageComponent implements OnInit, AfterViewInit {
         this.cmessageDto.message = data.message;
         this.appRepository.isText = true;
         this.ed.froalaEditor('edit.on');
-        console.log('in doCDecrypt response cmessageDto.cmessage is: ', this.cmessageDto.cMessage);
-        console.log('in doCDecrypt response cmessageDto.message is: ', this.cmessageDto.message);
+        //console.log('in doCDecrypt response cmessageDto.cmessage is: ', this.cmessageDto.cMessage);
+        //console.log('in doCDecrypt response cmessageDto.message is: ', this.cmessageDto.message);
       },
       () => {
         this.editorContent = 'No longer available, previously decrypted';
         this.appRepository.isText = false;
       },
       () => {
-        //.log('before get touserid is: ', this.emailToUserId);
-        this.appRepository
-          .doGet(
-            this.appRepository.getApiBasePath() +
-              'hypertext/l1/getbytouserid/keep/' +
-              this.emailToUserId
-          ) // updates the email inbox list
-          .subscribe(
-            (data: CMessageDto[]) => {
-              this.appRepository.messages = data;
-              this.cmessages = data; // this.appRepository.messages;
-              for (let i = 0; i < this.cmessages.length; i++) {
-                this.cmessages[i].createdOn = moment(
-                  this.cmessages[i].createdOn
-                ).format('MM/DD/YYYY');
-              }
-              //console.log('content of messages is: ', this.messages);
-              //console.log('touserid is: ', this.emailToUserId);
-            },
-            error => {
-              this.cmessages = []; // this.appRepository.messages;
-              this.isMsgText = false;
-              this.ed.froalaEditor('edit.off');
-              // console.log('doGet failed', error);
-            }
-          );
+        this.ngAfterViewInit();
       }
     );
   }

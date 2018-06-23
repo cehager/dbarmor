@@ -86,15 +86,16 @@ export class CloakedArchiveComponent implements OnInit, AfterViewInit {
       '|',
       'clear'
     ],
-    toolbarButtonsXS: [
-      'bold',
-      'italic',
-      'underline',
-      'strikeThrough',
-      'fontSize',
-      'alert',
-      'paragraphFormat'
-    ],
+    toolbarButtonsXS: [],
+    // toolbarButtonsXS: [
+    //   'bold',
+    //   'italic',
+    //   'underline',
+    //   'strikeThrough',
+    //   'fontSize',
+    //   'alert',
+    //   'paragraphFormat'
+    // ],
     toolbarButtonsSM: [
       'bold',
       'italic',

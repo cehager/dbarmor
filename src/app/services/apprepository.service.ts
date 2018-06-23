@@ -104,6 +104,12 @@ export class AppRepositoryService {
 
   }
 
+  deleteMsg(id): Observable<any> {
+    console.log('message id is: ', id);
+    return this.httpclient
+      .get<any>(this.getApiBasePath() + 'hypertext/l1/deletemsgbyid/' + id, {headers: this.httpheader});
+  }
+
   gethttpHeader() {
     console.log('user token is: ', this.userToken);
     this.httpheader = new HttpHeaders().set('Content-type', 'application/json')

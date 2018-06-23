@@ -25,6 +25,7 @@ export class CloakedLibraryComponent implements OnInit, AfterViewInit {
   edContentGet: string;
   delay: number;
   isMsgText: boolean;
+  dialogVisible: boolean;
 
   constructor(public appRepository: AppRepositoryService, private alertify: AlertifyService) {  }
 
@@ -35,8 +36,9 @@ export class CloakedLibraryComponent implements OnInit, AfterViewInit {
           'superscript', 'align', 'outdent', 'indent', 'paragraphFormat',
          'insertHR', 'clearFormatting', 'undo', 'redo',  'emoticons', 'print', 'spellChecker',
           '|', 'alert', 'clear', 'save', 'archive', 'delete' ],
-      toolbarButtonsXS: ['bold', 'italic', 'underline', 'strikeThrough',
-          'fontSize', 'alert', 'paragraphFormat'],
+      toolbarButtonsXS: [],
+    //   toolbarButtonsXS: ['bold', 'italic', 'underline', 'strikeThrough',
+    //       'fontSize', 'alert', 'paragraphFormat'],
       toolbarButtonsSM: ['bold', 'italic', 'underline', 'strikeThrough',
           'fontSize', 'alert', 'paragraphFormat'],
       toolbarButtonsMD: ['bold', 'italic', 'underline', 'strikeThrough',
@@ -169,7 +171,29 @@ ngOnInit() {
           );
   }
 
-  doCreateNewLogEntry() {
+  addNew() {
+    this.doCreateNewMsg();
+  }
+
+  deleteMsg() {
+    this.dialogVisible = true;
+  }
+
+  btnDelete() {
+    this.dialogVisible = false;
+    // this.appRepository.deleteMsg(this.currentLibItem).subscribe((data) => {
+    //    this.ngAfterViewInit();
+    // });
+    this.doCreateNewMsg();
+  }
+
+  btnCancel() {
+    this.dialogVisible = false;
+    //this.doCreateNewLogEntry();
+  }
+
+
+  doCreateNewMsg() {
       this.editorContent = '';
       this.currentLibItem.cSubject = '';
       this.currentLibItem.cText = '';
