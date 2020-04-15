@@ -14,6 +14,9 @@ export class NavComponent implements OnInit {
  // userLoginName: string;
  // pwd: string;
  loginForm: FormGroup;
+ //blockChars: RegExp = /^[^*|\":<>%[\]{}`\\()';^,\+_\=\-~\/\?\!\#&$\s*]+$/;  //a-zA-z0-9@. only
+//blockPwdChars: RegExp = /^[^*|\":<>%[\]{}`\\()';^,\+_\=\-~\/&$\s*]+$/;  //a-zA-z0-9@. only
+
 
 
   constructor(private appService: AppRepositoryService, private alertify: AlertifyService,

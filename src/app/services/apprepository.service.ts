@@ -1,39 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 //import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
 //import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from '../../environments/environment';
-import { User, TokenString } from './models/User';
-import { Contact } from './models/contact';
-import { DailyLog } from './models/daily-log';
-import { Doc } from './models/document';
-import { Photo } from './models/Photo';
-import { CMessageDto } from './models/cmessage';
-import { CText } from './models/ctxt';
-import { FsEdu } from './models/fsEdu';
-import { MessageDto } from './models/messageDto';
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { environment } from "../../environments/environment";
+import { User, TokenString } from "./models/User";
+import { Contact } from "./models/contact";
+import { DailyLog } from "./models/daily-log";
+import { Doc } from "./models/document";
+import { Photo } from "./models/Photo";
+import { CMessageDto } from "./models/cmessage";
+import { CText } from "./models/ctxt";
+import { FsEdu } from "./models/fsEdu";
+import { MessageDto } from "./models/messageDto";
+import { Step } from "./models/Step";
 // import {ContentType} from '@angular/http/src/enums';
 
 @Injectable()
 export class AppRepositoryService {
   hold: any;
-  baseUrl = environment.apiUrl;
-  baseApiUrl = environment;
-  apiRoot = ''; // this.getApiBasePath + 'hypertext/l1';
+  baseUrl = "http://mifawghorn20170405015815.azurewebsites.net/"; // environment.apiUrl;
+  baseApiUrl = "http://mifawghorn20170405015815.azurewebsites.net/"; // environment;
+  apiRoot = ""; // this.getApiBasePath + 'hypertext/l1';
   userToken: any;
-  activeUserId = '';
+  activeUserId = "";
   activeUserLoginName: string;
   activeUserName: string;
   decodedToken: any;
   jwtHelper: JwtHelperService = new JwtHelperService();
   tempFreeId: string;
   // apiRoot = 'http://mifawghorn20170405015815.azurewebsites.net/mail/mi/msgfawg';
-  getPath = 'all';
+  getPath = "all";
   numChars: number;
   isText: boolean;
   user: string;
@@ -48,90 +49,223 @@ export class AppRepositoryService {
   tempMsgId: string;
   msgId: string;
   tid = Array.apply(null, Array(10));
-  letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-               'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-               'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-               'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-               '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2',
-                '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5',
-                 '6', '7', '8', '9'];
+  letters = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+  ];
 
-  lettersOnly = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-
+  lettersOnly = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+  ];
 
   constructor(private router: Router, private httpclient: HttpClient) {
-    this.apiRoot = this.getApiBasePath() + 'hypertext/l1';
+    this.apiRoot = this.getApiBasePath() + "hypertext/l1";
     this.messageDto = {
-      messageId: '',
-      groupId: '',
-      message: '',
-      createdOn: '',
-      deleteAfter: '',
-      to: '',
-      subject: '',
-      from: '',
-      userId: '',
-      userName: '',
-      userLoginName: '',
-      toUserId: '',
-      fromUserId: '',
-      emailId: '',
-      sCode: '',
-      rid: ''
+      messageId: "",
+      groupId: "",
+      message: "",
+      createdOn: "",
+      deleteAfter: "",
+      to: "",
+      subject: "",
+      from: "",
+      userId: "",
+      userName: "",
+      userLoginName: "",
+      toUserId: "",
+      fromUserId: "",
+      emailId: "",
+      sCode: "",
+      rid: "",
     };
   }
 
   doGet(apiPath: string): Observable<any> {
     //this.gethttpHeader();
-    return this.httpclient.get(apiPath, {headers: this.httpheader});
+    return this.httpclient.get(apiPath, { headers: this.httpheader });
   }
 
   doDecrypt(msg: string, apiPath: string): Observable<any> {
     this.getPath = apiPath + msg; // .substring(0, 20);
-    return this.httpclient.get(this.getPath, {headers: this.httpheader});
+    return this.httpclient.get(this.getPath, { headers: this.httpheader });
   }
 
   doEncrypt(msg: string, apiPath: string): Observable<any> {
     this.messageDto.message = msg; // this.message;
     this.messageDto.messageId = this.tempFreeId;
     this.getPath = apiPath;
-    return this.httpclient.post<MessageDto>(this.getPath, this.messageDto, {headers: this.httpheader})
+    return this.httpclient
+      .post<MessageDto>(this.getPath, this.messageDto, {
+        headers: this.httpheader,
+      })
       .catch(this.handleError);
-
   }
 
   deleteMsg(id): Observable<any> {
-    console.log('message id is: ', id);
-    return this.httpclient
-      .get<any>(this.getApiBasePath() + 'hypertext/l1/deletemsgbyid/' + id, {headers: this.httpheader});
+    console.log("message id is: ", id);
+    return this.httpclient.get<any>(
+      this.getApiBasePath() + "hypertext/l1/deletemsgbyid/" + id,
+      { headers: this.httpheader }
+    );
   }
 
   gethttpHeader() {
-    console.log('user token is: ', this.userToken);
-    this.httpheader = new HttpHeaders().set('Content-type', 'application/json')
-    .append('Authorization', 'Bearer ' + this.userToken)
-    .append('Access-Control-Allow-Origin', '*');
+    // console.log('user token is: ', this.userToken);
+    this.httpheader = new HttpHeaders()
+      .set("Content-type", "application/json")
+      .append("Authorization", "Bearer " + this.userToken)
+      .append("Access-Control-Allow-Origin", "*");
   }
 
   onLogin(model: any) {
-    this.activeUserId = '';
-     const httpheader = new HttpHeaders().set('Content-type', 'application/json')
-    .append('Access-Control-Allow-Origin', '*');
+    this.activeUserId = "";
+    const httpheader = new HttpHeaders()
+      .set("Content-type", "application/json")
+      .append("Access-Control-Allow-Origin", "*");
 
-    console.log('user token before is: ', this.userToken);
+    console.log("user token before is: ", this.userToken);
     //the TokenString interface is in the User.ts
     return this.httpclient
-      .post(this.apiRoot + '/auth/login', model, {headers: httpheader})
+      .post(this.getApiBasePath() + "hypertext/l1/auth/login", model, {
+        headers: httpheader,
+      })
       .map((data: TokenString) => {
-        console.log('user token is: ', data);
+        console.log("user token is: ", data);
 
         if (data.tokenString) {
-          console.log('user token after is: ', this.userToken);
           this.userToken = data.tokenString;
+          console.log("user token after is: ", this.userToken);
           this.decodedToken = this.jwtHelper.decodeToken(data.tokenString);
           //  console.log('decodedToken is : ', this.decodedToken);
           //  console.log('decodedToken nameid is : ' + this.decodedToken.nameid);
@@ -143,7 +277,7 @@ export class AppRepositoryService {
           this.activeUserName = this.decodedToken.family_name;
 
           this.gethttpHeader();
-          this.router.navigate(['/messages']);
+          this.router.navigate(["/messages"]);
         } else {
         }
       })
@@ -151,29 +285,40 @@ export class AppRepositoryService {
   }
 
   register(model: any) {
+    let reghdr = new HttpHeaders()
+      .set("Content-type", "application/json")
+      .append("Access-Control-Allow-Origin", "*");
+
     return this.httpclient
-      .post(this.apiRoot + '/auth/register', model, {headers: this.httpheader})
+      .post(this.getApiBasePath() + "hypertext/l1/auth/register", model, {
+        headers: reghdr,
+      })
       .catch(this.handleError);
   }
 
   goHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(["/home"]);
   }
 
   doCEncrypt(cmsg: CMessageDto, apiPath: string): Observable<CMessageDto> {
     cmsg.rid = this.makeRID(20);
     this.getPath = apiPath;
-    return this.httpclient
-      .post<CMessageDto>(this.getPath, cmsg, {headers: this.httpheader});
+    return this.httpclient.post<CMessageDto>(this.getPath, cmsg, {
+      headers: this.httpheader,
+    });
   }
 
   doCDecrypt(cmsgId: string, apiPath: string): Observable<CMessageDto> {
     this.getPath = apiPath + cmsgId;
-    return this.httpclient.get<CMessageDto>(this.getPath, {headers: this.httpheader});
+    return this.httpclient.get<CMessageDto>(this.getPath, {
+      headers: this.httpheader,
+    });
   }
 
   doCGet(apiPath: string): Observable<CMessageDto[]> {
-    return this.httpclient.get<CMessageDto[]>(apiPath, {headers: this.httpheader});
+    return this.httpclient.get<CMessageDto[]>(apiPath, {
+      headers: this.httpheader,
+    });
   }
 
   isEdBufferEmpty(): boolean {
@@ -191,60 +336,79 @@ export class AppRepositoryService {
   }
 
   private handleError(error: any) {
-    const applicationError = error.headers.get('Application-Error');
-    console.log('in handle error.');
+    const applicationError = error.headers.get("Application-Error");
+    console.log("in handle error.");
     if (applicationError) {
       return Observable.throw(applicationError);
     }
     const serverError = error.json();
-    let modelStateErrors = '';
+    let modelStateErrors = "";
     if (serverError) {
       for (const key in serverError) {
         if (serverError[key]) {
-          modelStateErrors += serverError[key] + '\n';
+          modelStateErrors += serverError[key] + "\n";
         }
       }
     }
-    return Observable.throw(modelStateErrors || 'Server error - no feedback');
+    return Observable.throw(modelStateErrors || "Server error - no feedback");
   }
 
   postContacts(model: any) {
     return this.httpclient
-      .post(this.getApiBasePath() + 'admin/l1/contact/do', model, {headers: this.httpheader})
+      .post(this.getApiBasePath() + "admin/l1/contact/do", model, {
+        headers: this.httpheader,
+      })
       .catch(this.handleError);
   }
 
   putContacts(model: any) {
     return this.httpclient
-      .put(this.getApiBasePath() + 'admin/l1/contact', model, {headers: this.httpheader})
+      .put(this.getApiBasePath() + "admin/l1/contact", model, {
+        headers: this.httpheader,
+      })
       .catch(this.handleError);
   }
 
-
   getContacts(): Observable<Contact[]> {
-    return this.httpclient
-      .get<Contact[]>(this.getApiBasePath() + 'admin/l1/contact/getbyuserid/undo/' + this.activeUserId, {headers: this.httpheader});
+    return this.httpclient.get<Contact[]>(
+      this.getApiBasePath() +
+        "admin/l1/contact/getbyuserid/undo/" +
+        this.activeUserId,
+      { headers: this.httpheader }
+    );
   }
 
   deleteContact(id): Observable<any> {
-    return this.httpclient
-      .get<any>(this.getApiBasePath() + 'admin/l1/contact/deletebyid/' + id, {headers: this.httpheader});
+    return this.httpclient.get<any>(
+      this.getApiBasePath() + "admin/l1/contact/deletebyid/" + id,
+      { headers: this.httpheader }
+    );
   }
 
   getDocuments(): Observable<any> {
     return this.httpclient
-      .get(this.getApiBasePath() + 'docs/l1/getdocbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
+      .get(
+        this.getApiBasePath() +
+          "docs/l1/getdocbyuserid/keep/" +
+          this.activeUserId,
+        { headers: this.httpheader }
+      )
       .catch(this.handleError);
   }
-
 
   getPhotos(): Observable<any> {
-    return this.httpclient
-      .get(this.getApiBasePath() + 'photos/l1/getphotosbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
-      //.map(response => <Photo[]>response.json())
-      .catch(this.handleError);
+    return (
+      this.httpclient
+        .get(
+          this.getApiBasePath() +
+            "photos/l1/getphotosbyuserid/keep/" +
+            this.activeUserId,
+          { headers: this.httpheader }
+        )
+        //.map(response => <Photo[]>response.json())
+        .catch(this.handleError)
+    );
   }
-
 
   // private jwt() {
   //   let token = this.userToken;
@@ -257,10 +421,10 @@ export class AppRepositoryService {
   //   }
   // }
 
-  aShuffle (array) {
-    let i = 0
-      , j = 0
-      , temp = '';
+  aShuffle(array) {
+    let i = 0,
+      j = 0,
+      temp = "";
 
     for (i = array.length - 1; i > 0; i -= 1) {
       j = Math.floor(Math.random() * (i + 1));
@@ -270,21 +434,19 @@ export class AppRepositoryService {
     }
   }
 
-
   makeId(len: number): string {
-  let j = 0;
-  this.aShuffle(this.letters);
-  this.aShuffle(this.letters);
+    let j = 0;
+    this.aShuffle(this.letters);
+    this.aShuffle(this.letters);
 
-  const array = new Uint32Array(len);
-  window.crypto.getRandomValues(array);
-  for (let i = 0; i < array.length; i++) {
-    j = array[i] % 82;
-    this.tid[i] = this.letters[j];
-  }
+    const array = new Uint32Array(len);
+    window.crypto.getRandomValues(array);
+    for (let i = 0; i < array.length; i++) {
+      j = array[i] % 82;
+      this.tid[i] = this.letters[j];
+    }
 
-  return this.tid.join('');
-
+    return this.tid.join("");
   }
 
   makeRID(len: number): string {
@@ -299,70 +461,121 @@ export class AppRepositoryService {
       this.tid[i] = this.lettersOnly[j];
     }
 
-    return this.tid.join('');
-    }
+    return this.tid.join("");
+  }
 
   setHttpHeaders(): Headers {
-    const header = new Headers({ 'Content-type': 'application/json' });
-    header.append('Authorization', 'Bearer ' + this.userToken);
-    header.append('Access-Control-Allow-Origin', '*');
+    const header = new Headers({ "Content-type": "application/json" });
+    header.append("Authorization", "Bearer " + this.userToken);
+    header.append("Access-Control-Allow-Origin", "*");
     return header;
   }
 
-
   doEncryptDailyLog(dl: DailyLog, apiPath: string): Observable<DailyLog> {
     return this.httpclient
-      .post<DailyLog>(apiPath, dl, {headers: this.httpheader}).catch(this.handleError);
+      .post<DailyLog>(apiPath, dl, { headers: this.httpheader })
+      .catch(this.handleError);
   }
 
-
   doDecryptDailyLog(dl: DailyLog, apiPath: string): Observable<DailyLog> {
-
     return this.httpclient
-      .get<DailyLog>(apiPath, {headers: this.httpheader}).catch(this.handleError);
+      .get<DailyLog>(apiPath, { headers: this.httpheader })
+      .catch(this.handleError);
   }
 
   deleteDailyLog(id): Observable<any> {
-    return this.httpclient
-      .get<any>(this.getApiBasePath() + 'dailylog/l1/deletebydailyid/' + id, {headers: this.httpheader});
+    return this.httpclient.get<any>(
+      this.getApiBasePath() + "dailylog/l1/deletebydailyid/" + id,
+      { headers: this.httpheader }
+    );
   }
 
   doEncryptDocument(dl: Doc, apiPath: string): Observable<Doc> {
     return this.httpclient
-      .post<Doc>(apiPath, dl, {headers: this.httpheader}).catch(this.handleError);
+      .post<Doc>(apiPath, dl, { headers: this.httpheader })
+      .catch(this.handleError);
   }
-
 
   doDecryptDocument(dl: Doc, apiPath: string): Observable<Doc> {
     return this.httpclient
-      .get<Doc>(apiPath, {headers: this.httpheader}).catch(this.handleError);
+      .get<Doc>(apiPath, { headers: this.httpheader })
+      .catch(this.handleError);
   }
 
   deleteDocument(docid): Observable<any> {
-    return this.httpclient
-      .get<any>(this.getApiBasePath() + 'docs/l1/deletebydocumentid/' + docid, {headers: this.httpheader});
+    return this.httpclient.get<any>(
+      this.getApiBasePath() + "docs/l1/deletebydocumentid/" + docid,
+      { headers: this.httpheader }
+    );
   }
-
 
   doPostCtxt(txt: CText, apiPath: string): Observable<CText> {
     return this.httpclient
-      .post<CText>(apiPath, txt, {headers: this.httpheader}).catch(this.handleError);
+      .post<CText>(apiPath, txt, { headers: this.httpheader })
+      .catch(this.handleError);
   }
 
   doGetCText(txtId: string, thePath: string): Observable<CText> {
     return this.httpclient
-      .get<CText>(this.getApiBasePath() + thePath + txtId, {headers: this.httpheader}).catch(this.handleError);
+      .get<CText>(this.getApiBasePath() + thePath + txtId, {
+        headers: this.httpheader,
+      })
+      .catch(this.handleError);
   }
 
   doGetCtxtByUserId(): Observable<CText[]> {
     return this.httpclient
-      .get<CText[]>(this.getApiBasePath() + 'ctxt/l1/getbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
+      .get<CText[]>(
+        this.getApiBasePath() + "ctxt/l1/getbyuserid/keep/" + this.activeUserId,
+        { headers: this.httpheader }
+      )
       .catch(this.handleError);
+  }
+
+  doPostSteps(s: Step, apiPath: string): Observable<Step> {
+    console.log("step posting: ", s);
+    console.log("step path: ", apiPath);
+    return this.httpclient
+      .post<Step>(this.getApiBasePath() + apiPath, s, {
+        headers: this.httpheader,
+      })
+      .catch(this.handleError);
+  }
+
+  doGetStep(id: string, thePath: string): Observable<Step> {
+    return this.httpclient
+      .get<Step>(this.getApiBasePath() + thePath + id, {
+        headers: this.httpheader,
+      })
+      .catch(this.handleError);
+  }
+
+  doGetStepsByUserId(): Observable<Step[]> {
+    return this.httpclient
+      .get<Step[]>(
+        this.getApiBasePath() +
+          "steps/l1/getstepsbyuserid/" +
+          this.activeUserId,
+        { headers: this.httpheader }
+      )
+      .catch(this.handleError);
+  }
+
+  doDeleteStep(stepId): Observable<any> {
+    return this.httpclient.get<any>(
+      this.getApiBasePath() + "steps/l1/deletebystepid/" + stepId,
+      { headers: this.httpheader }
+    );
   }
 
   getFsEdus(): Observable<FsEdu[]> {
     return this.httpclient
-      .get<FsEdu[]>(this.getApiBasePath() + 'fsedu/l1/getbyuserid/keep/' + this.activeUserId, {headers: this.httpheader})
+      .get<FsEdu[]>(
+        this.getApiBasePath() +
+          "fsedu/l1/getbyuserid/keep/" +
+          this.activeUserId,
+        { headers: this.httpheader }
+      )
       .catch(this.handleError);
   }
 
@@ -373,15 +586,18 @@ export class AppRepositoryService {
   // }
 
   getUserByAmailAddr(apath: string): Observable<string> {
-    return this.httpclient.get<string>(this.getApiBasePath() + 'admin/l1/user/isuseramailvalid/'
-    + apath, {headers: this.httpheader}).catch(this.handleError);
+    return this.httpclient
+      .get<string>(
+        this.getApiBasePath() + "admin/l1/user/isuseramailvalid/" + apath,
+        { headers: this.httpheader }
+      )
+      .catch(this.handleError);
   }
-
-
 
   getApiBasePath(): string {
-    return 'https://4226-25056.el-alt.com/dex/';
+    //test
+    //return 'https://4226-25056.el-alt.com/dex/';
     //return  'http://localhost:5445/dex/';
+    return "http://mifawghorn20170405015815.azurewebsites.net/dex/";
   }
-
 }

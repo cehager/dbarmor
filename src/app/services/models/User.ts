@@ -1,16 +1,17 @@
 
 export interface User {
-    userId: number;
-    aMailAddr: string;
-    eMailAddr: string;
-    firstName: string;
-    lastName: string;
-    socialName: string;
-    joinedOn: Date;
-    lastAccess: Date;
+    userId: string;
+    userLoginName: string;
+    userName: string;
+    amailAddr?: string;
+    emailAddr: string;
+    mobilePhone?: string;
+    pwd: string;
+    cPwd: string;
     age?: number;
     gender?: string;
     city?: string;
+    postalCode?: string;
     country?: string;
     occupation?: string;
 }

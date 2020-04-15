@@ -3,6 +3,7 @@ import { Contact } from '../services/models/contact';
 import { AppRepositoryService } from '../services/apprepository.service';
 import { AlertifyService } from '../services/alertify.service';
 import { FormGroup, FormControl, Validators, FormBuilder  } from '@angular/forms';
+// import { KeyFilterModule } from 'primeng/keyfilter';
 
 @Component({
   selector: 'app-contacts',
@@ -16,6 +17,8 @@ model: any = {};
 //model: Contact;
 contactForm: FormGroup;
 dialogVisible: boolean;
+//blockChars: RegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9#@$?]{8,}$/;
+blockChars: RegExp = /^[^*|\":<>%[\]{}`\\()';^,\+_\=\-~\/\?\!\#&$\s*]+$/;  //a-zA-z0-9@. only
 
   constructor(private appService: AppRepositoryService, private fb: FormBuilder, private alertify: AlertifyService ) {
 
@@ -135,7 +138,7 @@ dialogVisible: boolean;
     // let bnum = Math.random() * (Math.random() * Math.PI) * Math.random() * 10000000;
     // bnum = Math.floor(bnum);
     if (this.contactForm.invalid) {
-    console.log('contact form values are: ', this.contactForm);
+    //console.log('contact form values are: ', this.contactForm);
     if (this.contactForm.get('userName').invalid) {
       this.alertify.dialog('Got It!', '<h4>Contact Name field is required.<h4>');
     }

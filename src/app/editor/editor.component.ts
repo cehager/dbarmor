@@ -145,14 +145,14 @@ export class EditorComponent implements OnInit {
     this.appRepository.tempFreeId = this.tempMsgId;
     this.display = true;
       let rmsg = this.ed.froalaEditor(this.edContentGet);
-      console.log('editor content is before: ', rmsg);
+      //console.log('editor content is before: ', rmsg);
       rmsg = rmsg.replace(/&nbsp;/gi, '');
       // rmsg = rmsg.replace(/<br>/gi, '');
       rmsg = rmsg.trim();
       if (rmsg.length === 0) {
           return;
       }
-      console.log('editor content is after: ', rmsg);
+      //console.log('editor content is after: ', rmsg);
 
       if (this.ed.froalaEditor('charCounter.count') < 20) {
           this.editorContent = this.editorContent

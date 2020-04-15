@@ -1,6 +1,7 @@
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {AppComponent} from './app.component';
 import {ScrollPanel} from 'primeng/primeng';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-rightpanel',
@@ -14,9 +15,9 @@ import {ScrollPanel} from 'primeng/primeng';
                 </div>
 
                 <div class="layout-rightpanel-content">
-                    <h1>Weather</h1>
-                    <h2>San Francisco, USA</h2>
-
+                    <h1>Steps</h1>
+                    <p-splitButton styleClass="ui-button-success" label="Edit Steps"  (onClick)="doSteps()"></p-splitButton>
+                    <br/>
                     <div class="weather-today">
                         <span class="weather-today-value">21&#8451;</span>
                         <img src="assets/layout/images/dashboard/weather-icon-2.svg" width="60"/>
@@ -64,9 +65,13 @@ export class AppRightpanelComponent implements AfterViewInit {
 
     @ViewChild('scrollRightPanel') rightPanelMenuScrollerViewChild: ScrollPanel;
 
-    constructor(public app: AppComponent) {}
+    constructor(public app: AppComponent, private router: Router) {}
 
     ngAfterViewInit() {
       setTimeout(() => {this.rightPanelMenuScrollerViewChild.moveBar(); }, 100);
+    }
+
+    doSteps() {
+        this.router.navigate(['/steps']);
     }
 }

@@ -128,6 +128,7 @@ import { BulletinBoardComponent } from './bulletin-board/bulletin-board.componen
 import { CloakedMessageComponent } from './cloaked-message/cloaked-message.component';
 import { CloakedLibraryComponent } from './cloaked-library/cloaked-library.component';
 import { CloakedArchiveComponent } from './cloaked-archive/cloaked-archive.component';
+import { StepsComponent } from './steps/steps.component';
 
 // import {TreeModule} from 'primeng/primeng';
 // import {TreeTableModule} from 'primeng/primeng';
@@ -173,7 +174,8 @@ import { CloakedArchiveComponent } from './cloaked-archive/cloaked-archive.compo
     BulletinBoardComponent,
     CloakedMessageComponent,
     CloakedLibraryComponent,
-    CloakedArchiveComponent
+    CloakedArchiveComponent,
+    StepsComponent
 ],
   imports: [
     SharedModule,
@@ -207,6 +209,7 @@ import { CloakedArchiveComponent } from './cloaked-archive/cloaked-archive.compo
     AppRoutes,
     HttpClientModule,
     FormsModule,
+    KeyFilterModule,
     ReactiveFormsModule,
     //FlexLayoutModule,
     JwtModule,

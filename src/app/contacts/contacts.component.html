@@ -24,7 +24,8 @@
       </div>
       <div class="ui-md-11 ui-sm-12">
         <span class="md-inputfield">
-          <input type="text" pInputText formControlName="amailAddr" required minlength="2" maxlength="50" />
+          <input type="text" pInputText [pKeyFilter]="blockChars" formControlName="amailAddr" required minlength="2"
+            maxlength="50"  /> 
           <label>ARMORED - A-Mail Address </label>
         </span>
       </div>

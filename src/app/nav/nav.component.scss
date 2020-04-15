@@ -1,23 +1,25 @@
 .fmcontainer {
     display: grid;
     //grid-template-rows: 1fr;
-    grid-template-columns: repeat(3, 180px);
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 100%; //repeat(1, 360px);
+    grid-template-rows: 3fr .5fr;
     //grid-template-columns: repeat(3, 150px);
     //grid-column-gap: 10px;
     //min-width: 260px;
-    justify-items: center;
+    //margin-left: 12%;
+
+    //justify-items: center;
     background-color: transparent;
-    max-width: 360px;
+    //max-width: 360px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     //margin-top: 10px;
-    padding-top: 10px;
+    padding-top: 0px;
     //border-radius: 3%;
 }
 
 .contentns {
-    margin-left: 37%;
+   // margin-left: 37%;
    
 }
 
@@ -51,11 +53,11 @@
 // }
 
 .login-btn {
-    margin-top: 10px;
-    grid-row: 2;
+    margin-top: 20px;
+    grid-row: 3;
     grid-column-start: 1;
-    grid-column-end: 3;
-    grid-column-gap: 10px;
+    grid-column-end: 2;
+    //grid-column-gap: 10px;
 
     justify-content: center;
     padding-top: 5px;
