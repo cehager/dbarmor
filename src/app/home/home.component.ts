@@ -19,15 +19,11 @@ export class HomeComponent implements OnInit {
   }
 
   registerToggle() {
-    //this.registerMode = true;
-    //console.log('in register toggle');
-    // test
-    this.router.navigate(["/register"]);
-    //this.router.navigate(['/registerna']);
+    //this.router.navigate(["/register"]);
+    this.router.navigate(["/registerna"]);
   }
 
   cancelRegisterMode(registerMode: boolean) {
-    // this.registerMode = registerMode;
     this.router.navigate([""]);
   }
 }
