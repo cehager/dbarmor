@@ -47,6 +47,7 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
   options: Object = {
     key: "WC7A5D4A4fG3A7A7C7A3B3C2G3C2F2ybeiB-11gdB-7A3c1jd==",
     charCounterCount: true,
+    charCounterMax: 1000000,
     toolbarButtons: [
       "fontFamily",
       "fontSize",
@@ -298,13 +299,14 @@ export class DailyLogComponent implements OnInit, AfterViewInit {
       //     + this.appRepository.activeUserId) // updates the email inbox list
       .subscribe((data: DailyLog[]) => {
         //this.appRepository.messages = data;
+        //console.log("ngAfterViewInit before moment : ", data);
         this.dailyLogs = data; // this.appRepository.messages;
         for (let i = 0; i < this.dailyLogs.length; i++) {
           this.dailyLogs[i].logDate = moment(this.dailyLogs[i].logDate).format(
             "MM/DD/YYYY"
           );
         }
-        console.log("ngAfterViewInit fired : ", this.dailyLogs);
+        //console.log("ngAfterViewInit fired : ", this.dailyLogs);
       });
 
     // this.appRepository.doGet().subscribe( (data: MessageDto[]) => {

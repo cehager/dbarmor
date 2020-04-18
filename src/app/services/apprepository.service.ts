@@ -595,9 +595,9 @@ export class AppRepositoryService {
   }
 
   getApiBasePath(): string {
-    //test
     //return 'https://4226-25056.el-alt.com/dex/';
-    //return  'http://localhost:5445/dex/';
+
+    //return "http://localhost:5445/dex/";
     return "https://mifawghorn20170405015815.azurewebsites.net/dex/";
   }
 }

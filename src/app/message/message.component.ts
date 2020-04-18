@@ -52,6 +52,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   options: Object = {
     key: "WC7A5D4A4fG3A7A7C7A3B3C2G3C2F2ybeiB-11gdB-7A3c1jd==",
     charCounterCount: true,
+    charCounterMax: 50000,
     toolbarButtons: [
       "fontFamily",
       "fontSize",
